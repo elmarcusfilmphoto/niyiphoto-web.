@@ -1,12 +1,262 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Niyi Photo</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NIYI Photo Studio — Fotografía de familia, bodas y bebés en Guayaquil</title>
+<meta name="description" content="Estudio fotográfico en Guayaquil. Sesiones de familia, bodas, maternidad, bebés, retratos y eventos — con recuerdos impresos que se pueden tocar." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230d314b%22/><text x=%2250%22 y=%2266%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22%23f6ebcd%22 font-family=%22sans-serif%22>N</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <h1>Niyi Photo</h1>
-  <p>Sitio en construcción.</p>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="index.html" class="logo">
+      <img class="logo-light" src="assets/img/logo-light.png" alt="NIYI Photo Studio" />
+      <img class="logo-dark" src="assets/img/logo-dark.png" alt="NIYI Photo Studio" />
+    </a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+    <div class="links">
+      <a href="bodas.html">Bodas</a>
+      <a href="familias.html">Familias</a>
+      <a href="maternidad.html">Maternidad</a>
+      <a href="bebes.html">Bebés</a>
+      <a href="retratos.html">Retratos</a>
+      <a href="eventos.html">Eventos</a>
+      <a href="marca.html">Marca</a>
+    </div>
+    <div class="actions">
+      <a class="btn solid small" href="https://wa.me/593999689898?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20paquetes%20de%20fotograf%C3%ADa" target="_blank" rel="noopener">Reservar</a>
+      <label for="nav-toggle" class="nav-toggle-label"><span></span><span></span><span></span></label>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero-slideshow navy">
+    <img class="slide" src="https://picsum.photos/seed/niyi-home-1/1600/1000" alt="" loading="eager" />
+    <img class="slide" src="https://picsum.photos/seed/niyi-home-2/1600/1000" alt="" loading="lazy" />
+    <img class="slide" src="https://picsum.photos/seed/niyi-home-3/1600/1000" alt="" loading="lazy" />
+    <img class="slide" src="https://picsum.photos/seed/niyi-home-4/1600/1000" alt="" loading="lazy" />
+    <div class="hero-content">
+      <span class="eyebrow">Estudio fotográfico en Guayaquil</span>
+      <h1>El tiempo pasa.<br>Los recuerdos permanecen.</h1>
+      <p class="lede">Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar, no solo mirar en una pantalla.</p>
+      <div class="cta-row">
+        <a class="btn solid" href="#servicios">Ver paquetes</a>
+        <a class="btn" href="https://wa.me/593999689898?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20paquetes%20de%20fotograf%C3%ADa" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="tight">
+    <div class="wrap reveal" style="max-width:760px;text-align:center;">
+      <p class="lede" style="font-size:1.3rem;color:var(--navy-ink);">
+        Somos NIYI Photo Studio, un equipo liderado por Marco Ochoa López. Contamos historias de amor, familia y crecimiento con fotografía natural y emotiva — sin poses forzadas — para que cada cliente vuelva a <em>sentir</em> ese momento, no solo recordarlo.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICIOS: galería interactiva -->
+  <section id="servicios">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Nuestros servicios</span>
+        <h2>Una sesión para cada etapa de tu vida</h2>
+        <p class="lede">Explora por categoría — cada línea de servicio tiene su propia página de paquetes.</p>
+      </div>
+
+      <div class="filter-pills reveal">
+        <button class="filter-pill active" data-filter="all">Todas</button>
+        <button class="filter-pill" data-filter="bodas">Bodas &amp; Enamorados</button>
+        <button class="filter-pill" data-filter="familias">Familias</button>
+        <button class="filter-pill" data-filter="maternidad">Maternidad</button>
+        <button class="filter-pill" data-filter="bebes">Bebés</button>
+        <button class="filter-pill" data-filter="retratos">Retratos</button>
+        <button class="filter-pill" data-filter="eventos">Eventos</button>
+        <button class="filter-pill" data-filter="marca">Marca</button>
+      </div>
+
+      <div class="gallery-wrap reveal">
+        <div class="gallery-grid">
+          <a class="gallery-tile" data-cat="bodas" href="bodas.html"><img src="https://picsum.photos/seed/niyi-g-bodas-1/500/500" alt="Bodas" loading="lazy" /><span class="tag">Bodas &amp; Enamorados</span></a>
+          <a class="gallery-tile" data-cat="bodas" href="bodas.html"><img src="https://picsum.photos/seed/niyi-g-bodas-2/500/500" alt="Bodas" loading="lazy" /><span class="tag">Bodas &amp; Enamorados</span></a>
+          <a class="gallery-tile" data-cat="bodas" href="bodas.html"><img src="https://picsum.photos/seed/niyi-g-bodas-3/500/500" alt="Bodas" loading="lazy" /><span class="tag">Bodas &amp; Enamorados</span></a>
+          <a class="gallery-tile" data-cat="familias" href="familias.html"><img src="https://picsum.photos/seed/niyi-g-familias-1/500/500" alt="Familias" loading="lazy" /><span class="tag">Familias</span></a>
+          <a class="gallery-tile" data-cat="familias" href="familias.html"><img src="https://picsum.photos/seed/niyi-g-familias-2/500/500" alt="Familias" loading="lazy" /><span class="tag">Familias</span></a>
+          <a class="gallery-tile" data-cat="familias" href="familias.html"><img src="https://picsum.photos/seed/niyi-g-familias-3/500/500" alt="Familias" loading="lazy" /><span class="tag">Familias</span></a>
+          <a class="gallery-tile" data-cat="maternidad" href="maternidad.html"><img src="https://picsum.photos/seed/niyi-g-maternidad-1/500/500" alt="Maternidad" loading="lazy" /><span class="tag">Maternidad</span></a>
+          <a class="gallery-tile" data-cat="maternidad" href="maternidad.html"><img src="https://picsum.photos/seed/niyi-g-maternidad-2/500/500" alt="Maternidad" loading="lazy" /><span class="tag">Maternidad</span></a>
+          <a class="gallery-tile" data-cat="maternidad" href="maternidad.html"><img src="https://picsum.photos/seed/niyi-g-maternidad-3/500/500" alt="Maternidad" loading="lazy" /><span class="tag">Maternidad</span></a>
+          <a class="gallery-tile" data-cat="bebes" href="bebes.html"><img src="https://picsum.photos/seed/niyi-g-bebes-1/500/500" alt="Bebés" loading="lazy" /><span class="tag">Bebés</span></a>
+          <a class="gallery-tile" data-cat="bebes" href="bebes.html"><img src="https://picsum.photos/seed/niyi-g-bebes-2/500/500" alt="Bebés" loading="lazy" /><span class="tag">Bebés</span></a>
+          <a class="gallery-tile" data-cat="bebes" href="bebes.html"><img src="https://picsum.photos/seed/niyi-g-bebes-3/500/500" alt="Bebés" loading="lazy" /><span class="tag">Bebés</span></a>
+          <a class="gallery-tile" data-cat="retratos" href="retratos.html"><img src="https://picsum.photos/seed/niyi-g-retratos-1/500/500" alt="Retratos" loading="lazy" /><span class="tag">Retratos</span></a>
+          <a class="gallery-tile" data-cat="retratos" href="retratos.html"><img src="https://picsum.photos/seed/niyi-g-retratos-2/500/500" alt="Retratos" loading="lazy" /><span class="tag">Retratos</span></a>
+          <a class="gallery-tile" data-cat="retratos" href="retratos.html"><img src="https://picsum.photos/seed/niyi-g-retratos-3/500/500" alt="Retratos" loading="lazy" /><span class="tag">Retratos</span></a>
+          <a class="gallery-tile" data-cat="eventos" href="eventos.html"><img src="https://picsum.photos/seed/niyi-g-eventos-1/500/500" alt="Eventos" loading="lazy" /><span class="tag">Eventos</span></a>
+          <a class="gallery-tile" data-cat="eventos" href="eventos.html"><img src="https://picsum.photos/seed/niyi-g-eventos-2/500/500" alt="Eventos" loading="lazy" /><span class="tag">Eventos</span></a>
+          <a class="gallery-tile" data-cat="eventos" href="eventos.html"><img src="https://picsum.photos/seed/niyi-g-eventos-3/500/500" alt="Eventos" loading="lazy" /><span class="tag">Eventos</span></a>
+          <a class="gallery-tile" data-cat="marca" href="marca.html"><img src="https://picsum.photos/seed/niyi-g-marca-1/500/500" alt="Marca" loading="lazy" /><span class="tag">Marca</span></a>
+          <a class="gallery-tile" data-cat="marca" href="marca.html"><img src="https://picsum.photos/seed/niyi-g-marca-2/500/500" alt="Marca" loading="lazy" /><span class="tag">Marca</span></a>
+          <a class="gallery-tile" data-cat="marca" href="marca.html"><img src="https://picsum.photos/seed/niyi-g-marca-3/500/500" alt="Marca" loading="lazy" /><span class="tag">Marca</span></a>
+        </div>
+        <div class="gallery-fade">
+          <button class="btn solid gallery-more">Ver más</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="navy">
+    <div class="wrap">
+      <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+        <span class="eyebrow">Cómo es la experiencia</span>
+        <h2>Cinco pasos, cero sorpresas</h2>
+      </div>
+      <div class="process-track">
+        <div class="process-step reveal">
+          <div class="n">01</div>
+          <h4>Reserva de fecha</h4>
+          <p>Un anticipo del 50% asegura tu espacio en la agenda.</p>
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="process-step reveal">
+          <div class="n">02</div>
+          <h4>Asesoría previa</h4>
+          <p>Te ayudamos con recomendaciones de vestuario y preparación.</p>
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="process-step reveal">
+          <div class="n">03</div>
+          <h4>Sesión fotográfica</h4>
+          <p>Guiamos todo de forma natural, para fotos espontáneas.</p>
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="process-step reveal">
+          <div class="n">04</div>
+          <h4>Selección</h4>
+          <p>Eliges tus imágenes favoritas desde la galería privada.</p>
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="process-step reveal">
+          <div class="n">05</div>
+          <h4>Entrega</h4>
+          <p>Recibes tus fotos digitales y productos impresos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS TANGIBLES -->
+  <section class="navy">
+    <div class="wrap tangible-wrap">
+      <div class="reveal">
+        <span class="eyebrow">Recuerdos que puedes tocar</span>
+        <h2 style="margin-top:10px;">Creemos que los recuerdos más valiosos no deben quedarse en un celular</h2>
+        <p class="lede" style="margin-top:16px;">Cada experiencia puede complementarse con productos impresos que permanecerán para siempre: photobooks de pasta dura, retablos y ampliaciones. Se convierten en un legado familiar, no solo en archivos digitales.</p>
+        <p class="small" style="margin-top:18px;color:rgba(255,255,255,.65);">Photobooks desde $90 · Retablos desde $50 · Impresiones desde $2</p>
+        <a class="btn solid" style="margin-top:22px;" href="familias.html#productos">Ver productos impresos</a>
+      </div>
+      <div class="photo reveal" style="border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/5;">
+        <img src="https://picsum.photos/seed/niyi-photobook/900/1125" alt="Photobook impreso NIYI Photo" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <!-- TODO: reemplazar por testimonios reales de clientes (texto + nombre + foto). Los de abajo son de ejemplo. -->
+  <section class="soft">
+    <div class="wrap">
+      <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+        <span class="eyebrow">Lo que dicen nuestros clientes</span>
+        <h2>Historias, no solo fotos</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Fuimos por una sesión familiar y terminamos con un photobook que abrimos cada domingo. Marco supo captar a los niños tal como son, sin poses forzadas."</p>
+          <div class="who">
+            <img src="https://picsum.photos/seed/niyi-avatar-1/100/100" alt="" />
+            <div><div class="name">María José Andrade</div><div class="cat">Sesión de familia</div></div>
+          </div>
+        </div>
+        <div class="testi-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Nuestra boda pasó tan rápido que casi no la recordamos con detalle — hasta que llegó el álbum. Cada emoción del día está ahí, intacta."</p>
+          <div class="who">
+            <img src="https://picsum.photos/seed/niyi-avatar-2/100/100" alt="" />
+            <div><div class="name">Andrea &amp; Daniel</div><div class="cat">Cobertura de boda</div></div>
+          </div>
+        </div>
+        <div class="testi-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"La sesión fresh 48 en la clínica fue el mejor regalo que nos dimos. Tener esas primeras horas de nuestro bebé impresas no tiene precio."</p>
+          <div class="who">
+            <img src="https://picsum.photos/seed/niyi-avatar-3/100/100" alt="" />
+            <div><div class="name">Gabriela Salazar</div><div class="cat">Recién nacido</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final navy botanical">
+    <div class="wrap reveal">
+      <span class="eyebrow">¿Listos para crear sus recuerdos?</span>
+      <h2 style="margin-top:10px;">Escríbenos y coordinamos la fecha de tu sesión</h2>
+      <p class="lede">Respondemos por WhatsApp en minutos — sin formularios ni esperas.</p>
+      <div class="cta-row">
+        <a class="btn solid" href="https://wa.me/593999689898?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20paquetes%20de%20fotograf%C3%ADa" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+        <a class="btn" href="https://www.instagram.com/niyiphoto.ec/" target="_blank" rel="noopener">Ver portafolio en Instagram</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer botanical">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="logo"><img src="assets/img/logo-light.png" alt="NIYI Photo Studio" /></div>
+      <p>Fotografía de familia, bodas, maternidad, bebés, retratos y eventos en Guayaquil, Ecuador.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="bodas.html">Bodas &amp; Enamorados</a></li>
+        <li><a href="familias.html">Familias</a></li>
+        <li><a href="maternidad.html">Maternidad</a></li>
+        <li><a href="bebes.html">Bebés</a></li>
+        <li><a href="retratos.html">Retratos Personales</a></li>
+        <li><a href="eventos.html">Eventos Religiosos</a></li>
+        <li><a href="marca.html">Marca &amp; Empresas</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <ul>
+        <li><a href="https://wa.me/593999689898" target="_blank" rel="noopener">099-968-9898 (WhatsApp)</a></li>
+        <li><a href="https://www.instagram.com/niyiphoto.ec/" target="_blank" rel="noopener">@niyiphoto.ec</a></li>
+        <li><span>Guayaquil, Ecuador</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 NIYI Photo Studio</span>
+    <span>Fotografía por Marco Ochoa López</span>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
