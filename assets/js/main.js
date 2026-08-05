@@ -187,11 +187,18 @@
     var moreBtn = document.querySelector(".gallery-more");
     var fullBtn = document.querySelector(".gallery-full");
     if (moreBtn && fullBtn) {
+      var rowsExpanded = false;
       moreBtn.addEventListener("click", function () {
-        galleryWrap.classList.add("expanded");
-        moreBtn.hidden = true;
-        fullBtn.hidden = false;
-        requestAnimationFrame(function () { fullBtn.classList.add("is-visible"); });
+        rowsExpanded = !rowsExpanded;
+        galleryWrap.classList.toggle("expanded", rowsExpanded);
+        moreBtn.textContent = rowsExpanded ? "Ver menos" : "Ver más";
+        if (rowsExpanded) {
+          fullBtn.hidden = false;
+          requestAnimationFrame(function () { fullBtn.classList.add("is-visible"); });
+        } else {
+          fullBtn.classList.remove("is-visible");
+          fullBtn.hidden = true;
+        }
       });
     }
   }
