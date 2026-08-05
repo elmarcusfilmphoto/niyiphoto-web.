@@ -20,6 +20,74 @@
     window.addEventListener("resize", updateHeaderBg);
   }
 
+  /* Buscador del menú: encuentra la pagina/servicio por palabra clave */
+  var SEARCH_INDEX = [
+    { label: "Parejas", url: "parejas.html", keywords: "parejas pareja novios compromiso resumen" },
+    { label: "Sesión de Pareja", url: "sesion-pareja.html", keywords: "sesion de pareja sesion pareja novios retrato romantico estudio" },
+    { label: "Bodas — Arma tu cobertura", url: "bodas.html", keywords: "bodas boda paquetes cobertura arma tu cobertura getting ready recepcion" },
+    { label: "Bodas Civiles", url: "civiles.html", keywords: "boda civil civil registro civil firma" },
+    { label: "Bodas Eclesiásticas", url: "ceremoniales.html", keywords: "boda eclesiastica iglesia ceremonia religiosa coleccion" },
+    { label: "Familias", url: "familias.html", keywords: "familia familias sesion familiar mascota" },
+    { label: "Maternidad", url: "maternidad.html", keywords: "maternidad embarazo recien nacido baby shower panza" },
+    { label: "Bebés", url: "bebes.html", keywords: "bebes bebe recien nacido primer año membresia" },
+    { label: "Retratos", url: "retratos.html", keywords: "retratos retrato personal estudio profesional" },
+    { label: "Eventos", url: "eventos.html", keywords: "eventos bautizo comunion confirmacion religioso" },
+    { label: "Marca & Empresas", url: "marca.html", keywords: "marca empresa corporativo retrato profesional negocio" },
+    { label: "Galería", url: "galeria.html", keywords: "galeria fotos portafolio collage" }
+  ];
+  var normalize = function (s) {
+    return s
+      .toLowerCase()
+      .replace(/[áàäâ]/g, "a")
+      .replace(/[éèëê]/g, "e")
+      .replace(/[íìïî]/g, "i")
+      .replace(/[óòöô]/g, "o")
+      .replace(/[úùüû]/g, "u")
+      .replace(/ñ/g, "n");
+  };
+  document.querySelectorAll(".nav-search").forEach(function (wrap) {
+    var input = wrap.querySelector(".nav-search-input");
+    var results = wrap.querySelector(".nav-search-results");
+    if (!input || !results) return;
+    var render = function () {
+      var q = normalize(input.value.trim());
+      results.innerHTML = "";
+      if (!q) {
+        results.hidden = true;
+        return;
+      }
+      var matches = SEARCH_INDEX.filter(function (item) {
+        return normalize(item.keywords).indexOf(q) !== -1 || normalize(item.label).indexOf(q) !== -1;
+      }).slice(0, 6);
+      if (!matches.length) {
+        var empty = document.createElement("div");
+        empty.className = "nav-search-empty";
+        empty.textContent = "Sin resultados — escríbenos por WhatsApp";
+        results.appendChild(empty);
+        results.hidden = false;
+        return;
+      }
+      matches.forEach(function (item) {
+        var a = document.createElement("a");
+        a.href = item.url;
+        a.textContent = item.label;
+        results.appendChild(a);
+      });
+      results.hidden = false;
+    };
+    input.addEventListener("input", render);
+    input.addEventListener("focus", render);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        var first = results.querySelector("a");
+        if (first) window.location.href = first.getAttribute("href");
+      }
+    });
+    document.addEventListener("click", function (e) {
+      if (!wrap.contains(e.target)) results.hidden = true;
+    });
+  });
+
   /* Menú desplegable móvil: abrir un nivel a la vez con la flecha */
   var dropdownToggles = document.querySelectorAll(".dropdown-toggle");
   dropdownToggles.forEach(function (btn) {
