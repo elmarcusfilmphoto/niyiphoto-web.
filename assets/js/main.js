@@ -3,14 +3,21 @@
   "use strict";
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Header: transparente sobre el hero, sólido al hacer scroll */
+  /* Header: transparente + logo claro sobre fondos oscuros (navy), sólido + logo azul sobre fondos claros */
   var header = document.querySelector(".site-header");
   if (header) {
-    var onScroll = function () {
-      header.classList.toggle("scrolled", window.scrollY > 40);
+    var darkContainers = [].slice.call(document.querySelectorAll("section.navy, .site-footer"));
+    var updateHeaderBg = function () {
+      var probeY = header.getBoundingClientRect().bottom + 2;
+      var isDark = darkContainers.some(function (el) {
+        var r = el.getBoundingClientRect();
+        return probeY >= r.top && probeY < r.bottom;
+      });
+      header.classList.toggle("scrolled", !isDark);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    updateHeaderBg();
+    window.addEventListener("scroll", updateHeaderBg, { passive: true });
+    window.addEventListener("resize", updateHeaderBg);
   }
 
   /* Menú desplegable móvil: abrir un nivel a la vez con la flecha */
@@ -206,8 +213,8 @@
   /* Galería completa (galeria.html): collage tipo masonry con foto ampliable */
   var collageGrids = document.querySelectorAll(".collage-grid");
   if (collageGrids.length) {
-    var ROW_UNIT = 8;
-    var GAP = 14;
+    var ROW_UNIT = 2;
+    var GAP = 18;
 
     var debounce = function (fn, wait) {
       var t;
@@ -248,16 +255,27 @@
         items.forEach(layout);
       };
 
-      items.forEach(function (item) {
-        var img = item.querySelector("img");
-        if (img.complete) {
-          layout(item);
-        } else {
-          img.addEventListener("load", function () { layout(item); });
-        }
-      });
-
-      window.addEventListener("resize", debounce(layoutAll, 150));
+      /* ResizeObserver recalcula el span apenas la imagen tiene su tamaño real
+         (evita cuadros con espacio en blanco por mediciones prematuras) */
+      if ("ResizeObserver" in window) {
+        var ro = new ResizeObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var it = entry.target.closest(".collage-item");
+            if (it && !it.classList.contains("expanded")) layout(it);
+          });
+        });
+        items.forEach(function (item) { ro.observe(item.querySelector("img")); });
+      } else {
+        items.forEach(function (item) {
+          var img = item.querySelector("img");
+          if (img.complete) {
+            layout(item);
+          } else {
+            img.addEventListener("load", function () { layout(item); });
+          }
+        });
+        window.addEventListener("resize", debounce(layoutAll, 150));
+      }
 
       /* Anima el reacomodo del collage (FLIP) */
       var flip = function (mutate) {
