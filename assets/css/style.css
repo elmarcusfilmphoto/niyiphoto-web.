@@ -46,6 +46,7 @@ button{ font:inherit; }
 
 .wrap{ max-width:var(--container); margin:0 auto; padding:0 24px; }
 @media (max-width:640px){ .wrap{ padding:0 20px; } }
+body.gallery-page .wrap{ max-width:min(1760px, 94vw); }
 
 /* ---------------------------------------------------------
    Tipografía
@@ -350,8 +351,14 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 .gallery-wrap.dragging{ cursor:grabbing; }
 .gallery-rows{ display:flex; flex-direction:column; gap:16px; padding:0 24px; }
 .gallery-track{ display:flex; gap:16px; width:max-content; will-change:transform; }
-.gallery-track.row-extra{ display:none; }
-.gallery-wrap.expanded .gallery-track.row-extra{ display:flex; }
+.gallery-rows-extra{
+  display:flex; flex-direction:column; gap:16px;
+  max-height:0; opacity:0; overflow:hidden; pointer-events:none;
+  transition:max-height .65s cubic-bezier(.22,.61,.36,1), opacity .5s ease;
+}
+.gallery-wrap.expanded .gallery-rows-extra{
+  max-height:1500px; opacity:1; pointer-events:auto;
+}
 .gallery-track.row-a .gallery-tile{ height:300px; }
 .gallery-track.row-b .gallery-tile{ height:230px; }
 .gallery-track.row-c .gallery-tile{ height:260px; }
