@@ -20,6 +20,160 @@
     window.addEventListener("resize", updateHeaderBg);
   }
 
+  /* Hero editorial (Home): categorías por círculo, foto principal + 3 tarjetas */
+  var heroRoot = document.querySelector(".hero-editorial");
+  if (heroRoot) {
+    /* Cada set = { main, thumbs:[a,b,c] }. Edita las rutas aquí para cambiar las fotos. */
+    var HERO_SETS = [
+      {
+        main: "assets/img/gallery/hero/karla-1.jpg",
+        thumbs: [
+          "assets/img/gallery/hero/karla-2.jpg",
+          "assets/img/gallery/hero/karla-3.jpg",
+          "assets/img/gallery/hero/karla-4.jpg"
+        ]
+      },
+      {
+        main: "assets/img/gallery/hero/jo-1.jpg",
+        thumbs: [
+          "assets/img/gallery/hero/jo-2.jpg",
+          "assets/img/gallery/hero/jo-3.jpg",
+          "assets/img/gallery/hero/jo-4.jpg"
+        ]
+      },
+      {
+        main: "assets/img/gallery/bodas/18-52-30.jpg",
+        thumbs: [
+          "assets/img/gallery/bodas/20-47-30.jpg",
+          "assets/img/gallery/bodas/20-54-46-2.jpg",
+          "assets/img/gallery/bodas/17-42-05.jpg"
+        ]
+      },
+      {
+        main: "assets/img/gallery/bodas/19-32-09.jpg",
+        thumbs: [
+          "assets/img/gallery/bodas/16-07-11.jpg",
+          "assets/img/gallery/bodas/27_10-14-24.jpg",
+          "assets/img/gallery/bodas/01_16-02-39.jpg"
+        ]
+      },
+      {
+        main: "assets/img/gallery/bodas/01_16-49-12.jpg",
+        thumbs: [
+          "assets/img/gallery/bodas/15_16-07-34.jpg",
+          "assets/img/gallery/bodas/14-14-48.jpg",
+          "assets/img/gallery/bodas/16-09-35.jpg"
+        ]
+      }
+    ];
+
+    var railItems = [].slice.call(heroRoot.querySelectorAll(".hero-editorial-rail-item"));
+    var portraitFrame = heroRoot.querySelector(".hero-editorial-portrait-frame");
+    var thumbBtns = [].slice.call(heroRoot.querySelectorAll(".hero-editorial-thumb"));
+    var railWrap = heroRoot.querySelector(".hero-editorial-rail");
+    var activeSet = 0;
+
+    /* Crea una segunda capa de imagen para poder cruzar (crossfade) sin nunca
+       mostrar el fondo del contenedor entre una foto y otra. */
+    var makeCrossfader = function (container, className) {
+      var first = container.querySelector("." + className);
+      first.classList.add("cf-active");
+      var second = first.cloneNode(true);
+      second.classList.remove("cf-active");
+      container.appendChild(second);
+      var active = first;
+      var inactive = second;
+      return {
+        get: function () {
+          return active.getAttribute("src") || "";
+        },
+        set: function (src, animate) {
+          if (this.get() === src) return;
+          inactive.src = src;
+          var doSwap = function () {
+            active.classList.remove("cf-active");
+            inactive.classList.add("cf-active");
+            var tmp = active;
+            active = inactive;
+            inactive = tmp;
+          };
+          if (!animate || reducedMotion) {
+            doSwap();
+          } else {
+            requestAnimationFrame(doSwap);
+          }
+        }
+      };
+    };
+
+    var mainCf = makeCrossfader(portraitFrame, "hero-editorial-main-img");
+    var thumbCfs = thumbBtns.map(function (btn) {
+      return makeCrossfader(btn, "hero-editorial-thumb-img");
+    });
+
+    var renderRailThumbs = function () {
+      railItems.forEach(function (item, i) {
+        var img = item.querySelector(".hero-editorial-rail-img");
+        img.src = HERO_SETS[i].main;
+      });
+    };
+
+    var applySet = function (index, animate) {
+      activeSet = index;
+      var set = HERO_SETS[index];
+      mainCf.set(set.main, animate);
+      thumbCfs.forEach(function (cf, i) {
+        cf.set(set.thumbs[i], animate);
+      });
+      railItems.forEach(function (item, i) {
+        item.classList.toggle("active", i === index);
+      });
+    };
+
+    /* Click en un círculo: cambia la categoría activa */
+    railItems.forEach(function (item, i) {
+      item.addEventListener("click", function () {
+        if (i !== activeSet) applySet(i, true);
+      });
+    });
+
+    /* Click en una tarjeta: se intercambia con la foto principal */
+    thumbBtns.forEach(function (btn, i) {
+      btn.addEventListener("click", function () {
+        var prevMain = mainCf.get();
+        var prevThumb = thumbCfs[i].get();
+        mainCf.set(prevThumb, true);
+        thumbCfs[i].set(prevMain, true);
+        HERO_SETS[activeSet].main = prevThumb;
+        HERO_SETS[activeSet].thumbs[i] = prevMain;
+        railItems[activeSet].querySelector(".hero-editorial-rail-img").src = prevThumb;
+      });
+    });
+
+    /* Rueda del mouse sobre el riel: avanza de categoría poco a poco */
+    if (railWrap) {
+      var wheelAccum = 0;
+      var WHEEL_THRESHOLD = 140;
+      railWrap.addEventListener(
+        "wheel",
+        function (e) {
+          e.preventDefault();
+          wheelAccum += e.deltaY;
+          if (Math.abs(wheelAccum) >= WHEEL_THRESHOLD) {
+            var dir = wheelAccum > 0 ? 1 : -1;
+            var next = Math.min(HERO_SETS.length - 1, Math.max(0, activeSet + dir));
+            if (next !== activeSet) applySet(next, true);
+            wheelAccum = 0;
+          }
+        },
+        { passive: false }
+      );
+    }
+
+    renderRailThumbs();
+    applySet(0, false);
+  }
+
   /* Buscador del menú: encuentra la pagina/servicio por palabra clave */
   var SEARCH_INDEX = [
     { label: "Parejas", url: "parejas.html", keywords: "parejas pareja novios compromiso resumen" },

@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230d314b%22/><text x=%2250%22 y=%2266%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22%23f6ebcd%22 font-family=%22sans-serif%22>N</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
@@ -60,20 +60,40 @@
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero-slideshow navy">
-    <img class="slide" src="assets/img/site/bodas/hero-1.jpg" alt="" loading="eager" />
-    <img class="slide" src="assets/img/site/bodas/hero-2.jpg" alt="" loading="lazy" />
-    <img class="slide" src="assets/img/site/bodas/hero-3.jpg" alt="" loading="lazy" />
-    <img class="slide" src="assets/img/site/bodas/hero-4.jpg" alt="" loading="lazy" />
-    <div class="hero-content">
+  <!-- HERO editorial -->
+  <section class="hero-editorial navy">
+    <!-- Riel de categorías: cada circulo muestra la "foto principal" de su set. Edita HERO_SETS en assets/js/main.js -->
+    <div class="hero-editorial-rail reveal">
+      <button type="button" class="hero-editorial-rail-item active" data-set="0" aria-label="Categoría 1"><img class="hero-editorial-rail-img" alt="" /></button>
+      <button type="button" class="hero-editorial-rail-item" data-set="1" aria-label="Categoría 2"><img class="hero-editorial-rail-img" alt="" /></button>
+      <button type="button" class="hero-editorial-rail-item" data-set="2" aria-label="Categoría 3"><img class="hero-editorial-rail-img" alt="" /></button>
+      <button type="button" class="hero-editorial-rail-item" data-set="3" aria-label="Categoría 4"><img class="hero-editorial-rail-img" alt="" /></button>
+      <button type="button" class="hero-editorial-rail-item" data-set="4" aria-label="Categoría 5"><img class="hero-editorial-rail-img" alt="" /></button>
+    </div>
+
+    <!-- Retrato principal a pantalla completa -->
+    <div class="hero-editorial-portrait">
+      <div class="hero-editorial-portrait-frame">
+        <img class="hero-editorial-main-img" alt="Foto principal" />
+      </div>
+    </div>
+
+    <!-- Texto superpuesto -->
+    <div class="hero-editorial-copy reveal">
       <span class="eyebrow">Estudio fotográfico en Guayaquil</span>
-      <h1>El tiempo pasa.<br>Los recuerdos permanecen.</h1>
+      <h1 class="hero-editorial-title">El tiempo pasa.<br>Los recuerdos permanecen.</h1>
       <p class="lede">Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar, no solo mirar en una pantalla.</p>
       <div class="cta-row">
         <a class="btn solid" href="#servicios">Ver paquetes</a>
         <a class="btn" href="https://wa.me/593999689898?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20paquetes%20de%20fotograf%C3%ADa" target="_blank" rel="noopener">Escribir por WhatsApp</a>
       </div>
+    </div>
+
+    <!-- Tarjetas pequeñas: al hacer click se intercambian con la foto principal -->
+    <div class="hero-editorial-thumbs reveal">
+      <button type="button" class="hero-editorial-thumb" data-thumb="0" aria-label="Foto 1"><img class="hero-editorial-thumb-img" alt="" /></button>
+      <button type="button" class="hero-editorial-thumb" data-thumb="1" aria-label="Foto 2"><img class="hero-editorial-thumb-img" alt="" /></button>
+      <button type="button" class="hero-editorial-thumb" data-thumb="2" aria-label="Foto 3"><img class="hero-editorial-thumb-img" alt="" /></button>
     </div>
   </section>
 
