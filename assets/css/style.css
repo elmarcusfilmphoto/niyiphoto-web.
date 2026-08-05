@@ -125,8 +125,9 @@ section.navy .btn.solid:hover{ background:var(--cream); color:var(--navy); }
 .nav-toggle{ display:none; }
 .nav-toggle-label{ display:none; }
 
-/* Dropdown / submenu (Parejas > Bodas > Civiles/Ceremoniales) */
+/* Dropdown / submenu (Parejas > Bodas > Civiles/Eclesiástica) */
 .nav-item{ position:relative; display:flex; align-items:center; }
+.nav-link-row{ display:flex; align-items:center; }
 .dropdown{
   position:absolute; top:100%; left:0; margin-top:10px;
   min-width:216px; background:var(--white); border-radius:var(--radius-md);
@@ -137,14 +138,14 @@ section.navy .btn.solid:hover{ background:var(--cream); color:var(--navy); }
 .nav-item:hover .dropdown, .nav-item:focus-within .dropdown{
   opacity:1; visibility:visible; transform:translateY(0);
 }
-.dropdown a, .dropdown-item > a{
+.dropdown a{
   display:flex; align-items:center; justify-content:space-between; gap:10px;
   padding:11px 14px; border-radius:8px;
   font-size:.86rem; color:var(--navy-ink) !important; white-space:nowrap;
 }
-.dropdown a:hover, .dropdown-item > a:hover{ background:var(--bg-soft); }
+.dropdown a:hover{ background:var(--bg-soft); }
 .dropdown-item.has-submenu{ position:relative; }
-.dropdown-item.has-submenu > a::after{ content:"\203a"; opacity:.5; }
+.dropdown-item.has-submenu .nav-link-row > a::after{ content:"\203a"; opacity:.5; }
 .submenu{
   position:absolute; top:0; left:100%; margin-left:6px;
   min-width:190px; background:var(--white); border-radius:var(--radius-md);
@@ -155,6 +156,18 @@ section.navy .btn.solid:hover{ background:var(--cream); color:var(--navy); }
 .dropdown-item.has-submenu:hover .submenu, .dropdown-item.has-submenu:focus-within .submenu{
   opacity:1; visibility:visible; transform:translateX(0);
 }
+/* Botón flecha para abrir/cerrar en móvil (oculto en desktop) */
+.dropdown-toggle{
+  display:none; align-items:center; justify-content:center;
+  flex:none; width:36px; height:36px; margin-left:auto;
+  background:none; border:none; padding:0; cursor:pointer; color:var(--navy-ink);
+}
+.dropdown-toggle::after{
+  content:"\203a"; font-size:1.25rem; line-height:1; display:inline-block;
+  transition:transform .18s ease;
+}
+.nav-item.open > .nav-link-row .dropdown-toggle::after,
+.dropdown-item.open > .nav-link-row .dropdown-toggle::after{ transform:rotate(90deg); }
 
 /* Tarjetas de navegación entre páginas (ej: Civiles / Ceremoniales) */
 .choice-grid{ display:grid; grid-template-columns:1fr; gap:24px; }
@@ -172,11 +185,15 @@ section.navy .btn.solid:hover{ background:var(--cream); color:var(--navy); }
 
 @media (max-width:860px){
   .nav-item{ display:block; }
+  .nav-link-row{ justify-content:space-between; }
   .dropdown, .submenu{
+    display:none;
     position:static; opacity:1; visibility:visible; transform:none;
     box-shadow:none; margin:0; padding:0 0 0 16px;
   }
-  .dropdown-item.has-submenu > a::after{ content:""; }
+  .nav-item.open > .dropdown, .dropdown-item.open > .submenu{ display:block; }
+  .dropdown-item.has-submenu .nav-link-row > a::after{ content:""; }
+  .dropdown-toggle{ display:inline-flex; }
   .site-nav .links{
     position:absolute; top:100%; left:0; right:0; height:auto; flex-direction:column;
     background:var(--white); padding:10px 24px 22px; gap:2px; align-items:stretch;

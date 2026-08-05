@@ -13,6 +13,32 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  /* Menú desplegable móvil: abrir un nivel a la vez con la flecha */
+  var dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+  dropdownToggles.forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var parent = btn.closest(".nav-item, .dropdown-item");
+      if (!parent) return;
+      var isOpen = parent.classList.toggle("open");
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+  });
+  var navToggle = document.getElementById("nav-toggle");
+  if (navToggle) {
+    navToggle.addEventListener("change", function () {
+      if (!navToggle.checked) {
+        document.querySelectorAll(".nav-item.open, .dropdown-item.open").forEach(function (el) {
+          el.classList.remove("open");
+        });
+        dropdownToggles.forEach(function (btn) {
+          btn.setAttribute("aria-expanded", "false");
+        });
+      }
+    });
+  }
+
   /* Animaciones de aparición al hacer scroll */
   var reveals = document.querySelectorAll(".reveal");
   if (reveals.length) {
