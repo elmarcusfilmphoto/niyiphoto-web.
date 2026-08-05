@@ -214,7 +214,7 @@
   var collageGrids = document.querySelectorAll(".collage-grid");
   if (collageGrids.length) {
     var ROW_UNIT = 2;
-    var GAP = 18;
+    var GAP = 7;
 
     var debounce = function (fn, wait) {
       var t;
