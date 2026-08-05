@@ -60,41 +60,260 @@
     }
   }
 
-  /* Galería interactiva de servicios (Home) */
+  /* Galería interactiva de servicios (Home): carrusel de varias filas, sin recorte */
   var galleryWrap = document.querySelector(".gallery-wrap");
   if (galleryWrap) {
+    var rows = [].slice.call(galleryWrap.querySelectorAll(".gallery-track"));
     var pills = document.querySelectorAll(".filter-pill");
-    var tiles = galleryWrap.querySelectorAll(".gallery-tile");
-    var grid = galleryWrap.querySelector(".gallery-grid");
+    var baseTiles = rows.map(function (row) {
+      return [].slice.call(row.querySelectorAll(".gallery-tile"));
+    });
+    var paused = false;
+    var dragging = false;
+    var dragMoved = false;
+    var startX = 0;
+    var startOffset = 0;
+    var offset = 0;
+    var speed = 0.35;
+    var nudgeTimer = null;
 
-    var updateOverflow = function () {
-      var overflows = grid.scrollHeight > grid.clientHeight + 4;
-      galleryWrap.classList.toggle("no-overflow", !overflows);
+    var applyOffset = function () {
+      rows.forEach(function (row) { row.style.transform = "translateX(" + offset + "px)"; });
     };
+
+    var wrapOffset = function () {
+      var halfWidth = rows[0] ? rows[0].scrollWidth / 2 : 0;
+      if (!halfWidth) return;
+      offset = offset % halfWidth;
+      if (offset > 0) offset -= halfWidth;
+    };
+
+    var buildRows = function (filter) {
+      rows.forEach(function (row, i) {
+        row.innerHTML = "";
+        var matched = baseTiles[i].filter(function (tile) {
+          return filter === "all" || tile.getAttribute("data-cat") === filter;
+        });
+        matched.concat(matched).forEach(function (tile) {
+          row.appendChild(tile.cloneNode(true));
+        });
+      });
+      offset = 0;
+      applyOffset();
+    };
+
+    buildRows("all");
 
     pills.forEach(function (pill) {
       pill.addEventListener("click", function () {
         pills.forEach(function (p) { p.classList.remove("active"); });
         pill.classList.add("active");
-        var filter = pill.getAttribute("data-filter");
-        tiles.forEach(function (tile) {
-          var match = filter === "all" || tile.getAttribute("data-cat") === filter;
-          tile.classList.toggle("hidden", !match);
-        });
-        galleryWrap.classList.remove("expanded");
-        requestAnimationFrame(updateOverflow);
+        buildRows(pill.getAttribute("data-filter"));
       });
     });
 
-    var moreBtn = galleryWrap.querySelector(".gallery-more");
-    if (moreBtn) {
-      moreBtn.addEventListener("click", function () {
-        galleryWrap.classList.add("expanded");
-      });
+    galleryWrap.addEventListener("mouseenter", function () { paused = true; });
+    galleryWrap.addEventListener("mouseleave", function () { if (!dragging) paused = false; });
+
+    var nudge = function (dir) {
+      rows.forEach(function (row) { row.style.transition = "transform .5s cubic-bezier(.22,.61,.36,1)"; });
+      offset += dir * 320;
+      wrapOffset();
+      applyOffset();
+      clearTimeout(nudgeTimer);
+      nudgeTimer = setTimeout(function () {
+        rows.forEach(function (row) { row.style.transition = ""; });
+      }, 520);
+    };
+
+    var prevBtn = galleryWrap.querySelector(".gallery-arrow.prev");
+    var nextBtn = galleryWrap.querySelector(".gallery-arrow.next");
+    if (prevBtn) prevBtn.addEventListener("click", function () { nudge(1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { nudge(-1); });
+
+    /* Arrastre con mouse o táctil */
+    galleryWrap.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".gallery-arrow")) return;
+      dragging = true;
+      dragMoved = false;
+      paused = true;
+      startX = e.clientX;
+      startOffset = offset;
+      rows.forEach(function (row) { row.style.transition = ""; });
+      galleryWrap.classList.add("dragging");
+      galleryWrap.setPointerCapture(e.pointerId);
+    });
+    galleryWrap.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) dragMoved = true;
+      offset = startOffset + dx;
+      wrapOffset();
+      applyOffset();
+    });
+    var endDrag = function () {
+      if (!dragging) return;
+      dragging = false;
+      galleryWrap.classList.remove("dragging");
+      paused = false;
+    };
+    galleryWrap.addEventListener("pointerup", endDrag);
+    galleryWrap.addEventListener("pointercancel", endDrag);
+    /* Evita que un arrastre dispare el click del tile (navegación) */
+    galleryWrap.addEventListener(
+      "click",
+      function (e) {
+        if (dragMoved) {
+          e.preventDefault();
+          e.stopPropagation();
+          dragMoved = false;
+        }
+      },
+      true
+    );
+
+    if (!reducedMotion) {
+      var tick = function () {
+        if (!paused && !dragging) {
+          offset -= speed;
+          wrapOffset();
+          applyOffset();
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     }
 
-    window.addEventListener("load", updateOverflow);
-    window.addEventListener("resize", updateOverflow);
-    requestAnimationFrame(updateOverflow);
+    var moreBtn = document.querySelector(".gallery-more");
+    var fullBtn = document.querySelector(".gallery-full");
+    if (moreBtn && fullBtn) {
+      moreBtn.addEventListener("click", function () {
+        galleryWrap.classList.add("expanded");
+        moreBtn.hidden = true;
+        fullBtn.hidden = false;
+        requestAnimationFrame(function () { fullBtn.classList.add("is-visible"); });
+      });
+    }
+  }
+
+  /* Galería completa (galeria.html): collage tipo masonry con foto ampliable */
+  var collageGrids = document.querySelectorAll(".collage-grid");
+  if (collageGrids.length) {
+    var ROW_UNIT = 8;
+    var GAP = 14;
+
+    var debounce = function (fn, wait) {
+      var t;
+      return function () {
+        clearTimeout(t);
+        t = setTimeout(fn, wait);
+      };
+    };
+
+    collageGrids.forEach(function (grid) {
+      /* Envuelve cada <img> en un .collage-item con botón de cierre */
+      [].slice.call(grid.children).forEach(function (img) {
+        var item = document.createElement("div");
+        item.className = "collage-item";
+        img.parentNode.insertBefore(item, img);
+        item.appendChild(img);
+        var closeBtn = document.createElement("button");
+        closeBtn.type = "button";
+        closeBtn.className = "close-x";
+        closeBtn.setAttribute("aria-label", "Cerrar");
+        closeBtn.textContent = "×";
+        item.appendChild(closeBtn);
+      });
+
+      var items = [].slice.call(grid.querySelectorAll(".collage-item"));
+
+      var spanFor = function (item) {
+        var img = item.querySelector("img");
+        var height = img.getBoundingClientRect().height;
+        return Math.max(1, Math.ceil((height + GAP) / (ROW_UNIT + GAP)));
+      };
+
+      var layout = function (item) {
+        item.style.gridRowEnd = "span " + spanFor(item);
+      };
+
+      var layoutAll = function () {
+        items.forEach(layout);
+      };
+
+      items.forEach(function (item) {
+        var img = item.querySelector("img");
+        if (img.complete) {
+          layout(item);
+        } else {
+          img.addEventListener("load", function () { layout(item); });
+        }
+      });
+
+      window.addEventListener("resize", debounce(layoutAll, 150));
+
+      /* Anima el reacomodo del collage (FLIP) */
+      var flip = function (mutate) {
+        if (reducedMotion) {
+          mutate();
+          return;
+        }
+        var first = items.map(function (it) { return it.getBoundingClientRect(); });
+        mutate();
+        var last = items.map(function (it) { return it.getBoundingClientRect(); });
+        items.forEach(function (it, i) {
+          var dx = first[i].left - last[i].left;
+          var dy = first[i].top - last[i].top;
+          var sx = last[i].width ? first[i].width / last[i].width : 1;
+          var sy = last[i].height ? first[i].height / last[i].height : 1;
+          if (dx || dy || sx !== 1 || sy !== 1) {
+            it.style.transformOrigin = "top left";
+            it.style.transition = "none";
+            it.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + sx + "," + sy + ")";
+            requestAnimationFrame(function () {
+              it.style.transition = "transform .45s cubic-bezier(.22,.61,.36,1)";
+              it.style.transform = "";
+            });
+          }
+        });
+      };
+
+      var collapseItem = function (item) {
+        flip(function () {
+          item.classList.remove("expanded");
+          layout(item);
+        });
+      };
+
+      var expandItem = function (item) {
+        flip(function () {
+          var current = grid.querySelector(".collage-item.expanded");
+          if (current && current !== item) {
+            current.classList.remove("expanded");
+            layout(current);
+          }
+          item.classList.add("expanded");
+          layout(item);
+        });
+      };
+
+      items.forEach(function (item) {
+        item.addEventListener("click", function () {
+          if (item.classList.contains("expanded")) return;
+          expandItem(item);
+        });
+        item.querySelector(".close-x").addEventListener("click", function (e) {
+          e.stopPropagation();
+          collapseItem(item);
+        });
+      });
+
+      grid.addEventListener("click", function (e) {
+        if (e.target === grid) {
+          var current = grid.querySelector(".collage-item.expanded");
+          if (current) collapseItem(current);
+        }
+      });
+    });
   }
 })();
