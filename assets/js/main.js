@@ -81,13 +81,13 @@
         ]
       },
       {
-        main: "assets/img/gallery/bodas/16-25-13.jpg",
+        main: "assets/img/gallery/hero/circulo-6-principal.jpg",
         thumbs: [
-          "assets/img/gallery/bodas/16-34-18.jpg",
-          "assets/img/gallery/bodas/16-34-26-2.jpg",
-          "assets/img/gallery/bodas/16-57-31.jpg",
-          "assets/img/gallery/bodas/17-13-03.jpg",
-          "assets/img/gallery/bodas/18-38-57.jpg"
+          "assets/img/gallery/hero/circulo-6-thumb-1.jpg",
+          "assets/img/gallery/hero/circulo-6-thumb-2.jpg",
+          "assets/img/gallery/hero/circulo-6-thumb-3.jpg",
+          "assets/img/gallery/hero/circulo-6-thumb-4.jpg",
+          "assets/img/gallery/hero/circulo-6-thumb-5.jpg"
         ]
       },
       {
