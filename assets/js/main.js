@@ -26,13 +26,13 @@
     /* Cada set = { main, thumbs:[5 fotos] }. Edita las rutas aquí para cambiar las fotos. */
     var HERO_SETS = [
       {
-        main: "assets/img/gallery/hero/karla-1.jpg",
+        main: "assets/img/gallery/hero/circulo-1-principal.jpg",
         thumbs: [
-          "assets/img/gallery/hero/karla-2.jpg",
-          "assets/img/gallery/hero/karla-3.jpg",
-          "assets/img/gallery/hero/karla-4.jpg",
-          "assets/img/gallery/bodas/15-23-04.jpg",
-          "assets/img/gallery/bodas/17-31-52.jpg"
+          "assets/img/gallery/hero/circulo-1-thumb-1.jpg",
+          "assets/img/gallery/hero/circulo-1-thumb-2.jpg",
+          "assets/img/gallery/hero/circulo-1-thumb-3.jpg",
+          "assets/img/gallery/hero/circulo-1-thumb-4.jpg",
+          "assets/img/gallery/hero/circulo-1-thumb-5.jpg"
         ]
       },
       {
@@ -74,6 +74,26 @@
           "assets/img/gallery/bodas/15-38-45.jpg",
           "assets/img/gallery/bodas/15-42-06.jpg"
         ]
+      },
+      {
+        main: "assets/img/gallery/bodas/16-25-13.jpg",
+        thumbs: [
+          "assets/img/gallery/bodas/16-34-18.jpg",
+          "assets/img/gallery/bodas/16-34-26-2.jpg",
+          "assets/img/gallery/bodas/16-57-31.jpg",
+          "assets/img/gallery/bodas/17-13-03.jpg",
+          "assets/img/gallery/bodas/18-38-57.jpg"
+        ]
+      },
+      {
+        main: "assets/img/gallery/bodas/18-45-07.jpg",
+        thumbs: [
+          "assets/img/gallery/bodas/18-51-14.jpg",
+          "assets/img/gallery/bodas/18-52-59.jpg",
+          "assets/img/gallery/bodas/20-44-51.jpg",
+          "assets/img/gallery/bodas/20-49-35.jpg",
+          "assets/img/gallery/bodas/20-54-13.jpg"
+        ]
       }
     ];
 
@@ -98,6 +118,16 @@
         eyebrow: "Tu mejor perfil profesional",
         title: "Tu marca,<br>con la mejor cara.",
         lede: "Retratos corporativos y de marca personal para presentarte con seguridad ante el mundo."
+      },
+      {
+        eyebrow: "Recuerdos para toda la vida",
+        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
+        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
+      },
+      {
+        eyebrow: "Recuerdos para toda la vida",
+        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
+        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
       },
       {
         eyebrow: "Recuerdos para toda la vida",

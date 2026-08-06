@@ -3,7 +3,7 @@
 #
 # Como usarlo:
 #   1. Arrastra tus fotos nuevas a assets/img/photos/<categoria>/
-#      (categorias: bodas, familias, maternidad, bebes, retratos, eventos, marca)
+#      (categorias: hero, bodas, familias, maternidad, bebes, retratos, eventos, marca)
 #   2. Corre este script: bash scripts/optimize-photos.sh
 #   3. Las versiones listas para la web quedan en assets/img/gallery/<categoria>/
 #      (esas si se suben a GitHub; las originales en photos/ nunca se suben)
@@ -26,7 +26,7 @@ fi
 MAX_SIZE="2400x2400>"
 QUALITY=88
 SAMPLING="4:4:4"
-CATEGORIES=(bodas familias maternidad bebes retratos eventos marca)
+CATEGORIES=(hero bodas familias maternidad bebes retratos eventos marca)
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 total=0
