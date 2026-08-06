@@ -68,13 +68,16 @@
         ]
       },
       {
-        main: "assets/img/gallery/bodas/01_16-49-12.jpg",
+        /* 7 fotos: 4 arriba, 3 abajo. */
+        main: "assets/img/gallery/hero/circulo-5-principal.jpg",
         thumbs: [
-          "assets/img/gallery/bodas/15_16-07-34.jpg",
-          "assets/img/gallery/bodas/14-14-48.jpg",
-          "assets/img/gallery/bodas/16-09-35.jpg",
-          "assets/img/gallery/bodas/15-38-45.jpg",
-          "assets/img/gallery/bodas/15-42-06.jpg"
+          "assets/img/gallery/hero/circulo-5-thumb-1.jpg",
+          "assets/img/gallery/hero/circulo-5-thumb-2.jpg",
+          "assets/img/gallery/hero/circulo-5-thumb-3.jpg",
+          "assets/img/gallery/hero/circulo-5-thumb-4.jpg",
+          "assets/img/gallery/hero/circulo-5-thumb-5.jpg",
+          "assets/img/gallery/hero/circulo-5-thumb-6.jpg",
+          "assets/img/gallery/hero/circulo-5-thumb-7.jpg"
         ]
       },
       {
@@ -273,7 +276,10 @@
       thumbBtns.forEach(function (btn, i) {
         btn.classList.toggle("is-hidden", i >= set.thumbs.length);
       });
-      if (thumbsWrap) thumbsWrap.classList.toggle("has-six", set.thumbs.length === 6);
+      if (thumbsWrap) {
+        thumbsWrap.classList.toggle("has-six", set.thumbs.length === 6);
+        thumbsWrap.classList.toggle("has-seven", set.thumbs.length === 7);
+      }
       railItems.forEach(function (item, i) {
         item.classList.toggle("active", i === index);
       });

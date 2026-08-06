@@ -448,6 +448,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
   display:grid; grid-template-columns:repeat(5, 116px); gap:14px;
 }
 .hero-editorial-thumbs.has-six{ grid-template-columns:repeat(3, 116px); }
+.hero-editorial-thumbs.has-seven{ grid-template-columns:repeat(4, 116px); }
 .hero-editorial-thumb.is-hidden{ display:none; }
 .hero-editorial-thumb{
   position:relative; width:116px; height:158px; border-radius:var(--radius-lg); overflow:hidden;
@@ -472,6 +473,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
   .hero-editorial-thumb{ width:92px; height:126px; }
   .hero-editorial-thumbs{ grid-template-columns:repeat(5, 92px); gap:12px; right:36px; bottom:36px; }
   .hero-editorial-thumbs.has-six{ grid-template-columns:repeat(3, 92px); }
+  .hero-editorial-thumbs.has-seven{ grid-template-columns:repeat(4, 92px); }
   .hero-editorial-logo img{ height:96px; }
 }
 /* Pantallas Retina/alta densidad (tipicamente laptops, incluida MacBook):
@@ -510,6 +512,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
     grid-template-columns:repeat(5, 84px); justify-content:center; gap:10px;
   }
   .hero-editorial-thumbs.has-six{ grid-template-columns:repeat(3, 84px); }
+  .hero-editorial-thumbs.has-seven{ grid-template-columns:repeat(4, 84px); }
   .hero-editorial-thumb{ width:84px; height:114px; box-shadow:0 18px 34px -10px rgba(0,0,0,.7); }
   .hero-editorial-thumb:hover{ transform:translateY(-10px) scale(1.1); }
   .hero-editorial-copy{
@@ -523,6 +526,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 @media (max-width:480px){
   .hero-editorial-thumbs{ grid-template-columns:repeat(5, 60px); gap:6px; }
   .hero-editorial-thumbs.has-six{ grid-template-columns:repeat(3, 60px); }
+  .hero-editorial-thumbs.has-seven{ grid-template-columns:repeat(4, 60px); }
   .hero-editorial-thumb{ width:60px; height:82px; }
   .hero-editorial-rail-item{ width:40px; height:40px; }
   .hero-editorial-rail-item.active{ width:48px; height:48px; }
