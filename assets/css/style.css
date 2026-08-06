@@ -410,11 +410,9 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
   text-transform:uppercase; letter-spacing:.08em;
 }
 
-/* Logo grande, a medio camino entre la barra superior y el texto */
-.hero-editorial-logo{
-  position:absolute; top:200px; left:118px; z-index:4;
-}
-.hero-editorial-logo img{ height:64px; width:auto; display:block; transition:opacity .4s ease; }
+/* Logo grande, encima del texto (mismo bloque, no pegado a la barra superior) */
+.hero-editorial-logo{ margin-bottom:32px; }
+.hero-editorial-logo img{ height:126px; width:auto; max-width:none; display:block; transition:opacity .4s ease; }
 .hero-editorial-logo img.hero-editorial-logo-dark{ display:none; }
 .hero-editorial.is-on-light .hero-editorial-logo-light{ display:none; }
 .hero-editorial.is-on-light .hero-editorial-logo-dark{ display:block; }
@@ -464,8 +462,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 @media (max-width:1200px){
   .hero-editorial-thumb{ width:92px; height:126px; }
   .hero-editorial-thumbs{ grid-template-columns:repeat(5, 92px); gap:12px; right:36px; bottom:36px; }
-  .hero-editorial-logo{ top:150px; left:100px; }
-  .hero-editorial-logo img{ height:52px; }
+  .hero-editorial-logo img{ height:96px; }
 }
 
 @media (max-width:900px){
@@ -475,8 +472,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
     flex-direction:row; justify-content:center; padding:20px 20px 0;
   }
   .hero-editorial-portrait{ position:relative; top:auto; right:auto; left:auto; bottom:auto; height:56vh; margin-top:20px; }
-  .hero-editorial-logo{ position:relative; top:auto; left:auto; padding:24px 20px 0; }
-  .hero-editorial-logo img{ height:42px; }
+  .hero-editorial-logo img{ height:56px; }
   .hero-editorial-copy{
     position:relative; left:auto; bottom:auto; max-width:none;
     padding:24px 20px 40px;
