@@ -91,69 +91,64 @@
         ]
       },
       {
-        main: "assets/img/gallery/bodas/18-45-07.jpg",
+        /* Quinceañeras — 8 fotos: 4 arriba, 4 abajo. */
+        main: "assets/img/gallery/hero/circulo-7-principal.jpg",
         thumbs: [
-          "assets/img/gallery/bodas/18-51-14.jpg",
-          "assets/img/gallery/bodas/18-52-59.jpg",
-          "assets/img/gallery/bodas/20-44-51.jpg",
-          "assets/img/gallery/bodas/20-49-35.jpg",
-          "assets/img/gallery/bodas/20-54-13.jpg"
-        ]
-      },
-      {
-        /* Perfil profesional — placeholder con fotos de boda hasta que subas retratos corporativos reales. */
-        main: "assets/img/gallery/bodas/17-42-05.jpg",
-        thumbs: [
-          "assets/img/gallery/bodas/17-17-51.jpg",
-          "assets/img/gallery/bodas/14-09-27.jpg",
-          "assets/img/gallery/bodas/14-09-12.jpg",
-          "assets/img/gallery/bodas/14-12-16-2.jpg",
-          "assets/img/gallery/bodas/15-20-04.jpg"
+          "assets/img/gallery/hero/circulo-7-thumb-1.jpg",
+          "assets/img/gallery/hero/circulo-7-thumb-2.jpg",
+          "assets/img/gallery/hero/circulo-7-thumb-3.jpg",
+          "assets/img/gallery/hero/circulo-7-thumb-4.jpg",
+          "assets/img/gallery/hero/circulo-7-thumb-5.jpg",
+          "assets/img/gallery/hero/circulo-7-thumb-6.jpg",
+          "assets/img/gallery/hero/circulo-7-thumb-7.jpg",
+          "assets/img/gallery/hero/circulo-7-thumb-8.jpg"
         ]
       }
     ];
 
-    /* Texto por categoría (círculo). Editar aquí cuando decidas cada categoría. */
+    /* Texto por categoría (círculo). packagesUrl = a donde lleva el boton "Ver paquetes". Editar aquí cuando decidas cada categoría. */
     var HERO_COPY = [
       {
         eyebrow: "Retratos con carácter propio",
         title: "Tu esencia,<br>en cada retrato.",
-        lede: "Sesiones de retrato personal con una dirección natural y cercana — para que la foto se sienta tan tuya como te sientes tú."
+        lede: "Sesiones de retrato personal con una dirección natural y cercana — para que la foto se sienta tan tuya como te sientes tú.",
+        packagesUrl: "retratos.html"
       },
       {
         eyebrow: "Momentos en familia, para siempre",
         title: "El tiempo pasa.<br>Los recuerdos permanecen.",
-        lede: "Fotografía de familia con recuerdos impresos que se pueden tocar, no solo mirar en una pantalla."
+        lede: "Fotografía de familia con recuerdos impresos que se pueden tocar, no solo mirar en una pantalla.",
+        packagesUrl: "familias.html"
       },
       {
         eyebrow: "Su historia de dos, contada con detalle",
         title: "Dos historias,<br>una sola foto.",
-        lede: "Sesiones de pareja y coberturas de boda que cuentan su historia de amor con emoción real."
+        lede: "Sesiones de pareja y coberturas de boda que cuentan su historia de amor con emoción real.",
+        packagesUrl: "parejas.html"
       },
       {
         eyebrow: "Su gran día, contado con detalle",
         title: "Un 'sí, quiero'<br>que dura para siempre.",
-        lede: "Coberturas de boda completas — civiles, eclesiásticas y recepción — con la emoción real del día capturada en cada foto."
+        lede: "Coberturas de boda completas — civiles, eclesiásticas y recepción — con la emoción real del día capturada en cada foto.",
+        packagesUrl: "bodas.html"
       },
       {
         eyebrow: "Esperando con amor",
         title: "Cada semana,<br>una historia que crece.",
-        lede: "Sesiones de maternidad que capturan la dulce espera, celebrando el vínculo entre mamá y bebé antes de conocerse."
+        lede: "Sesiones de maternidad que capturan la dulce espera, celebrando el vínculo entre mamá y bebé antes de conocerse.",
+        packagesUrl: "maternidad.html"
       },
       {
         eyebrow: "Sus primeros meses de vida",
         title: "Pequeños detalles,<br>recuerdos enormes.",
-        lede: "Sesiones de bebés que capturan esos primeros meses que pasan tan rápido — la piel, las manitos, cada gesto único."
+        lede: "Sesiones de bebés que capturan esos primeros meses que pasan tan rápido — la piel, las manitos, cada gesto único.",
+        packagesUrl: "bebes.html"
       },
       {
-        eyebrow: "Recuerdos para toda la vida",
-        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
-        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
-      },
-      {
-        eyebrow: "Tu mejor perfil profesional",
-        title: "Tu marca,<br>con la mejor cara.",
-        lede: "Retratos corporativos y de marca personal para presentarte con seguridad ante el mundo."
+        eyebrow: "Su gran fiesta de quince",
+        title: "Quince años,<br>un cuento hecho realidad.",
+        lede: "Sesiones de quinceañeras con la magia y la elegancia que ese día merece — para revivirlo cada vez que lo mires.",
+        packagesUrl: "retratos.html"
       }
     ];
 
@@ -165,6 +160,7 @@
     var heroTagline = heroRoot.querySelector(".hero-editorial-tagline");
     var heroTitle = heroRoot.querySelector(".hero-editorial-title");
     var heroLede = heroRoot.querySelector(".hero-editorial-copy .lede");
+    var heroPackagesCta = heroRoot.querySelector(".hero-editorial-cta-packages");
     var activeSet = 0;
 
     /* Extrae el color promedio de la foto principal, lo mezcla con el navy de
@@ -279,6 +275,7 @@
       if (thumbsWrap) {
         thumbsWrap.classList.toggle("has-six", set.thumbs.length === 6);
         thumbsWrap.classList.toggle("has-seven", set.thumbs.length === 7);
+        thumbsWrap.classList.toggle("has-eight", set.thumbs.length === 8);
       }
       railItems.forEach(function (item, i) {
         item.classList.toggle("active", i === index);
@@ -288,6 +285,7 @@
         if (heroTagline) heroTagline.textContent = copy.eyebrow;
         if (heroTitle) heroTitle.innerHTML = copy.title;
         if (heroLede) heroLede.textContent = copy.lede;
+        if (heroPackagesCta && copy.packagesUrl) heroPackagesCta.setAttribute("href", copy.packagesUrl);
       }
       applyAccentFromSrc(set.main);
     };
