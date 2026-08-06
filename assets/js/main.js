@@ -329,7 +329,8 @@
     }
 
     renderRailThumbs();
-    applySet(0, false);
+    /* Circulo inicial al azar en cada carga/refresh, para que quien entre varias veces vea fotos distintas. */
+    applySet(Math.floor(Math.random() * HERO_SETS.length), false);
   }
 
   /* Buscador del menú: encuentra la pagina/servicio por palabra clave */
