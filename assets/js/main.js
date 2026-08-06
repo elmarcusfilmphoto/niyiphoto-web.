@@ -36,23 +36,23 @@
         ]
       },
       {
-        main: "assets/img/gallery/hero/jo-1.jpg",
+        main: "assets/img/gallery/hero/circulo-2-principal.jpg",
         thumbs: [
-          "assets/img/gallery/hero/jo-2.jpg",
-          "assets/img/gallery/hero/jo-3.jpg",
-          "assets/img/gallery/hero/jo-4.jpg",
-          "assets/img/gallery/bodas/17-36-11.jpg",
-          "assets/img/gallery/bodas/17-24-26.jpg"
+          "assets/img/gallery/hero/circulo-2-thumb-1.jpg",
+          "assets/img/gallery/hero/circulo-2-thumb-2.jpg",
+          "assets/img/gallery/hero/circulo-2-thumb-3.jpg",
+          "assets/img/gallery/hero/circulo-2-thumb-4.jpg",
+          "assets/img/gallery/hero/circulo-2-thumb-5.jpg"
         ]
       },
       {
-        main: "assets/img/gallery/bodas/18-52-30.jpg",
+        main: "assets/img/gallery/hero/circulo-3-principal.jpg",
         thumbs: [
-          "assets/img/gallery/bodas/20-47-30.jpg",
-          "assets/img/gallery/bodas/20-54-46-2.jpg",
-          "assets/img/gallery/bodas/17-42-05.jpg",
-          "assets/img/gallery/bodas/17-17-51.jpg",
-          "assets/img/gallery/bodas/14-09-27.jpg"
+          "assets/img/gallery/hero/circulo-3-thumb-1.jpg",
+          "assets/img/gallery/hero/circulo-3-thumb-2.jpg",
+          "assets/img/gallery/hero/circulo-3-thumb-3.jpg",
+          "assets/img/gallery/hero/circulo-3-thumb-4.jpg",
+          "assets/img/gallery/hero/circulo-3-thumb-5.jpg"
         ]
       },
       {
