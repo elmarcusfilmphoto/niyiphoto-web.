@@ -201,6 +201,10 @@
     var thumbCfs = thumbBtns.map(function (btn) {
       return makeCrossfader(btn, "hero-editorial-thumb-img");
     });
+    var blurLayer = portraitFrame.querySelector(".hero-editorial-blur-layer");
+    var setBlurLayer = function (src) {
+      if (blurLayer) blurLayer.src = src;
+    };
 
     var renderRailThumbs = function () {
       railItems.forEach(function (item, i) {
@@ -213,6 +217,7 @@
       activeSet = index;
       var set = HERO_SETS[index];
       mainCf.set(set.main, animate);
+      setBlurLayer(set.main);
       thumbCfs.forEach(function (cf, i) {
         cf.set(set.thumbs[i], animate);
       });
@@ -241,6 +246,7 @@
         var prevMain = mainCf.get();
         var prevThumb = thumbCfs[i].get();
         mainCf.set(prevThumb, true);
+        setBlurLayer(prevThumb);
         thumbCfs[i].set(prevMain, true);
         HERO_SETS[activeSet].main = prevThumb;
         HERO_SETS[activeSet].thumbs[i] = prevMain;

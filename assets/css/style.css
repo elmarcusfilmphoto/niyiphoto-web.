@@ -385,13 +385,19 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
   opacity:0; transition:opacity .7s ease;
 }
 .hero-editorial-portrait-frame img.hero-editorial-main-img.cf-active{ opacity:1; z-index:1; }
-/* Difumina (con desenfoque gaussiano real) el borde izquierdo de la foto hacia el color dinámico del fondo.
-   Nota: no se usa mask-image junto con backdrop-filter porque esa combinacion
-   deja una costura/linea visible en el borde de la mascara en varios navegadores. */
+/* Copia desenfocada de la misma foto (no backdrop-filter, para evitar la costura
+   que deja el corte duro del backdrop-filter). Se desvanece con una mascara suave
+   hacia la derecha, revelando la foto nitida debajo poco a poco. */
+.hero-editorial-blur-layer{
+  position:absolute; top:-15%; left:-15%; width:130%; height:130%; z-index:2;
+  object-fit:cover; display:block; filter:blur(46px); pointer-events:none;
+  -webkit-mask-image:linear-gradient(to right, black 0%, black 22%, transparent 58%);
+  mask-image:linear-gradient(to right, black 0%, black 22%, transparent 58%);
+}
+/* Lavado de color solido que se funde con el fondo dinamico */
 .hero-editorial-portrait-frame::before{
-  content:""; position:absolute; top:0; left:0; bottom:0; width:50%; z-index:2;
+  content:""; position:absolute; top:0; left:0; bottom:0; width:38%; z-index:3;
   background:linear-gradient(to right, var(--hero-accent, var(--navy)) 0%, transparent 100%);
-  backdrop-filter:blur(36px); -webkit-backdrop-filter:blur(36px);
   transition:background 1s ease;
   pointer-events:none;
 }
