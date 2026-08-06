@@ -23,14 +23,16 @@
   /* Hero editorial (Home): categorías por círculo, foto principal + 3 tarjetas */
   var heroRoot = document.querySelector(".hero-editorial");
   if (heroRoot) {
-    /* Cada set = { main, thumbs:[a,b,c] }. Edita las rutas aquí para cambiar las fotos. */
+    /* Cada set = { main, thumbs:[5 fotos] }. Edita las rutas aquí para cambiar las fotos. */
     var HERO_SETS = [
       {
         main: "assets/img/gallery/hero/karla-1.jpg",
         thumbs: [
           "assets/img/gallery/hero/karla-2.jpg",
           "assets/img/gallery/hero/karla-3.jpg",
-          "assets/img/gallery/hero/karla-4.jpg"
+          "assets/img/gallery/hero/karla-4.jpg",
+          "assets/img/gallery/bodas/15-23-04.jpg",
+          "assets/img/gallery/bodas/17-31-52.jpg"
         ]
       },
       {
@@ -38,7 +40,9 @@
         thumbs: [
           "assets/img/gallery/hero/jo-2.jpg",
           "assets/img/gallery/hero/jo-3.jpg",
-          "assets/img/gallery/hero/jo-4.jpg"
+          "assets/img/gallery/hero/jo-4.jpg",
+          "assets/img/gallery/bodas/17-36-11.jpg",
+          "assets/img/gallery/bodas/17-24-26.jpg"
         ]
       },
       {
@@ -46,7 +50,9 @@
         thumbs: [
           "assets/img/gallery/bodas/20-47-30.jpg",
           "assets/img/gallery/bodas/20-54-46-2.jpg",
-          "assets/img/gallery/bodas/17-42-05.jpg"
+          "assets/img/gallery/bodas/17-42-05.jpg",
+          "assets/img/gallery/bodas/17-17-51.jpg",
+          "assets/img/gallery/bodas/14-09-27.jpg"
         ]
       },
       {
@@ -54,7 +60,9 @@
         thumbs: [
           "assets/img/gallery/bodas/16-07-11.jpg",
           "assets/img/gallery/bodas/27_10-14-24.jpg",
-          "assets/img/gallery/bodas/01_16-02-39.jpg"
+          "assets/img/gallery/bodas/01_16-02-39.jpg",
+          "assets/img/gallery/bodas/14-11-59.jpg",
+          "assets/img/gallery/bodas/15-01-25.jpg"
         ]
       },
       {
@@ -62,16 +70,77 @@
         thumbs: [
           "assets/img/gallery/bodas/15_16-07-34.jpg",
           "assets/img/gallery/bodas/14-14-48.jpg",
-          "assets/img/gallery/bodas/16-09-35.jpg"
+          "assets/img/gallery/bodas/16-09-35.jpg",
+          "assets/img/gallery/bodas/15-38-45.jpg",
+          "assets/img/gallery/bodas/15-42-06.jpg"
         ]
       }
+    ];
+
+    /* Tagline por categoría (círculo). Editar aquí cuando decidas cada categoría. */
+    var HERO_TAGLINES = [
+      "Retratos con carácter propio",
+      "Momentos en familia, para siempre",
+      "Su historia de dos, contada con detalle",
+      "Tu mejor perfil profesional",
+      "Recuerdos para toda la vida"
     ];
 
     var railItems = [].slice.call(heroRoot.querySelectorAll(".hero-editorial-rail-item"));
     var portraitFrame = heroRoot.querySelector(".hero-editorial-portrait-frame");
     var thumbBtns = [].slice.call(heroRoot.querySelectorAll(".hero-editorial-thumb"));
     var railWrap = heroRoot.querySelector(".hero-editorial-rail");
+    var heroTagline = heroRoot.querySelector(".hero-editorial-tagline");
     var activeSet = 0;
+
+    /* Extrae el color promedio de la foto principal, lo mezcla con el navy de
+       marca (para mantener buen contraste) y lo aplica como fondo dinámico.
+       También decide si el logo debe verse claro u oscuro segun ese color. */
+    var applyAccentFromSrc = function (src) {
+      var probe = new Image();
+      probe.onload = function () {
+        try {
+          var w = 16, h = 16;
+          var canvas = document.createElement("canvas");
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(probe, 0, 0, w, h);
+          var data = ctx.getImageData(0, 0, w, h).data;
+          var r = 0, g = 0, b = 0, n = 0;
+          for (var i = 0; i < data.length; i += 4) {
+            r += data[i];
+            g += data[i + 1];
+            b += data[i + 2];
+            n++;
+          }
+          r /= n;
+          g /= n;
+          b /= n;
+          var navy = { r: 13, g: 49, b: 75 };
+          r = r * 0.45 + navy.r * 0.55;
+          g = g * 0.45 + navy.g * 0.55;
+          b = b * 0.45 + navy.b * 0.55;
+          var lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          var maxLum = 95;
+          if (lum > maxLum) {
+            var scale = maxLum / lum;
+            r *= scale;
+            g *= scale;
+            b *= scale;
+          }
+          r = Math.round(r);
+          g = Math.round(g);
+          b = Math.round(b);
+          heroRoot.style.setProperty("--hero-accent", "rgb(" + r + "," + g + "," + b + ")");
+          var finalLum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          heroRoot.classList.toggle("is-on-light", finalLum > 150);
+        } catch (e) {
+          /* si el canvas falla por algun motivo, se mantiene el navy por defecto */
+        }
+      };
+      probe.src = src;
+    };
 
     /* Crea una segunda capa de imagen para poder cruzar (crossfade) sin nunca
        mostrar el fondo del contenedor entre una foto y otra. */
@@ -128,6 +197,8 @@
       railItems.forEach(function (item, i) {
         item.classList.toggle("active", i === index);
       });
+      if (heroTagline) heroTagline.textContent = HERO_TAGLINES[index] || heroTagline.textContent;
+      applyAccentFromSrc(set.main);
     };
 
     /* Click en un círculo: cambia la categoría activa */
@@ -147,6 +218,7 @@
         HERO_SETS[activeSet].main = prevThumb;
         HERO_SETS[activeSet].thumbs[i] = prevMain;
         railItems[activeSet].querySelector(".hero-editorial-rail-img").src = prevThumb;
+        applyAccentFromSrc(prevThumb);
       });
     });
 
