@@ -136,9 +136,9 @@
         lede: "Coberturas de boda completas — civiles, eclesiásticas y recepción — con la emoción real del día capturada en cada foto."
       },
       {
-        eyebrow: "Recuerdos para toda la vida",
-        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
-        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
+        eyebrow: "Esperando con amor",
+        title: "Cada semana,<br>una historia que crece.",
+        lede: "Sesiones de maternidad que capturan la dulce espera, celebrando el vínculo entre mamá y bebé antes de conocerse."
       },
       {
         eyebrow: "Recuerdos para toda la vida",
