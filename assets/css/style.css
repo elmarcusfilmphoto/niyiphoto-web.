@@ -471,6 +471,14 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
   .hero-editorial-thumbs{ grid-template-columns:repeat(5, 92px); gap:12px; right:36px; bottom:36px; }
   .hero-editorial-logo img{ height:96px; }
 }
+/* Pantallas Retina/alta densidad (tipicamente laptops, incluida MacBook):
+   el ancho logico en px puede ser "grande" (>1200px) aunque la pantalla
+   fisica sea chica, asi que el logo se ve desproporcionado si usamos el
+   mismo tamaño que un monitor de escritorio grande. Se reduce aqui. */
+@media (min-width:1201px) and (min-resolution:1.5dppx),
+       (min-width:1201px) and (-webkit-min-device-pixel-ratio:1.5){
+  .hero-editorial-logo img{ height:84px; }
+}
 
 /* Movil/tablet en portrait: riel -> foto -> tarjetas superpuestas (con sombra) -> texto */
 @media (max-width:900px){
