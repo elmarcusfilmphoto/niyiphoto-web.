@@ -10,6 +10,10 @@
 #
 # Ya optimizadas, referencia las fotos en el HTML como:
 #   assets/img/gallery/<categoria>/<nombre>.jpg
+#
+# Para volver a procesar fotos que ya tenian una version optimizada
+# (por ejemplo, tras subir la calidad del script), corre:
+#   FORCE=1 bash scripts/optimize-photos.sh
 
 set -e
 
@@ -19,8 +23,9 @@ else
   MAGICK="/c/Program Files/ImageMagick-7.1.2-Q16-HDRI/magick"
 fi
 
-MAX_SIZE="1600x1600>"
-QUALITY=82
+MAX_SIZE="2400x2400>"
+QUALITY=88
+SAMPLING="4:4:4"
 CATEGORIES=(bodas familias maternidad bebes retratos eventos marca)
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
@@ -38,11 +43,11 @@ for cat in "${CATEGORIES[@]}"; do
     name="${base%.*}"
     dest="$dest_dir/${name}.jpg"
 
-    if [ -f "$dest" ] && [ "$dest" -nt "$src" ]; then
+    if [ -f "$dest" ] && [ "$dest" -nt "$src" ] && [ "$FORCE" != "1" ]; then
       continue
     fi
 
-    "$MAGICK" "$src" -auto-orient -resize "$MAX_SIZE" -quality "$QUALITY" -strip "$dest"
+    "$MAGICK" "$src" -auto-orient -resize "$MAX_SIZE" -sampling-factor "$SAMPLING" -quality "$QUALITY" -strip "$dest"
     echo "Optimizado: $cat/$base -> $cat/${name}.jpg"
     total=$((total+1))
   done
