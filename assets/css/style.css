@@ -221,6 +221,7 @@ section.navy .btn.solid:hover{ background:var(--cream); color:var(--navy); }
 .choice-overlay .cta-link{ margin-top:12px; color:var(--cream); font-size:.82rem; font-weight:600; }
 
 @media (max-width:860px){
+  .site-nav .logo img{ height:26px; }
   .nav-item{ display:block; }
   .nav-link-row{ justify-content:space-between; }
   .dropdown, .submenu{
@@ -495,6 +496,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
     position:relative; left:auto; bottom:auto; max-width:none;
     padding:28px 20px 40px;
   }
+  .hero-editorial-logo{ display:flex; justify-content:center; }
   .hero-editorial-logo img{ height:42px; }
 }
 @media (max-width:480px){
