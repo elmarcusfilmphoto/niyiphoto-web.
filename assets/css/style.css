@@ -385,13 +385,13 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
   opacity:0; transition:opacity .7s ease;
 }
 .hero-editorial-portrait-frame img.hero-editorial-main-img.cf-active{ opacity:1; z-index:1; }
-/* Difumina (con desenfoque gaussiano real) el borde izquierdo de la foto hacia el color dinámico del fondo */
+/* Difumina (con desenfoque gaussiano real) el borde izquierdo de la foto hacia el color dinámico del fondo.
+   Nota: no se usa mask-image junto con backdrop-filter porque esa combinacion
+   deja una costura/linea visible en el borde de la mascara en varios navegadores. */
 .hero-editorial-portrait-frame::before{
-  content:""; position:absolute; inset:0; z-index:2;
-  background:linear-gradient(to right, var(--hero-accent, var(--navy)) 0%, transparent 46%);
+  content:""; position:absolute; top:0; left:0; bottom:0; width:50%; z-index:2;
+  background:linear-gradient(to right, var(--hero-accent, var(--navy)) 0%, transparent 100%);
   backdrop-filter:blur(36px); -webkit-backdrop-filter:blur(36px);
-  -webkit-mask-image:linear-gradient(to right, black 0%, transparent 46%);
-  mask-image:linear-gradient(to right, black 0%, transparent 46%);
   transition:background 1s ease;
   pointer-events:none;
 }
