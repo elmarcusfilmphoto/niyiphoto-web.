@@ -489,6 +489,10 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
     border-radius:28px;
     box-shadow:0 30px 60px -18px rgba(0,0,0,.55);
   }
+  .hero-editorial-blur-layer,
+  .hero-editorial-portrait-frame::before{
+    display:none;
+  }
   .hero-editorial-thumbs{
     order:3; position:relative; right:auto; bottom:auto; z-index:6;
     margin:-64px 20px 0; padding:0;
