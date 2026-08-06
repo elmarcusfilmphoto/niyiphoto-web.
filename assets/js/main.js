@@ -141,9 +141,9 @@
         lede: "Sesiones de maternidad que capturan la dulce espera, celebrando el vínculo entre mamá y bebé antes de conocerse."
       },
       {
-        eyebrow: "Recuerdos para toda la vida",
-        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
-        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
+        eyebrow: "Sus primeros meses de vida",
+        title: "Pequeños detalles,<br>recuerdos enormes.",
+        lede: "Sesiones de bebés que capturan esos primeros meses que pasan tan rápido — la piel, las manitos, cada gesto único."
       },
       {
         eyebrow: "Recuerdos para toda la vida",
