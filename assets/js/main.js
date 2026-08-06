@@ -289,23 +289,69 @@
     /* Click en un círculo: cambia la categoría activa */
     railItems.forEach(function (item, i) {
       item.addEventListener("click", function () {
-        if (i !== activeSet) applySet(i, true);
+        if (i !== activeSet) {
+          applySet(i, true);
+          restartAutoplay();
+        }
       });
     });
+
+    /* Intercambia la foto principal con una miniatura (click manual o avance automático) */
+    var swapMainWithThumb = function (i, animate) {
+      var prevMain = mainCf.get();
+      var prevThumb = thumbCfs[i].get();
+      mainCf.set(prevThumb, animate);
+      setBlurLayer(prevThumb);
+      thumbCfs[i].set(prevMain, animate);
+      HERO_SETS[activeSet].main = prevThumb;
+      HERO_SETS[activeSet].thumbs[i] = prevMain;
+      railItems[activeSet].querySelector(".hero-editorial-rail-img").src = prevThumb;
+      applyAccentFromSrc(prevThumb);
+    };
 
     /* Click en una tarjeta: se intercambia con la foto principal */
     thumbBtns.forEach(function (btn, i) {
       btn.addEventListener("click", function () {
-        var prevMain = mainCf.get();
-        var prevThumb = thumbCfs[i].get();
-        mainCf.set(prevThumb, true);
-        setBlurLayer(prevThumb);
-        thumbCfs[i].set(prevMain, true);
-        HERO_SETS[activeSet].main = prevThumb;
-        HERO_SETS[activeSet].thumbs[i] = prevMain;
-        railItems[activeSet].querySelector(".hero-editorial-rail-img").src = prevThumb;
-        applyAccentFromSrc(prevThumb);
+        swapMainWithThumb(i, true);
+        restartAutoplay();
       });
+    });
+
+    /* Modo presentación: recorre todas las fotos del círculo actual y luego
+       avanza al siguiente círculo en orden, repitiendo el ciclo sin fin.
+       Se reinicia cada vez que el usuario interactúa manualmente, y se
+       respeta "reducir movimiento" del sistema. */
+    var AUTOPLAY_DELAY = 4500;
+    var autoplayCursor = 0;
+    var autoplayTimer = null;
+
+    var scheduleAutoplay = function () {
+      clearTimeout(autoplayTimer);
+      if (reducedMotion) return;
+      autoplayTimer = setTimeout(function () {
+        var set = HERO_SETS[activeSet];
+        if (autoplayCursor < set.thumbs.length) {
+          swapMainWithThumb(autoplayCursor, true);
+          autoplayCursor++;
+        } else {
+          autoplayCursor = 0;
+          applySet((activeSet + 1) % HERO_SETS.length, true);
+        }
+        scheduleAutoplay();
+      }, AUTOPLAY_DELAY);
+    };
+
+    var restartAutoplay = function () {
+      autoplayCursor = 0;
+      scheduleAutoplay();
+    };
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        clearTimeout(autoplayTimer);
+      } else {
+        scheduleAutoplay();
+      }
     });
 
     /* Rueda del mouse sobre el riel: avanza de categoría poco a poco */
@@ -320,7 +366,10 @@
           if (Math.abs(wheelAccum) >= WHEEL_THRESHOLD) {
             var dir = wheelAccum > 0 ? 1 : -1;
             var next = Math.min(HERO_SETS.length - 1, Math.max(0, activeSet + dir));
-            if (next !== activeSet) applySet(next, true);
+            if (next !== activeSet) {
+              applySet(next, true);
+              restartAutoplay();
+            }
             wheelAccum = 0;
           }
         },
@@ -331,6 +380,7 @@
     renderRailThumbs();
     /* Circulo inicial al azar en cada carga/refresh, para que quien entre varias veces vea fotos distintas. */
     applySet(Math.floor(Math.random() * HERO_SETS.length), false);
+    scheduleAutoplay();
   }
 
   /* Buscador del menú: encuentra la pagina/servicio por palabra clave */
