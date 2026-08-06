@@ -56,15 +56,15 @@
         ]
       },
       {
-        /* Bodas — placeholder con fotos de boda hasta que subas las definitivas de este circulo. 6 fotos: 3 pisos de 1-2-3. */
-        main: "assets/img/gallery/bodas/19-32-09.jpg",
+        /* Bodas — 6 fotos: 3 pisos de 1-2-3. */
+        main: "assets/img/gallery/hero/circulo-4-principal.jpg",
         thumbs: [
-          "assets/img/gallery/bodas/16-07-11.jpg",
-          "assets/img/gallery/bodas/27_10-14-24.jpg",
-          "assets/img/gallery/bodas/01_16-02-39.jpg",
-          "assets/img/gallery/bodas/14-11-59.jpg",
-          "assets/img/gallery/bodas/15-01-25.jpg",
-          "assets/img/gallery/bodas/17-31-52.jpg"
+          "assets/img/gallery/hero/circulo-4-thumb-1.jpg",
+          "assets/img/gallery/hero/circulo-4-thumb-2.jpg",
+          "assets/img/gallery/hero/circulo-4-thumb-3.jpg",
+          "assets/img/gallery/hero/circulo-4-thumb-4.jpg",
+          "assets/img/gallery/hero/circulo-4-thumb-5.jpg",
+          "assets/img/gallery/hero/circulo-4-thumb-6.jpg"
         ]
       },
       {
