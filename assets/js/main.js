@@ -77,13 +77,33 @@
       }
     ];
 
-    /* Tagline por categoría (círculo). Editar aquí cuando decidas cada categoría. */
-    var HERO_TAGLINES = [
-      "Retratos con carácter propio",
-      "Momentos en familia, para siempre",
-      "Su historia de dos, contada con detalle",
-      "Tu mejor perfil profesional",
-      "Recuerdos para toda la vida"
+    /* Texto por categoría (círculo). Editar aquí cuando decidas cada categoría. */
+    var HERO_COPY = [
+      {
+        eyebrow: "Retratos con carácter propio",
+        title: "Tu esencia,<br>en cada retrato.",
+        lede: "Sesiones de retrato personal con una dirección natural y cercana — para que la foto se sienta tan tuya como te sientes tú."
+      },
+      {
+        eyebrow: "Momentos en familia, para siempre",
+        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
+        lede: "Fotografía de familia con recuerdos impresos que se pueden tocar, no solo mirar en una pantalla."
+      },
+      {
+        eyebrow: "Su historia de dos, contada con detalle",
+        title: "Dos historias,<br>una sola foto.",
+        lede: "Sesiones de pareja y coberturas de boda que cuentan su historia de amor con emoción real."
+      },
+      {
+        eyebrow: "Tu mejor perfil profesional",
+        title: "Tu marca,<br>con la mejor cara.",
+        lede: "Retratos corporativos y de marca personal para presentarte con seguridad ante el mundo."
+      },
+      {
+        eyebrow: "Recuerdos para toda la vida",
+        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
+        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
+      }
     ];
 
     var railItems = [].slice.call(heroRoot.querySelectorAll(".hero-editorial-rail-item"));
@@ -91,6 +111,8 @@
     var thumbBtns = [].slice.call(heroRoot.querySelectorAll(".hero-editorial-thumb"));
     var railWrap = heroRoot.querySelector(".hero-editorial-rail");
     var heroTagline = heroRoot.querySelector(".hero-editorial-tagline");
+    var heroTitle = heroRoot.querySelector(".hero-editorial-title");
+    var heroLede = heroRoot.querySelector(".hero-editorial-copy .lede");
     var activeSet = 0;
 
     /* Extrae el color promedio de la foto principal, lo mezcla con el navy de
@@ -197,7 +219,12 @@
       railItems.forEach(function (item, i) {
         item.classList.toggle("active", i === index);
       });
-      if (heroTagline) heroTagline.textContent = HERO_TAGLINES[index] || heroTagline.textContent;
+      var copy = HERO_COPY[index];
+      if (copy) {
+        if (heroTagline) heroTagline.textContent = copy.eyebrow;
+        if (heroTitle) heroTitle.innerHTML = copy.title;
+        if (heroLede) heroLede.textContent = copy.lede;
+      }
       applyAccentFromSrc(set.main);
     };
 
