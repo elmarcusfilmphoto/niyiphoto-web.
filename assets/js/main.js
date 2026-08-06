@@ -56,13 +56,15 @@
         ]
       },
       {
+        /* Bodas — placeholder con fotos de boda hasta que subas las definitivas de este circulo. 6 fotos: 3 pisos de 1-2-3. */
         main: "assets/img/gallery/bodas/19-32-09.jpg",
         thumbs: [
           "assets/img/gallery/bodas/16-07-11.jpg",
           "assets/img/gallery/bodas/27_10-14-24.jpg",
           "assets/img/gallery/bodas/01_16-02-39.jpg",
           "assets/img/gallery/bodas/14-11-59.jpg",
-          "assets/img/gallery/bodas/15-01-25.jpg"
+          "assets/img/gallery/bodas/15-01-25.jpg",
+          "assets/img/gallery/bodas/17-31-52.jpg"
         ]
       },
       {
@@ -94,6 +96,17 @@
           "assets/img/gallery/bodas/20-49-35.jpg",
           "assets/img/gallery/bodas/20-54-13.jpg"
         ]
+      },
+      {
+        /* Perfil profesional — placeholder con fotos de boda hasta que subas retratos corporativos reales. */
+        main: "assets/img/gallery/bodas/17-42-05.jpg",
+        thumbs: [
+          "assets/img/gallery/bodas/17-17-51.jpg",
+          "assets/img/gallery/bodas/14-09-27.jpg",
+          "assets/img/gallery/bodas/14-09-12.jpg",
+          "assets/img/gallery/bodas/14-12-16-2.jpg",
+          "assets/img/gallery/bodas/15-20-04.jpg"
+        ]
       }
     ];
 
@@ -115,30 +128,36 @@
         lede: "Sesiones de pareja y coberturas de boda que cuentan su historia de amor con emoción real."
       },
       {
+        eyebrow: "Su gran día, contado con detalle",
+        title: "Un 'sí, quiero'<br>que dura para siempre.",
+        lede: "Coberturas de boda completas — civiles, eclesiásticas y recepción — con la emoción real del día capturada en cada foto."
+      },
+      {
+        eyebrow: "Recuerdos para toda la vida",
+        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
+        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
+      },
+      {
+        eyebrow: "Recuerdos para toda la vida",
+        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
+        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
+      },
+      {
+        eyebrow: "Recuerdos para toda la vida",
+        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
+        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
+      },
+      {
         eyebrow: "Tu mejor perfil profesional",
         title: "Tu marca,<br>con la mejor cara.",
         lede: "Retratos corporativos y de marca personal para presentarte con seguridad ante el mundo."
-      },
-      {
-        eyebrow: "Recuerdos para toda la vida",
-        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
-        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
-      },
-      {
-        eyebrow: "Recuerdos para toda la vida",
-        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
-        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
-      },
-      {
-        eyebrow: "Recuerdos para toda la vida",
-        title: "El tiempo pasa.<br>Los recuerdos permanecen.",
-        lede: "Fotografía de familia, bodas, embarazo, bebés y eventos — con recuerdos impresos que se pueden tocar."
       }
     ];
 
     var railItems = [].slice.call(heroRoot.querySelectorAll(".hero-editorial-rail-item"));
     var portraitFrame = heroRoot.querySelector(".hero-editorial-portrait-frame");
     var thumbBtns = [].slice.call(heroRoot.querySelectorAll(".hero-editorial-thumb"));
+    var thumbsWrap = heroRoot.querySelector(".hero-editorial-thumbs");
     var railWrap = heroRoot.querySelector(".hero-editorial-rail");
     var heroTagline = heroRoot.querySelector(".hero-editorial-tagline");
     var heroTitle = heroRoot.querySelector(".hero-editorial-title");
@@ -249,8 +268,12 @@
       mainCf.set(set.main, animate);
       setBlurLayer(set.main);
       thumbCfs.forEach(function (cf, i) {
-        cf.set(set.thumbs[i], animate);
+        if (set.thumbs[i]) cf.set(set.thumbs[i], animate);
       });
+      thumbBtns.forEach(function (btn, i) {
+        btn.classList.toggle("is-hidden", i >= set.thumbs.length);
+      });
+      if (thumbsWrap) thumbsWrap.classList.toggle("has-six", set.thumbs.length === 6);
       railItems.forEach(function (item, i) {
         item.classList.toggle("active", i === index);
       });
