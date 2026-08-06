@@ -483,6 +483,11 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
   .hero-editorial-portrait{
     order:2;
     position:relative; top:auto; right:auto; left:auto; bottom:auto; height:56vh; margin-top:20px;
+    padding:0 20px;
+  }
+  .hero-editorial-portrait-frame{
+    border-radius:28px;
+    box-shadow:0 30px 60px -18px rgba(0,0,0,.55);
   }
   .hero-editorial-thumbs{
     order:3; position:relative; right:auto; bottom:auto; z-index:6;
