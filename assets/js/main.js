@@ -26,82 +26,82 @@
     /* Cada set = { main, thumbs:[5 fotos] }. Edita las rutas aquí para cambiar las fotos. */
     var HERO_SETS = [
       {
-        main: "assets/img/gallery/hero/circulo-1-principal.jpg",
+        main: "assets/img/gallery/hero/circulo-1-principal.webp",
         thumbs: [
-          "assets/img/gallery/hero/circulo-1-thumb-1.jpg",
-          "assets/img/gallery/hero/circulo-1-thumb-2.jpg",
-          "assets/img/gallery/hero/circulo-1-thumb-3.jpg",
-          "assets/img/gallery/hero/circulo-1-thumb-4.jpg",
-          "assets/img/gallery/hero/circulo-1-thumb-5.jpg"
+          "assets/img/gallery/hero/circulo-1-thumb-1.webp",
+          "assets/img/gallery/hero/circulo-1-thumb-2.webp",
+          "assets/img/gallery/hero/circulo-1-thumb-3.webp",
+          "assets/img/gallery/hero/circulo-1-thumb-4.webp",
+          "assets/img/gallery/hero/circulo-1-thumb-5.webp"
         ]
       },
       {
-        main: "assets/img/gallery/hero/circulo-2-principal.jpg",
+        main: "assets/img/gallery/hero/circulo-2-principal.webp",
         thumbs: [
-          "assets/img/gallery/hero/circulo-2-thumb-1.jpg",
-          "assets/img/gallery/hero/circulo-2-thumb-2.jpg",
-          "assets/img/gallery/hero/circulo-2-thumb-3.jpg",
-          "assets/img/gallery/hero/circulo-2-thumb-4.jpg",
-          "assets/img/gallery/hero/circulo-2-thumb-5.jpg"
+          "assets/img/gallery/hero/circulo-2-thumb-1.webp",
+          "assets/img/gallery/hero/circulo-2-thumb-2.webp",
+          "assets/img/gallery/hero/circulo-2-thumb-3.webp",
+          "assets/img/gallery/hero/circulo-2-thumb-4.webp",
+          "assets/img/gallery/hero/circulo-2-thumb-5.webp"
         ]
       },
       {
-        main: "assets/img/gallery/hero/circulo-3-principal.jpg",
+        main: "assets/img/gallery/hero/circulo-3-principal.webp",
         thumbs: [
-          "assets/img/gallery/hero/circulo-3-thumb-1.jpg",
-          "assets/img/gallery/hero/circulo-3-thumb-2.jpg",
-          "assets/img/gallery/hero/circulo-3-thumb-3.jpg",
-          "assets/img/gallery/hero/circulo-3-thumb-4.jpg",
-          "assets/img/gallery/hero/circulo-3-thumb-5.jpg"
+          "assets/img/gallery/hero/circulo-3-thumb-1.webp",
+          "assets/img/gallery/hero/circulo-3-thumb-2.webp",
+          "assets/img/gallery/hero/circulo-3-thumb-3.webp",
+          "assets/img/gallery/hero/circulo-3-thumb-4.webp",
+          "assets/img/gallery/hero/circulo-3-thumb-5.webp"
         ]
       },
       {
         /* Bodas — 6 fotos: 3 pisos de 1-2-3. */
-        main: "assets/img/gallery/hero/circulo-4-principal.jpg",
+        main: "assets/img/gallery/hero/circulo-4-principal.webp",
         thumbs: [
-          "assets/img/gallery/hero/circulo-4-thumb-1.jpg",
-          "assets/img/gallery/hero/circulo-4-thumb-2.jpg",
-          "assets/img/gallery/hero/circulo-4-thumb-3.jpg",
-          "assets/img/gallery/hero/circulo-4-thumb-4.jpg",
-          "assets/img/gallery/hero/circulo-4-thumb-5.jpg",
-          "assets/img/gallery/hero/circulo-4-thumb-6.jpg"
+          "assets/img/gallery/hero/circulo-4-thumb-1.webp",
+          "assets/img/gallery/hero/circulo-4-thumb-2.webp",
+          "assets/img/gallery/hero/circulo-4-thumb-3.webp",
+          "assets/img/gallery/hero/circulo-4-thumb-4.webp",
+          "assets/img/gallery/hero/circulo-4-thumb-5.webp",
+          "assets/img/gallery/hero/circulo-4-thumb-6.webp"
         ]
       },
       {
         /* 7 fotos: 4 arriba, 3 abajo. */
-        main: "assets/img/gallery/hero/circulo-5-principal.jpg",
+        main: "assets/img/gallery/hero/circulo-5-principal.webp",
         thumbs: [
-          "assets/img/gallery/hero/circulo-5-thumb-1.jpg",
-          "assets/img/gallery/hero/circulo-5-thumb-2.jpg",
-          "assets/img/gallery/hero/circulo-5-thumb-3.jpg",
-          "assets/img/gallery/hero/circulo-5-thumb-4.jpg",
-          "assets/img/gallery/hero/circulo-5-thumb-5.jpg",
-          "assets/img/gallery/hero/circulo-5-thumb-6.jpg",
-          "assets/img/gallery/hero/circulo-5-thumb-7.jpg"
+          "assets/img/gallery/hero/circulo-5-thumb-1.webp",
+          "assets/img/gallery/hero/circulo-5-thumb-2.webp",
+          "assets/img/gallery/hero/circulo-5-thumb-3.webp",
+          "assets/img/gallery/hero/circulo-5-thumb-4.webp",
+          "assets/img/gallery/hero/circulo-5-thumb-5.webp",
+          "assets/img/gallery/hero/circulo-5-thumb-6.webp",
+          "assets/img/gallery/hero/circulo-5-thumb-7.webp"
         ]
       },
       {
-        main: "assets/img/gallery/hero/circulo-6-principal.jpg",
+        main: "assets/img/gallery/hero/circulo-6-principal.webp",
         thumbs: [
-          "assets/img/gallery/hero/circulo-6-thumb-1.jpg",
-          "assets/img/gallery/hero/circulo-6-thumb-2.jpg",
-          "assets/img/gallery/hero/circulo-6-thumb-3.jpg",
-          "assets/img/gallery/hero/circulo-6-thumb-4.jpg",
-          "assets/img/gallery/hero/circulo-6-thumb-5.jpg"
+          "assets/img/gallery/hero/circulo-6-thumb-1.webp",
+          "assets/img/gallery/hero/circulo-6-thumb-2.webp",
+          "assets/img/gallery/hero/circulo-6-thumb-3.webp",
+          "assets/img/gallery/hero/circulo-6-thumb-4.webp",
+          "assets/img/gallery/hero/circulo-6-thumb-5.webp"
         ]
       },
       {
         /* Quinceañeras — 8 fotos: 4 arriba, 4 abajo. */
-        main: "assets/img/gallery/hero/circulo-7-principal.jpg",
+        main: "assets/img/gallery/hero/circulo-7-principal.webp",
         thumbs: [
-          "assets/img/gallery/hero/circulo-7-thumb-1.jpg",
-          "assets/img/gallery/hero/circulo-7-thumb-2.jpg",
-          "assets/img/gallery/hero/circulo-7-thumb-3.jpg",
-          "assets/img/gallery/hero/circulo-7-thumb-4.jpg",
-          "assets/img/gallery/hero/circulo-7-thumb-5.jpg",
-          "assets/img/gallery/hero/circulo-7-thumb-6.jpg",
-          "assets/img/gallery/hero/circulo-7-thumb-7.jpg",
-          "assets/img/gallery/hero/circulo-7-thumb-8.jpg"
+          "assets/img/gallery/hero/circulo-7-thumb-1.webp",
+          "assets/img/gallery/hero/circulo-7-thumb-2.webp",
+          "assets/img/gallery/hero/circulo-7-thumb-3.webp",
+          "assets/img/gallery/hero/circulo-7-thumb-4.webp",
+          "assets/img/gallery/hero/circulo-7-thumb-5.webp",
+          "assets/img/gallery/hero/circulo-7-thumb-6.webp",
+          "assets/img/gallery/hero/circulo-7-thumb-7.webp",
+          "assets/img/gallery/hero/circulo-7-thumb-8.webp"
         ]
       }
     ];
