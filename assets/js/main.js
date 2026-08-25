@@ -626,23 +626,6 @@
       requestAnimationFrame(tick);
     }
 
-    var moreBtn = document.querySelector(".gallery-more");
-    var fullBtn = document.querySelector(".gallery-full");
-    if (moreBtn && fullBtn) {
-      var rowsExpanded = false;
-      moreBtn.addEventListener("click", function () {
-        rowsExpanded = !rowsExpanded;
-        galleryWrap.classList.toggle("expanded", rowsExpanded);
-        moreBtn.textContent = rowsExpanded ? "Ver menos" : "Ver más";
-        if (rowsExpanded) {
-          fullBtn.hidden = false;
-          requestAnimationFrame(function () { fullBtn.classList.add("is-visible"); });
-        } else {
-          fullBtn.classList.remove("is-visible");
-          fullBtn.hidden = true;
-        }
-      });
-    }
   }
 
   /* Galería completa (galeria.html): collage tipo masonry con foto ampliable */
