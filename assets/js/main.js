@@ -290,10 +290,11 @@
       applyAccentFromSrc(set.main);
     };
 
-    /* Click en un círculo: cambia la categoría activa */
+    /* Click en un círculo: cambia la categoría activa (velocidad de transición por defecto) */
     railItems.forEach(function (item, i) {
       item.addEventListener("click", function () {
         if (i !== activeSet) {
+          heroRoot.style.removeProperty("--hero-cf-duration");
           applySet(i, true);
           restartAutoplay();
         }
@@ -313,9 +314,10 @@
       applyAccentFromSrc(prevThumb);
     };
 
-    /* Click en una tarjeta: se intercambia con la foto principal */
+    /* Click en una tarjeta: se intercambia con la foto principal (velocidad de transición por defecto) */
     thumbBtns.forEach(function (btn, i) {
       btn.addEventListener("click", function () {
+        heroRoot.style.removeProperty("--hero-cf-duration");
         swapMainWithThumb(i, true);
         restartAutoplay();
       });
@@ -333,6 +335,7 @@
       clearTimeout(autoplayTimer);
       if (reducedMotion) return;
       autoplayTimer = setTimeout(function () {
+        heroRoot.style.removeProperty("--hero-cf-duration");
         var set = HERO_SETS[activeSet];
         if (autoplayCursor < set.thumbs.length) {
           swapMainWithThumb(autoplayCursor, true);
@@ -358,28 +361,90 @@
       }
     });
 
-    /* Rueda del mouse sobre el riel: avanza de categoría poco a poco */
-    if (railWrap) {
-      var wheelAccum = 0;
-      var WHEEL_THRESHOLD = 140;
-      railWrap.addEventListener(
-        "wheel",
-        function (e) {
-          e.preventDefault();
-          wheelAccum += e.deltaY;
-          if (Math.abs(wheelAccum) >= WHEEL_THRESHOLD) {
-            var dir = wheelAccum > 0 ? 1 : -1;
-            var next = Math.min(HERO_SETS.length - 1, Math.max(0, activeSet + dir));
-            if (next !== activeSet) {
-              applySet(next, true);
-              restartAutoplay();
-            }
-            wheelAccum = 0;
-          }
-        },
-        { passive: false }
-      );
-    }
+    /* Deslizar (rueda del mouse en cualquier parte del hero, o swipe táctil)
+       avanza/retrocede de categoría. Mientras haya un círculo siguiente/anterior
+       en esa dirección se "atrapa" el scroll (preventDefault); al llegar al primer
+       o último círculo se deja pasar el scroll normal de la página.
+       La duración del crossfade se adapta a la velocidad del gesto (--hero-cf-duration). */
+    var MIN_CF_MS = 220;
+    var MAX_CF_MS = 700;
+    var setCfSpeedFromVelocity = function (pxPerMs) {
+      var v = Math.min(Math.max(pxPerMs, 0), 3.2);
+      var ms = MAX_CF_MS - (v / 3.2) * (MAX_CF_MS - MIN_CF_MS);
+      heroRoot.style.setProperty("--hero-cf-duration", ms.toFixed(0) + "ms");
+    };
+    var canAdvance = function (dir) {
+      var next = activeSet + dir;
+      return next >= 0 && next <= HERO_SETS.length - 1;
+    };
+    var goToSet = function (dir) {
+      var next = Math.min(HERO_SETS.length - 1, Math.max(0, activeSet + dir));
+      if (next !== activeSet) {
+        applySet(next, true);
+        restartAutoplay();
+      }
+    };
+
+    var wheelAccum = 0;
+    var WHEEL_THRESHOLD = 140;
+    var wheelLastT = 0;
+    heroRoot.addEventListener(
+      "wheel",
+      function (e) {
+        var dir = e.deltaY > 0 ? 1 : -1;
+        if (!canAdvance(dir)) return; /* deja pasar el scroll normal de la pagina */
+        e.preventDefault();
+        var now = performance.now();
+        var dt = Math.max(1, now - wheelLastT);
+        wheelLastT = now;
+        setCfSpeedFromVelocity(Math.abs(e.deltaY) / dt);
+        wheelAccum += e.deltaY;
+        if (Math.abs(wheelAccum) >= WHEEL_THRESHOLD) {
+          goToSet(wheelAccum > 0 ? 1 : -1);
+          wheelAccum = 0;
+        }
+      },
+      { passive: false }
+    );
+
+    /* Swipe táctil (tablet/celular): mismo umbral y logica que la rueda del mouse */
+    var touchStartY = 0;
+    var touchLastY = 0;
+    var touchLastT = 0;
+    var touchAccum = 0;
+    heroRoot.addEventListener(
+      "touchstart",
+      function (e) {
+        touchStartY = touchLastY = e.touches[0].clientY;
+        touchLastT = performance.now();
+        touchAccum = 0;
+      },
+      { passive: true }
+    );
+    heroRoot.addEventListener(
+      "touchmove",
+      function (e) {
+        var y = e.touches[0].clientY;
+        var deltaY = touchLastY - y; /* dedo sube = deltaY positivo = avanzar, como la rueda */
+        var dir = deltaY > 0 ? 1 : -1;
+        if (!canAdvance(dir)) {
+          touchLastY = y;
+          return; /* deja pasar el scroll normal de la pagina */
+        }
+        e.preventDefault();
+        var now = performance.now();
+        var dt = Math.max(1, now - touchLastT);
+        setCfSpeedFromVelocity(Math.abs(deltaY) / dt);
+        touchLastT = now;
+        touchLastY = y;
+        touchAccum += deltaY;
+        if (Math.abs(touchAccum) >= WHEEL_THRESHOLD) {
+          goToSet(touchAccum > 0 ? 1 : -1);
+          touchAccum = 0;
+        }
+      },
+      { passive: false }
+    );
 
     renderRailThumbs();
     /* Circulo inicial al azar en cada carga/refresh, para que quien entre varias veces vea fotos distintas. */
