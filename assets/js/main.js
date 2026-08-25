@@ -824,4 +824,107 @@
       });
     });
   }
+
+  /* Secciones "ancladas" tipo scroll-jacking (piloto: Proceso).
+     Mientras el usuario deslice (rueda o swipe) dentro de la seccion y haya un
+     paso siguiente/anterior, se atrapa el scroll y se avanza de paso, igual que
+     el hero. Al llegar al primer/ultimo paso se deja pasar el scroll normal. */
+  var initPinnedSlides = function (section) {
+    var items = [].slice.call(section.querySelectorAll("[data-scroll-item]"));
+    var dots = [].slice.call(section.querySelectorAll(".process-dot"));
+    if (!items.length) return;
+    var active = 0;
+    var MIN_MS = 250;
+    var MAX_MS = 600;
+
+    /* Solo "engancha" el scroll cuando la seccion ya ocupa toda la pantalla —
+       si esta a medio entrar/salir (arriba de la fila del scroll), se deja el
+       scroll normal para no interrumpir la llegada a la seccion. */
+    var isFullyInView = false;
+    var checkInView = function () {
+      var r = section.getBoundingClientRect();
+      isFullyInView = r.top <= 1 && r.bottom >= window.innerHeight - 1;
+    };
+    checkInView();
+    window.addEventListener("scroll", checkInView, { passive: true });
+    window.addEventListener("resize", checkInView);
+
+    var setSpeed = function (pxPerMs) {
+      var v = Math.min(Math.max(pxPerMs, 0), 3.2);
+      var ms = MAX_MS - (v / 3.2) * (MAX_MS - MIN_MS);
+      section.style.setProperty("--pin-duration", ms.toFixed(0) + "ms");
+    };
+    var canAdvance = function (dir) {
+      if (!isFullyInView) return false;
+      var next = active + dir;
+      return next >= 0 && next <= items.length - 1;
+    };
+    var goTo = function (index) {
+      if (index === active) return;
+      items[active].classList.remove("active");
+      if (dots[active]) dots[active].classList.remove("active");
+      active = index;
+      items[active].classList.add("active");
+      if (dots[active]) dots[active].classList.add("active");
+    };
+
+    var wheelAccum = 0;
+    var wheelLastT = 0;
+    var THRESHOLD = 140;
+    section.addEventListener(
+      "wheel",
+      function (e) {
+        var dir = e.deltaY > 0 ? 1 : -1;
+        if (!canAdvance(dir)) return;
+        e.preventDefault();
+        var now = performance.now();
+        setSpeed(Math.abs(e.deltaY) / Math.max(1, now - wheelLastT));
+        wheelLastT = now;
+        wheelAccum += e.deltaY;
+        if (Math.abs(wheelAccum) >= THRESHOLD) {
+          goTo(Math.min(items.length - 1, Math.max(0, active + (wheelAccum > 0 ? 1 : -1))));
+          wheelAccum = 0;
+        }
+      },
+      { passive: false }
+    );
+
+    var touchLastY = 0;
+    var touchLastT = 0;
+    var touchAccum = 0;
+    section.addEventListener(
+      "touchstart",
+      function (e) {
+        touchLastY = e.touches[0].clientY;
+        touchLastT = performance.now();
+        touchAccum = 0;
+      },
+      { passive: true }
+    );
+    section.addEventListener(
+      "touchmove",
+      function (e) {
+        var y = e.touches[0].clientY;
+        var deltaY = touchLastY - y;
+        var dir = deltaY > 0 ? 1 : -1;
+        if (!canAdvance(dir)) {
+          touchLastY = y;
+          return;
+        }
+        e.preventDefault();
+        var now = performance.now();
+        setSpeed(Math.abs(deltaY) / Math.max(1, now - touchLastT));
+        touchLastT = now;
+        touchLastY = y;
+        touchAccum += deltaY;
+        if (Math.abs(touchAccum) >= THRESHOLD) {
+          goTo(Math.min(items.length - 1, Math.max(0, active + (touchAccum > 0 ? 1 : -1))));
+          touchAccum = 0;
+        }
+      },
+      { passive: false }
+    );
+  };
+
+  [].slice.call(document.querySelectorAll("[data-scroll-pin]")).forEach(initPinnedSlides);
 })();

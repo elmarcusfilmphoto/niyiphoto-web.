@@ -285,43 +285,46 @@
     </div>
   </section>
 
-  <!-- PROCESO -->
-  <section class="navy">
+  <!-- PROCESO (piloto de scroll-jacking: un paso a la vez, con animacion de entrada propia) -->
+  <section class="navy process-pin" data-scroll-pin>
     <div class="wrap">
       <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
         <span class="eyebrow">Cómo es la experiencia</span>
         <h2>Cinco pasos, cero sorpresas</h2>
       </div>
-      <div class="process-track">
-        <div class="process-step reveal">
+      <div class="process-slides" data-scroll-items>
+        <div class="process-slide active" data-scroll-item>
           <div class="n">01</div>
           <h4>Reserva de fecha</h4>
           <p>Un anticipo del 50% asegura tu espacio en la agenda.</p>
         </div>
-        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
-        <div class="process-step reveal">
+        <div class="process-slide" data-scroll-item>
           <div class="n">02</div>
           <h4>Asesoría previa</h4>
           <p>Te ayudamos con recomendaciones de vestuario y preparación.</p>
         </div>
-        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
-        <div class="process-step reveal">
+        <div class="process-slide" data-scroll-item>
           <div class="n">03</div>
           <h4>Sesión fotográfica</h4>
           <p>Guiamos todo de forma natural, para fotos espontáneas.</p>
         </div>
-        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
-        <div class="process-step reveal">
+        <div class="process-slide" data-scroll-item>
           <div class="n">04</div>
           <h4>Selección</h4>
           <p>Eliges tus imágenes favoritas desde la galería privada.</p>
         </div>
-        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
-        <div class="process-step reveal">
+        <div class="process-slide" data-scroll-item>
           <div class="n">05</div>
           <h4>Entrega</h4>
           <p>Recibes tus fotos digitales y productos impresos.</p>
         </div>
+      </div>
+      <div class="process-dots" data-scroll-dots>
+        <span class="process-dot active"></span>
+        <span class="process-dot"></span>
+        <span class="process-dot"></span>
+        <span class="process-dot"></span>
+        <span class="process-dot"></span>
       </div>
     </div>
   </section>
