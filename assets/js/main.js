@@ -837,17 +837,17 @@
     var MIN_MS = 250;
     var MAX_MS = 600;
 
-    /* Solo "engancha" el scroll cuando la seccion ya ocupa toda la pantalla —
-       si esta a medio entrar/salir (arriba de la fila del scroll), se deja el
-       scroll normal para no interrumpir la llegada a la seccion. */
-    var isFullyInView = false;
-    var checkInView = function () {
+    /* Solo "engancha" el scroll cuando la seccion ya ocupa (casi) toda la
+       pantalla — si esta a medio entrar/salir, se deja el scroll normal para
+       no interrumpir la llegada a la seccion. Tolerancia amplia (no 1px) para
+       que pequeñas diferencias de redondeo/zoom en el navegador real no lo
+       dejen bloqueado para siempre. Se recalcula en cada intento de scroll,
+       no solo en el evento "scroll", por si este no llega a tiempo. */
+    var IN_VIEW_TOLERANCE = 48;
+    var isFullyInView = function () {
       var r = section.getBoundingClientRect();
-      isFullyInView = r.top <= 1 && r.bottom >= window.innerHeight - 1;
+      return r.top <= IN_VIEW_TOLERANCE && r.bottom >= window.innerHeight - IN_VIEW_TOLERANCE;
     };
-    checkInView();
-    window.addEventListener("scroll", checkInView, { passive: true });
-    window.addEventListener("resize", checkInView);
 
     var setSpeed = function (pxPerMs) {
       var v = Math.min(Math.max(pxPerMs, 0), 3.2);
@@ -855,7 +855,7 @@
       section.style.setProperty("--pin-duration", ms.toFixed(0) + "ms");
     };
     var canAdvance = function (dir) {
-      if (!isFullyInView) return false;
+      if (!isFullyInView()) return false;
       var next = active + dir;
       return next >= 0 && next <= items.length - 1;
     };
