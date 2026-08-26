@@ -12,8 +12,14 @@
      que es la misma experiencia con rueda, trackpad, touch o la barra.
      onChange(index) se llama solo cuando el indice cambia.
      Devuelve { scrollToIndex } para saltar programaticamente (ej. clicks). */
-  var makeScrollProgress = function (section, count, onChange) {
-    var active = -1;
+  var makeScrollProgress = function (section, count, onChange, initialActive) {
+    /* "active" arranca ya en el indice inicial (por defecto 0) para que el
+       primer check() NO dispare onChange de nuevo — quien crea esto ya se
+       encarga de dejar ese primer estado listo por su cuenta. Sin esto, el
+       primer circulo del hero recibia dos llamadas casi simultaneas
+       (una animada via rAF y otra instantanea) que se pisaban entre si y
+       dejaban algunas miniaturas en blanco. */
+    var active = typeof initialActive === "number" ? initialActive : 0;
     var getProgress = function () {
       var rect = section.getBoundingClientRect();
       var scrollable = rect.height - window.innerHeight;
