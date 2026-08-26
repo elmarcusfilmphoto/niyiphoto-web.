@@ -67,6 +67,13 @@
       header.classList.toggle("scrolled", !isDark);
     };
     updateHeaderBg();
+    /* Se vuelve a evaluar un poco despues del primer calculo: en la primera
+       carga, las unidades dvh (que dependen del alto dinamico del navegador)
+       a veces no estan completamente resueltas todavia en el primerisimo
+       calculo de layout, lo que dejaba el header con el estilo equivocado
+       (claro en vez de oscuro/transparente) hasta el primer scroll. */
+    requestAnimationFrame(updateHeaderBg);
+    window.addEventListener("load", updateHeaderBg);
     window.addEventListener("scroll", updateHeaderBg, { passive: true });
     window.addEventListener("resize", updateHeaderBg);
   }
