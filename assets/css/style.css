@@ -94,7 +94,7 @@ section.navy .btn.solid:hover{ background:var(--cream); color:var(--navy); }
 --------------------------------------------------------- */
 .site-header{
   position:sticky; top:0; z-index:50;
-  background:rgba(8,20,32,.42);
+  background:rgba(8,20,32,.82);
   backdrop-filter:saturate(180%) blur(14px);
   -webkit-backdrop-filter:saturate(180%) blur(14px);
   border-bottom:1px solid rgba(255,255,255,.1);
