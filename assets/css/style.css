@@ -94,7 +94,7 @@ section.navy .btn.solid:hover{ background:var(--cream); color:var(--navy); }
 --------------------------------------------------------- */
 .site-header{
   position:sticky; top:0; z-index:50;
-  background:rgba(8,20,32,.82);
+  background:rgba(8,20,32,.42);
   backdrop-filter:saturate(180%) blur(14px);
   -webkit-backdrop-filter:saturate(180%) blur(14px);
   border-bottom:1px solid rgba(255,255,255,.1);
@@ -382,6 +382,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 }
 .hero-editorial-sticky{
   position:sticky; top:0; overflow:hidden;
+  margin-top:-65px; padding-top:65px;
   height:100vh; height:100dvh;
   color:var(--white);
   transition:background 1s ease;
@@ -408,7 +409,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 
 /* Retrato principal a pantalla completa, pegado al borde derecho */
 .hero-editorial-portrait{
-  position:absolute; top:0; right:0; bottom:0; left:16%;
+  position:absolute; top:-65px; right:0; bottom:0; left:16%;
   z-index:1;
 }
 .hero-editorial-portrait-frame{
@@ -533,7 +534,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
     padding:max(16px, env(safe-area-inset-top)) 20px 0;
   }
   .hero-editorial-portrait{
-    position:absolute; inset:0; height:auto; margin:0; padding:0; z-index:0;
+    position:absolute; top:-65px; right:0; bottom:0; left:0; height:auto; margin:0; padding:0; z-index:0;
   }
   .hero-editorial-portrait-frame{ border-radius:0; box-shadow:none; }
   .hero-editorial-blur-layer,
