@@ -825,40 +825,19 @@
     });
   }
 
-  /* Secciones "ancladas" tipo scroll-jacking (piloto: Proceso).
-     Mientras el usuario deslice (rueda o swipe) dentro de la seccion y haya un
-     paso siguiente/anterior, se atrapa el scroll y se avanza de paso, igual que
-     el hero. Al llegar al primer/ultimo paso se deja pasar el scroll normal. */
+  /* Secciones "ancladas" (piloto: Proceso). En vez de interceptar rueda/touch
+     (fragil: cada navegador/dispositivo maneja el scroll continuo distinto),
+     la seccion es "alta" (N x 100vh, ver CSS .process-pin) y su contenido se
+     queda fijo en pantalla (position:sticky) mientras se recorre esa altura.
+     El paso activo se calcula directamente del progreso real de scroll —
+     nunca se bloquea el scroll nativo, así que funciona igual con rueda,
+     trackpad, touch o arrastrando la barra, en cualquier navegador. */
   var initPinnedSlides = function (section) {
     var items = [].slice.call(section.querySelectorAll("[data-scroll-item]"));
     var dots = [].slice.call(section.querySelectorAll(".process-dot"));
     if (!items.length) return;
     var active = 0;
-    var MIN_MS = 250;
-    var MAX_MS = 600;
 
-    /* Solo "engancha" el scroll cuando la seccion ya ocupa (casi) toda la
-       pantalla — si esta a medio entrar/salir, se deja el scroll normal para
-       no interrumpir la llegada a la seccion. Tolerancia amplia (no 1px) para
-       que pequeñas diferencias de redondeo/zoom en el navegador real no lo
-       dejen bloqueado para siempre. Se recalcula en cada intento de scroll,
-       no solo en el evento "scroll", por si este no llega a tiempo. */
-    var IN_VIEW_TOLERANCE = 48;
-    var isFullyInView = function () {
-      var r = section.getBoundingClientRect();
-      return r.top <= IN_VIEW_TOLERANCE && r.bottom >= window.innerHeight - IN_VIEW_TOLERANCE;
-    };
-
-    var setSpeed = function (pxPerMs) {
-      var v = Math.min(Math.max(pxPerMs, 0), 3.2);
-      var ms = MAX_MS - (v / 3.2) * (MAX_MS - MIN_MS);
-      section.style.setProperty("--pin-duration", ms.toFixed(0) + "ms");
-    };
-    var canAdvance = function (dir) {
-      if (!isFullyInView()) return false;
-      var next = active + dir;
-      return next >= 0 && next <= items.length - 1;
-    };
     var goTo = function (index) {
       if (index === active) return;
       items[active].classList.remove("active");
@@ -868,62 +847,31 @@
       if (dots[active]) dots[active].classList.add("active");
     };
 
-    var wheelAccum = 0;
-    var wheelLastT = 0;
-    var THRESHOLD = 140;
-    section.addEventListener(
-      "wheel",
-      function (e) {
-        var dir = e.deltaY > 0 ? 1 : -1;
-        if (!canAdvance(dir)) return;
-        e.preventDefault();
-        var now = performance.now();
-        setSpeed(Math.abs(e.deltaY) / Math.max(1, now - wheelLastT));
-        wheelLastT = now;
-        wheelAccum += e.deltaY;
-        if (Math.abs(wheelAccum) >= THRESHOLD) {
-          goTo(Math.min(items.length - 1, Math.max(0, active + (wheelAccum > 0 ? 1 : -1))));
-          wheelAccum = 0;
-        }
-      },
-      { passive: false }
-    );
+    var update = function () {
+      var rect = section.getBoundingClientRect();
+      var scrollable = rect.height - window.innerHeight;
+      if (scrollable <= 0) return;
+      var progress = -rect.top / scrollable;
+      progress = Math.min(1, Math.max(0, progress));
+      var index = Math.min(items.length - 1, Math.floor(progress * items.length));
+      goTo(index);
+    };
 
-    var touchLastY = 0;
-    var touchLastT = 0;
-    var touchAccum = 0;
-    section.addEventListener(
-      "touchstart",
-      function (e) {
-        touchLastY = e.touches[0].clientY;
-        touchLastT = performance.now();
-        touchAccum = 0;
-      },
-      { passive: true }
-    );
-    section.addEventListener(
-      "touchmove",
-      function (e) {
-        var y = e.touches[0].clientY;
-        var deltaY = touchLastY - y;
-        var dir = deltaY > 0 ? 1 : -1;
-        if (!canAdvance(dir)) {
-          touchLastY = y;
-          return;
-        }
-        e.preventDefault();
-        var now = performance.now();
-        setSpeed(Math.abs(deltaY) / Math.max(1, now - touchLastT));
-        touchLastT = now;
-        touchLastY = y;
-        touchAccum += deltaY;
-        if (Math.abs(touchAccum) >= THRESHOLD) {
-          goTo(Math.min(items.length - 1, Math.max(0, active + (touchAccum > 0 ? 1 : -1))));
-          touchAccum = 0;
-        }
-      },
-      { passive: false }
-    );
+    /* Recalcula en cada frame (no solo en el evento "scroll") — asi funciona
+       sin importar como cada navegador/dispositivo dispare (o no) eventos de
+       scroll durante gestos continuos; el costo es minimo (una sola lectura
+       de geometria por frame). */
+    var loop = function () {
+      update();
+      requestAnimationFrame(loop);
+    };
+    if (reducedMotion) {
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    } else {
+      requestAnimationFrame(loop);
+    }
   };
 
   [].slice.call(document.querySelectorAll("[data-scroll-pin]")).forEach(initPinnedSlides);

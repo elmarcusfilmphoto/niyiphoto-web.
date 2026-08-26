@@ -680,16 +680,24 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 @media (max-width:620px){ .gallery-tile{ height:230px; } }
 
 /* ---------------------------------------------------------
-   Proceso (5 pasos) — piloto de scroll-jacking: un paso a pantalla
-   completa a la vez, con animacion de entrada propia por paso.
+   Proceso (5 pasos) — un paso a pantalla completa a la vez. Avanza con el
+   progreso real del scroll nativo (sticky + scroll-progress), NO bloqueando
+   eventos de rueda/touch — mucho mas confiable entre navegadores/dispositivos
+   que interceptar wheel/touchmove a mano.
+   La seccion .process-pin es "alta" (N x 100vh) para dar distancia de scroll;
+   .process-sticky se queda fija en pantalla mientras se recorre esa distancia.
 --------------------------------------------------------- */
-.process-pin{ position:relative; overflow:hidden; height:100vh; height:100dvh; display:flex; align-items:center; }
-.process-pin .wrap{ width:100%; }
+.process-pin{ position:relative; height:500vh; }
+.process-sticky{
+  position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden;
+  display:flex; align-items:center;
+}
+.process-sticky .wrap{ width:100%; }
 .process-slides{ position:relative; height:clamp(220px, 32vh, 320px); max-width:640px; margin:56px auto 0; }
 .process-slide{
   position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; opacity:0; transform:translateY(28px);
-  transition:opacity var(--pin-duration, .55s) ease, transform var(--pin-duration, .55s) cubic-bezier(.22,.61,.36,1);
+  transition:opacity .5s ease, transform .5s cubic-bezier(.22,.61,.36,1);
   pointer-events:none;
 }
 .process-slide.active{ opacity:1; transform:translateY(0); pointer-events:auto; }
@@ -700,7 +708,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 .process-dot{ width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.28); transition:width .3s ease, background .3s ease; }
 .process-dot.active{ width:26px; border-radius:4px; background:var(--cream); }
 @media (max-width:860px){
-  .process-pin{ height:auto; min-height:100vh; min-height:100dvh; }
+  .process-pin{ height:400vh; }
   .process-slides{ height:clamp(240px, 40vh, 340px); margin-top:40px; }
   .process-slide .n{ font-size:2.6rem; }
   .process-slide h4{ font-size:1.3rem; }
