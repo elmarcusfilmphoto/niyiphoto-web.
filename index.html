@@ -60,8 +60,11 @@
 
 <main>
 
-  <!-- HERO editorial -->
-  <section class="hero-editorial navy">
+  <!-- HERO editorial: seccion "alta" (N x 100vh) con contenido fijo (sticky);
+       la categoria activa avanza con el progreso real del scroll, igual que
+       la seccion Proceso. Ver initScrollPinCategories en main.js -->
+  <section class="hero-editorial navy" data-scroll-pin-categories>
+   <div class="hero-editorial-sticky">
     <!-- Riel de categorías: cada circulo muestra la "foto principal" de su set. Edita HERO_SETS en assets/js/main.js -->
     <div class="hero-editorial-rail reveal">
       <button type="button" class="hero-editorial-rail-item" data-set="0" aria-label="Categoría 1"><img class="hero-editorial-rail-img" alt="" /></button>
@@ -107,6 +110,7 @@
       <button type="button" class="hero-editorial-thumb" data-thumb="6" aria-label="Foto 7"><img class="hero-editorial-thumb-img" alt="" /></button>
       <button type="button" class="hero-editorial-thumb" data-thumb="7" aria-label="Foto 8"><img class="hero-editorial-thumb-img" alt="" /></button>
     </div>
+   </div>
   </section>
 
   <!-- INTRO -->

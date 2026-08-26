@@ -3,6 +3,57 @@
   "use strict";
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* Utilidad compartida para secciones "ancladas" (hero, Proceso, y las que
+     sigan): la seccion es "alta" (N x 100vh) con un hijo position:sticky que
+     se queda fijo en pantalla mientras se recorre esa altura. El "indice
+     activo" (0..count-1) se calcula del progreso real de scroll dentro de
+     la seccion, recalculando en cada frame — no depende de que un navegador
+     en particular dispare el evento "scroll" durante gestos continuos, asi
+     que es la misma experiencia con rueda, trackpad, touch o la barra.
+     onChange(index) se llama solo cuando el indice cambia.
+     Devuelve { scrollToIndex } para saltar programaticamente (ej. clicks). */
+  var makeScrollProgress = function (section, count, onChange) {
+    var active = -1;
+    var getProgress = function () {
+      var rect = section.getBoundingClientRect();
+      var scrollable = rect.height - window.innerHeight;
+      var progress = scrollable > 0 ? -rect.top / scrollable : 0;
+      return { progress: Math.min(1, Math.max(0, progress)), rect: rect, scrollable: scrollable };
+    };
+    var check = function () {
+      var index = Math.min(count - 1, Math.floor(getProgress().progress * count));
+      if (index !== active) {
+        active = index;
+        onChange(index);
+      }
+    };
+    /* Se combinan varias señales a proposito (no solo rAF): los navegadores
+       pausan requestAnimationFrame en pestañas en segundo plano/ocultas, asi
+       que "scroll"/"resize"/"visibilitychange" son la red de seguridad para
+       que el estado quede correcto apenas la pestaña vuelve a primer plano,
+       en vez de esperar a que rAF retome. */
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    document.addEventListener("visibilitychange", check);
+    if (!reducedMotion) {
+      var loop = function () {
+        check();
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+    return {
+      scrollToIndex: function (index) {
+        var state = getProgress();
+        if (state.scrollable <= 0) return;
+        var targetProgress = (index + 0.5) / count;
+        var targetY = window.scrollY + state.rect.top + targetProgress * state.scrollable;
+        window.scrollTo({ top: targetY, behavior: reducedMotion ? "auto" : "smooth" });
+      }
+    };
+  };
+
   /* Header: transparente + logo claro sobre fondos oscuros (navy), sólido + logo azul sobre fondos claros */
   var header = document.querySelector(".site-header");
   if (header) {
@@ -290,17 +341,6 @@
       applyAccentFromSrc(set.main);
     };
 
-    /* Click en un círculo: cambia la categoría activa (velocidad de transición por defecto) */
-    railItems.forEach(function (item, i) {
-      item.addEventListener("click", function () {
-        if (i !== activeSet) {
-          heroRoot.style.removeProperty("--hero-cf-duration");
-          applySet(i, true);
-          restartAutoplay();
-        }
-      });
-    });
-
     /* Intercambia la foto principal con una miniatura (click manual o avance automático) */
     var swapMainWithThumb = function (i, animate) {
       var prevMain = mainCf.get();
@@ -314,19 +354,19 @@
       applyAccentFromSrc(prevThumb);
     };
 
-    /* Click en una tarjeta: se intercambia con la foto principal (velocidad de transición por defecto) */
+    /* Click en una tarjeta: se intercambia con la foto principal */
     thumbBtns.forEach(function (btn, i) {
       btn.addEventListener("click", function () {
-        heroRoot.style.removeProperty("--hero-cf-duration");
         swapMainWithThumb(i, true);
         restartAutoplay();
       });
     });
 
-    /* Modo presentación: recorre todas las fotos del círculo actual y luego
-       avanza al siguiente círculo en orden, repitiendo el ciclo sin fin.
-       Se reinicia cada vez que el usuario interactúa manualmente, y se
-       respeta "reducir movimiento" del sistema. */
+    /* Modo presentación: recorre las fotos del círculo actual en bucle
+       (vuelve a la primera al llegar al final). Se reinicia cada vez que el
+       usuario interactúa manualmente, y respeta "reducir movimiento". La
+       categoria en si ya no la cambia el autoplay — ahora la categoria la
+       decide el scroll (ver initScrollPinCategories mas abajo). */
     var AUTOPLAY_DELAY = 4500;
     var autoplayCursor = 0;
     var autoplayTimer = null;
@@ -335,15 +375,9 @@
       clearTimeout(autoplayTimer);
       if (reducedMotion) return;
       autoplayTimer = setTimeout(function () {
-        heroRoot.style.removeProperty("--hero-cf-duration");
         var set = HERO_SETS[activeSet];
-        if (autoplayCursor < set.thumbs.length) {
-          swapMainWithThumb(autoplayCursor, true);
-          autoplayCursor++;
-        } else {
-          autoplayCursor = 0;
-          applySet((activeSet + 1) % HERO_SETS.length, true);
-        }
+        swapMainWithThumb(autoplayCursor % set.thumbs.length, true);
+        autoplayCursor = (autoplayCursor + 1) % set.thumbs.length;
         scheduleAutoplay();
       }, AUTOPLAY_DELAY);
     };
@@ -361,94 +395,33 @@
       }
     });
 
-    /* Deslizar (rueda del mouse en cualquier parte del hero, o swipe táctil)
-       avanza/retrocede de categoría. Mientras haya un círculo siguiente/anterior
-       en esa dirección se "atrapa" el scroll (preventDefault); al llegar al primer
-       o último círculo se deja pasar el scroll normal de la página.
-       La duración del crossfade se adapta a la velocidad del gesto (--hero-cf-duration). */
-    var MIN_CF_MS = 220;
-    var MAX_CF_MS = 700;
-    var setCfSpeedFromVelocity = function (pxPerMs) {
-      var v = Math.min(Math.max(pxPerMs, 0), 3.2);
-      var ms = MAX_CF_MS - (v / 3.2) * (MAX_CF_MS - MIN_CF_MS);
-      heroRoot.style.setProperty("--hero-cf-duration", ms.toFixed(0) + "ms");
-    };
-    var canAdvance = function (dir) {
-      var next = activeSet + dir;
-      return next >= 0 && next <= HERO_SETS.length - 1;
-    };
-    var goToSet = function (dir) {
-      var next = Math.min(HERO_SETS.length - 1, Math.max(0, activeSet + dir));
-      if (next !== activeSet) {
-        applySet(next, true);
-        restartAutoplay();
-      }
-    };
+    /* La categoria activa la decide el progreso real de scroll dentro de la
+       seccion (que es "alta", 7x100vh — ver CSS .hero-editorial), con el
+       contenido fijo en pantalla (.hero-editorial-sticky). Misma tecnica que
+       la seccion Proceso: nunca se bloquea el scroll nativo. */
+    var heroScroll = makeScrollProgress(heroRoot, HERO_SETS.length, function (index) {
+      applySet(index, true);
+      restartAutoplay();
+    });
 
-    var wheelAccum = 0;
-    var WHEEL_THRESHOLD = 140;
-    var wheelLastT = 0;
-    heroRoot.addEventListener(
-      "wheel",
-      function (e) {
-        var dir = e.deltaY > 0 ? 1 : -1;
-        if (!canAdvance(dir)) return; /* deja pasar el scroll normal de la pagina */
-        e.preventDefault();
-        var now = performance.now();
-        var dt = Math.max(1, now - wheelLastT);
-        wheelLastT = now;
-        setCfSpeedFromVelocity(Math.abs(e.deltaY) / dt);
-        wheelAccum += e.deltaY;
-        if (Math.abs(wheelAccum) >= WHEEL_THRESHOLD) {
-          goToSet(wheelAccum > 0 ? 1 : -1);
-          wheelAccum = 0;
-        }
-      },
-      { passive: false }
-    );
-
-    /* Swipe táctil (tablet/celular): mismo umbral y logica que la rueda del mouse */
-    var touchStartY = 0;
-    var touchLastY = 0;
-    var touchLastT = 0;
-    var touchAccum = 0;
-    heroRoot.addEventListener(
-      "touchstart",
-      function (e) {
-        touchStartY = touchLastY = e.touches[0].clientY;
-        touchLastT = performance.now();
-        touchAccum = 0;
-      },
-      { passive: true }
-    );
-    heroRoot.addEventListener(
-      "touchmove",
-      function (e) {
-        var y = e.touches[0].clientY;
-        var deltaY = touchLastY - y; /* dedo sube = deltaY positivo = avanzar, como la rueda */
-        var dir = deltaY > 0 ? 1 : -1;
-        if (!canAdvance(dir)) {
-          touchLastY = y;
-          return; /* deja pasar el scroll normal de la pagina */
-        }
-        e.preventDefault();
-        var now = performance.now();
-        var dt = Math.max(1, now - touchLastT);
-        setCfSpeedFromVelocity(Math.abs(deltaY) / dt);
-        touchLastT = now;
-        touchLastY = y;
-        touchAccum += deltaY;
-        if (Math.abs(touchAccum) >= WHEEL_THRESHOLD) {
-          goToSet(touchAccum > 0 ? 1 : -1);
-          touchAccum = 0;
-        }
-      },
-      { passive: false }
-    );
+    /* Click en un círculo: hace scroll hasta el tramo de esa categoria
+       (el cambio visual lo dispara el propio scroll, como si el usuario
+       hubiera llegado ahi deslizando). */
+    railItems.forEach(function (item, i) {
+      item.addEventListener("click", function () {
+        heroScroll.scrollToIndex(i);
+      });
+    });
 
     renderRailThumbs();
-    /* Circulo inicial al azar en cada carga/refresh, para que quien entre varias veces vea fotos distintas. */
-    applySet(Math.floor(Math.random() * HERO_SETS.length), false);
+    applySet(0, false);
+    /* Foto inicial al azar dentro de la primera categoria, para que quien
+       entre varias veces vea variedad (la categoria en si siempre empieza
+       en la primera, porque la pagina siempre carga con el scroll en 0). */
+    var firstSet = HERO_SETS[0];
+    if (firstSet.thumbs.length) {
+      swapMainWithThumb(Math.floor(Math.random() * firstSet.thumbs.length), false);
+    }
     scheduleAutoplay();
   }
 
@@ -825,53 +798,24 @@
     });
   }
 
-  /* Secciones "ancladas" (piloto: Proceso). En vez de interceptar rueda/touch
-     (fragil: cada navegador/dispositivo maneja el scroll continuo distinto),
-     la seccion es "alta" (N x 100vh, ver CSS .process-pin) y su contenido se
-     queda fijo en pantalla (position:sticky) mientras se recorre esa altura.
-     El paso activo se calcula directamente del progreso real de scroll —
-     nunca se bloquea el scroll nativo, así que funciona igual con rueda,
-     trackpad, touch o arrastrando la barra, en cualquier navegador. */
+  /* Secciones "ancladas" con pasos discretos (Proceso, y las que sigan):
+     usa la utilidad compartida makeScrollProgress para saber que paso
+     mostrar segun el progreso real de scroll. */
   var initPinnedSlides = function (section) {
     var items = [].slice.call(section.querySelectorAll("[data-scroll-item]"));
     var dots = [].slice.call(section.querySelectorAll(".process-dot"));
     if (!items.length) return;
     var active = 0;
+    items[0].classList.add("active");
+    if (dots[0]) dots[0].classList.add("active");
 
-    var goTo = function (index) {
-      if (index === active) return;
+    makeScrollProgress(section, items.length, function (index) {
       items[active].classList.remove("active");
       if (dots[active]) dots[active].classList.remove("active");
       active = index;
       items[active].classList.add("active");
       if (dots[active]) dots[active].classList.add("active");
-    };
-
-    var update = function () {
-      var rect = section.getBoundingClientRect();
-      var scrollable = rect.height - window.innerHeight;
-      if (scrollable <= 0) return;
-      var progress = -rect.top / scrollable;
-      progress = Math.min(1, Math.max(0, progress));
-      var index = Math.min(items.length - 1, Math.floor(progress * items.length));
-      goTo(index);
-    };
-
-    /* Recalcula en cada frame (no solo en el evento "scroll") — asi funciona
-       sin importar como cada navegador/dispositivo dispare (o no) eventos de
-       scroll durante gestos continuos; el costo es minimo (una sola lectura
-       de geometria por frame). */
-    var loop = function () {
-      update();
-      requestAnimationFrame(loop);
-    };
-    if (reducedMotion) {
-      update();
-      window.addEventListener("scroll", update, { passive: true });
-      window.addEventListener("resize", update);
-    } else {
-      requestAnimationFrame(loop);
-    }
+    });
   };
 
   [].slice.call(document.querySelectorAll("[data-scroll-pin]")).forEach(initPinnedSlides);

@@ -344,15 +344,24 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 /* ---------------------------------------------------------
    Hero editorial (solo Home) — retrato central + miniaturas
 --------------------------------------------------------- */
-.hero-editorial.navy{
-  background:var(--hero-accent, var(--navy));
-}
+/* Seccion "alta" (7 categorias x 100vh) que da la distancia de scroll;
+   el contenido real vive en .hero-editorial-sticky, fijo en pantalla
+   (position:sticky) mientras se recorre esa altura — misma tecnica que
+   .process-pin/.process-sticky. La categoria activa se calcula del
+   progreso real de scroll en main.js (initScrollPinCategories). */
 .hero-editorial{
-  position:relative; overflow:hidden;
-  color:var(--white);
+  position:relative;
   margin-top:-64px; padding-top:64px;
+  height:calc(7 * 100vh); height:calc(7 * 100dvh);
+}
+.hero-editorial-sticky{
+  position:sticky; top:0; overflow:hidden;
   height:100vh; height:100dvh;
+  color:var(--white);
   transition:background 1s ease;
+}
+.hero-editorial.navy .hero-editorial-sticky{
+  background:var(--hero-accent, var(--navy));
 }
 
 /* Riel de miniaturas circulares, pegado al borde izquierdo */
@@ -490,7 +499,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
    entre categorias se sienta natural, igual que en PC). Foto de fondo a pantalla
    completa; riel arriba, tarjetas + texto agrupados abajo con degradado de lectura. */
 @media (max-width:900px){
-  .hero-editorial{ height:100vh; height:100dvh; overflow:hidden; touch-action:pan-x; display:flex; flex-direction:column; }
+  .hero-editorial-sticky{ height:100vh; height:100dvh; overflow:hidden; display:flex; flex-direction:column; }
   .hero-editorial-rail{
     order:1; margin-bottom:auto;
     position:relative; left:auto; top:auto; transform:none;
