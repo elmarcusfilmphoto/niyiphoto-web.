@@ -84,16 +84,6 @@
     /* Cada set = { main, thumbs:[5 fotos] }. Edita las rutas aquí para cambiar las fotos. */
     var HERO_SETS = [
       {
-        main: "assets/img/gallery/hero/circulo-1-principal.webp",
-        thumbs: [
-          "assets/img/gallery/hero/circulo-1-thumb-1.webp",
-          "assets/img/gallery/hero/circulo-1-thumb-2.webp",
-          "assets/img/gallery/hero/circulo-1-thumb-3.webp",
-          "assets/img/gallery/hero/circulo-1-thumb-4.webp",
-          "assets/img/gallery/hero/circulo-1-thumb-5.webp"
-        ]
-      },
-      {
         main: "assets/img/gallery/hero/circulo-2-principal.webp",
         thumbs: [
           "assets/img/gallery/hero/circulo-2-thumb-1.webp",
@@ -111,6 +101,16 @@
           "assets/img/gallery/hero/circulo-3-thumb-3.webp",
           "assets/img/gallery/hero/circulo-3-thumb-4.webp",
           "assets/img/gallery/hero/circulo-3-thumb-5.webp"
+        ]
+      },
+      {
+        main: "assets/img/gallery/hero/circulo-1-principal.webp",
+        thumbs: [
+          "assets/img/gallery/hero/circulo-1-thumb-1.webp",
+          "assets/img/gallery/hero/circulo-1-thumb-2.webp",
+          "assets/img/gallery/hero/circulo-1-thumb-3.webp",
+          "assets/img/gallery/hero/circulo-1-thumb-4.webp",
+          "assets/img/gallery/hero/circulo-1-thumb-5.webp"
         ]
       },
       {
@@ -167,12 +167,6 @@
     /* Texto por categoría (círculo). packagesUrl = a donde lleva el boton "Ver paquetes". Editar aquí cuando decidas cada categoría. */
     var HERO_COPY = [
       {
-        eyebrow: "Retratos con carácter propio",
-        title: "Tu esencia,<br>en cada retrato.",
-        lede: "Sesiones de retrato personal con una dirección natural y cercana — para que la foto se sienta tan tuya como te sientes tú.",
-        packagesUrl: "retratos.html"
-      },
-      {
         eyebrow: "Momentos en familia, para siempre",
         title: "El tiempo pasa.<br>Los recuerdos permanecen.",
         lede: "Fotografía de familia con recuerdos impresos que se pueden tocar, no solo mirar en una pantalla.",
@@ -183,6 +177,12 @@
         title: "Dos historias,<br>una sola foto.",
         lede: "Sesiones de pareja y coberturas de boda que cuentan su historia de amor con emoción real.",
         packagesUrl: "parejas.html"
+      },
+      {
+        eyebrow: "Retratos con carácter propio",
+        title: "Tu esencia,<br>en cada retrato.",
+        lede: "Sesiones de retrato personal con una dirección natural y cercana — para que la foto se sienta tan tuya como te sientes tú.",
+        packagesUrl: "retratos.html"
       },
       {
         eyebrow: "Su gran día, contado con detalle",
