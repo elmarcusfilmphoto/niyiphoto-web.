@@ -519,8 +519,9 @@
     });
   }
 
-  /* Animaciones de aparición al hacer scroll */
-  var reveals = document.querySelectorAll(".reveal");
+  /* Animaciones de aparición al hacer scroll (incluye variantes .reveal-left/
+     -right/-pop y contenedores .reveal-cascade, que solo animan sus hijos) */
+  var reveals = document.querySelectorAll(".reveal, .reveal-cascade");
   if (reveals.length) {
     if (reducedMotion || !("IntersectionObserver" in window)) {
       reveals.forEach(function (el) { el.classList.add("is-visible"); });

@@ -287,8 +287,35 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
 .pkg-grid .reveal:nth-child(2), .testi-grid .reveal:nth-child(2){ transition-delay:.12s; }
 .pkg-grid .reveal:nth-child(3), .testi-grid .reveal:nth-child(3){ transition-delay:.21s; }
 .pkg-grid .reveal:nth-child(4){ transition-delay:.3s; }
+
+/* Variantes mas elaboradas de entrada, mismo disparador (.is-visible) que
+   .reveal — se combinan con la clase base: class="reveal reveal-left" etc. */
+.reveal-left{ transform:translateX(-46px); }
+.reveal-right{ transform:translateX(46px); }
+.reveal-pop{ transform:translateY(18px) scale(.94); }
+.reveal.is-visible{ transition-duration:.8s; }
+.reveal-left.is-visible, .reveal-right.is-visible, .reveal-pop.is-visible{ transform:none; }
+
+/* Cascada para grupos de hijos (ej. filter-pills): cada uno entra con su
+   propio pequeño retraso, en vez de todos a la vez. Se activa poniendo
+   .reveal-cascade en el contenedor (el JS mueve .is-visible a los hijos). */
+.reveal-cascade > *{
+  opacity:0; transform:translateY(14px) scale(.9);
+  transition:opacity .5s ease, transform .5s cubic-bezier(.22,.61,.36,1);
+}
+.reveal-cascade.is-visible > *{ opacity:1; transform:none; }
+.reveal-cascade.is-visible > *:nth-child(1){ transition-delay:0s; }
+.reveal-cascade.is-visible > *:nth-child(2){ transition-delay:.05s; }
+.reveal-cascade.is-visible > *:nth-child(3){ transition-delay:.1s; }
+.reveal-cascade.is-visible > *:nth-child(4){ transition-delay:.15s; }
+.reveal-cascade.is-visible > *:nth-child(5){ transition-delay:.2s; }
+.reveal-cascade.is-visible > *:nth-child(6){ transition-delay:.25s; }
+.reveal-cascade.is-visible > *:nth-child(7){ transition-delay:.3s; }
+.reveal-cascade.is-visible > *:nth-child(8){ transition-delay:.35s; }
+
 @media (prefers-reduced-motion:reduce){
-  .reveal{ transition:none; opacity:1; transform:none; }
+  .reveal, .reveal-left, .reveal-right, .reveal-pop{ transition:none; opacity:1; transform:none; }
+  .reveal-cascade > *{ transition:none; opacity:1; transform:none; }
 }
 
 /* ---------------------------------------------------------
