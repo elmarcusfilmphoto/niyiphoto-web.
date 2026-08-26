@@ -350,8 +350,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
    .process-pin/.process-sticky. La categoria activa se calcula del
    progreso real de scroll en main.js (initScrollPinCategories). */
 .hero-editorial{
-  position:relative;
-  margin-top:-64px; padding-top:64px;
+  position:relative; padding:0;
   height:calc(7 * 100vh); height:calc(7 * 100dvh);
 }
 .hero-editorial-sticky{
@@ -696,7 +695,7 @@ section.navy .lede{ color:rgba(255,255,255,.78); }
    La seccion .process-pin es "alta" (N x 100vh) para dar distancia de scroll;
    .process-sticky se queda fija en pantalla mientras se recorre esa distancia.
 --------------------------------------------------------- */
-.process-pin{ position:relative; height:500vh; }
+.process-pin{ position:relative; padding:0; height:500vh; }
 .process-sticky{
   position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden;
   display:flex; align-items:center;
