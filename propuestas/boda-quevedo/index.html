@@ -598,6 +598,13 @@ footer a:hover{ color:var(--cream); }
             </details>
             <details class="item">
               <summary>
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><rect x="7.5" y="6.5" width="9" height="11"/></svg>
+                <span class="it-t"><b>3 portarretratos</b> 6R con sus fotos favoritas</span><span class="chev"></span>
+              </summary>
+              <p class="it-d">Ustedes eligen sus tres fotos favoritas del evento y se las entregamos impresas y enmarcadas, listas para su casa o para regalar.</p>
+            </details>
+            <details class="item">
+              <summary>
                 <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
                 <span class="it-t">Asesoría previa personalizada</span><span class="chev"></span>
               </summary>
@@ -688,7 +695,7 @@ footer a:hover{ color:var(--cream); }
           <div>
             <span class="more-kicker">Recuerdos impresos</span>
             <h3>¿Más recuerdos para tocar?</h3>
-            <p>Un álbum más grande, uno para los papás o un retablo para su casa.</p>
+            <p>Más fotos digitales, impresiones, un álbum más grande o un retablo para su casa.</p>
           </div>
           <span class="more-cta"><span class="cta-closed">Ver opciones</span><span class="cta-open">Cerrar</span><i>+</i></span>
         </summary>
@@ -717,6 +724,8 @@ footer a:hover{ color:var(--cream); }
           <div class="mb-block">
             <div class="mb-head"><span class="mb-tag">Nuevo producto</span><h4>Sumen otra pieza</h4></div>
             <p class="mb-intro">Productos aparte de su paquete, cada uno con su propio precio. Elijan cuántos quieren.</p>
+            <div class="opt-row" data-qty="digitales" data-max="10" data-unit="10" data-name="fotos digitales extra" data-price="30"><span class="t">+10 fotos digitales editadas<span class="s">Por combo · para sumar a sus 150</span></span><span class="opt-right"><span class="p">$30</span><span class="stepper"><button aria-label="Quitar uno" disabled>−</button><output>0</output><button aria-label="Agregar uno">+</button></span></span></div>
+            <div class="opt-row" data-qty="impresiones" data-max="10" data-unit="20" data-name="impresiones 5R" data-price="30"><span class="t">20 impresiones 5R<span class="s">Por combo · en papel fotográfico</span></span><span class="opt-right"><span class="p">$30</span><span class="stepper"><button aria-label="Quitar uno" disabled>−</button><output>0</output><button aria-label="Agregar uno">+</button></span></span></div>
             <div class="opt-row" data-qty="minibook" data-name="Mini book 20×20 cm" data-price="95"><span class="t">Mini book 20×20 cm · 20 pág<span class="s">Ideal para regalar a los papás</span></span><span class="opt-right"><span class="p">$95</span><span class="stepper"><button aria-label="Quitar uno" disabled>−</button><output>0</output><button aria-label="Agregar uno">+</button></span></span></div>
             <div class="opt-row" data-qty="retablo30" data-name="Retablo 30×40 cm" data-price="45"><span class="t">Retablo 30×40 cm<span class="s">Para una repisa o escritorio</span></span><span class="opt-right"><span class="p">$45</span><span class="stepper"><button aria-label="Quitar uno" disabled>−</button><output>0</output><button aria-label="Agregar uno">+</button></span></span></div>
             <div class="opt-row" data-qty="retablo50" data-name="Retablo 50×60 cm" data-price="95"><span class="t">Retablo 50×60 cm<span class="s">La foto protagonista de su sala</span></span><span class="opt-right"><span class="p">$95</span><span class="stepper"><button aria-label="Quitar uno" disabled>−</button><output>0</output><button aria-label="Agregar uno">+</button></span></span></div>
@@ -770,7 +779,7 @@ footer a:hover{ color:var(--cream); }
           <li class="step reveal"><span class="sn">02</span><h3>Reserva de fecha</h3><p>Aseguran su fecha con la firma del contrato y un anticipo. Así garantizamos que estaremos con ustedes ese día.</p></li>
           <li class="step reveal"><span class="sn">03</span><h3>El gran día</h3><p>Capturamos su boda de forma natural y artística, cuidando cada emoción, detalle y recuerdo.</p></li>
           <li class="step reveal"><span class="sn">04</span><h3>Selección de fotografías</h3><p>Ustedes eligen sus imágenes favoritas para el photobook, según lo que incluye su paquete.</p></li>
-          <li class="step reveal"><span class="sn">05</span><h3>Entrega de recuerdos</h3><p>Reciben sus fotografías digitales, su photobook y su caja grabada, listos para conservar.</p></li>
+          <li class="step reveal"><span class="sn">05</span><h3>Entrega de recuerdos</h3><p>Reciben sus fotografías digitales, su photobook, su caja grabada y sus portarretratos, listos para conservar.</p></li>
         </ol>
       </div>
     </div>
@@ -876,7 +885,9 @@ function lines(){
   if (state.book.price) out.push({ name: state.book.name, price: state.book.price });
   $$("[data-qty]").forEach(r => {
     const q = state.qty[r.dataset.qty] || 0;
-    if (q) out.push({ name: (q > 1 ? q + " × " : "") + r.dataset.name, price: q * +r.dataset.price });
+    if (!q) return;
+    const name = r.dataset.unit ? `${q * r.dataset.unit} ${r.dataset.name}` : (q > 1 ? q + " × " : "") + r.dataset.name;
+    out.push({ name, price: q * +r.dataset.price });
   });
   return out;
 }
@@ -928,10 +939,10 @@ $$('input[name="book"]').forEach(r => r.addEventListener("change", () => {
 }));
 
 $$("[data-qty]").forEach(row => {
-  const [minus, plus] = $$("button", row), out = $("output", row), key = row.dataset.qty;
-  const set = q => { state.qty[key] = q; out.textContent = q; minus.disabled = q === 0; plus.disabled = q === 5; render(); };
+  const [minus, plus] = $$("button", row), out = $("output", row), key = row.dataset.qty, max = +(row.dataset.max || 5);
+  const set = q => { state.qty[key] = q; out.textContent = q; minus.disabled = q === 0; plus.disabled = q === max; render(); };
   minus.addEventListener("click", () => set(Math.max(0, (state.qty[key] || 0) - 1)));
-  plus.addEventListener("click", () => set(Math.min(5, (state.qty[key] || 0) + 1)));
+  plus.addEventListener("click", () => set(Math.min(max, (state.qty[key] || 0) + 1)));
 });
 
 // Capítulos opcionales → llevan al extra correspondiente
