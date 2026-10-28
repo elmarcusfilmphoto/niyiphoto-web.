@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Su propuesta de boda — NIYI Photo Studio</title>
+<meta name="description" content="Propuesta de cobertura fotográfica para su boda eclesiástica." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#081a29" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230d314b%22/><text x=%2250%22 y=%2266%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22%23f6ebcd%22 font-family=%22sans-serif%22>N</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== Paleta NIYI ===== */
+:root{
+  --navy:#0d314b;
+  --navy-deep:#081a29;
+  --ink:#17222b;
+  --muted:#5f6b74;
+  --cream:#f6ebcd;
+  --cream-deep:#e2c98f;
+  --paper:#f8f4ea;
+  --paper-2:#efe8d6;
+  --gold-ink:#86672c;          /* dorado legible sobre papel */
+  --line:rgba(13,49,75,.14);
+  --line-dark:rgba(246,235,205,.16);
+  --serif:"Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --gutter:clamp(20px, 5vw, 64px);
+  color-scheme:light;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  font-variant-numeric:lining-nums;
+  background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-weight:400; font-size:16px; line-height:1.65;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+body.locked{ overflow:hidden; }
+img{ display:block; max-width:100%; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+a{ color:inherit; }
+
+.wrap{ width:100%; max-width:1180px; margin:0 auto; padding:0 var(--gutter); }
+.label{
+  font-family:var(--sans); font-size:11px; font-weight:500;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--gold-ink);
+}
+.dark .label{ color:var(--cream-deep); }
+.title{
+  font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(2.6rem, 6.4vw, 4.6rem); line-height:1.02; letter-spacing:-.01em;
+  color:var(--navy); text-transform:lowercase;
+}
+.dark .title{ color:var(--cream); }
+.lede{ font-size:1.02rem; color:var(--muted); max-width:34rem; font-weight:300; }
+.dark .lede{ color:rgba(246,235,205,.72); }
+.dark{ background:var(--navy-deep); color:var(--cream); }
+section{ position:relative; }
+.pad{ padding:clamp(88px, 13vw, 160px) 0; }
+.head{ display:grid; gap:18px; margin-bottom:clamp(40px, 6vw, 72px); }
+
+/* Aparición suave al hacer scroll */
+.reveal{ opacity:0; transform:translateY(22px); transition:opacity 1.1s var(--ease), transform 1.1s var(--ease); transition-delay:var(--d, 0s); }
+.reveal.in{ opacity:1; transform:none; }
+
+/* ===== Sobre de apertura ===== */
+#opener{
+  position:fixed; inset:0; z-index:100; background:var(--navy-deep); color:var(--cream);
+  display:grid; place-items:center; text-align:center; padding:32px var(--gutter);
+  clip-path:inset(0 0 0 0); transition:clip-path 1.3s cubic-bezier(.76,0,.24,1);
+}
+#opener.open{ clip-path:inset(0 0 100% 0); }
+#opener::before{
+  content:""; position:absolute; inset:18px; border:1px solid var(--line-dark); pointer-events:none;
+}
+.op-inner{ display:grid; gap:22px; justify-items:center; max-width:30rem; }
+.op-inner > *{ opacity:0; transform:translateY(12px); animation:rise 1.2s var(--ease) forwards; }
+.op-inner > *:nth-child(2){ animation-delay:.25s; }
+.op-inner > *:nth-child(3){ animation-delay:.45s; }
+.op-inner > *:nth-child(4){ animation-delay:.65s; }
+.op-inner > *:nth-child(5){ animation-delay:.9s; }
+@keyframes rise{ to{ opacity:1; transform:none; } }
+.op-logo{ width:min(240px, 62vw); opacity:.95; }
+.op-rule{ width:1px; height:48px; background:linear-gradient(var(--cream-deep), transparent); }
+.op-for{ font-family:var(--serif); font-style:italic; font-size:clamp(1.15rem, 3.4vw, 1.4rem); color:rgba(246,235,205,.7); }
+.op-names{ font-family:var(--serif); font-style:italic; font-size:clamp(3rem, 11vw, 5.2rem); line-height:1; color:var(--cream); }
+.op-meta{ font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:var(--cream-deep); }
+.btn-open{
+  margin-top:14px; padding:15px 34px; border:1px solid rgba(246,235,205,.45); border-radius:999px;
+  font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--cream);
+  transition:background .4s var(--ease), color .4s var(--ease), border-color .4s;
+}
+.btn-open:hover, .btn-open:focus-visible{ background:var(--cream); color:var(--navy-deep); border-color:var(--cream); outline:none; }
+
+/* ===== Portada ===== */
+#hero{ min-height:100svh; display:flex; align-items:flex-end; overflow:hidden; color:var(--cream); background:var(--navy-deep); }
+.hero-img{ position:absolute; inset:0; }
+.hero-img img{ width:100%; height:100%; object-fit:cover; object-position:50% 54%; transform:scale(1.08); transition:transform 6s var(--ease); }
+body.opened .hero-img img{ transform:scale(1); }
+.hero-img::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(8,26,41,.3) 0%, rgba(8,26,41,0) 30%, rgba(8,26,41,.85) 100%), linear-gradient(90deg, rgba(8,26,41,.55) 0%, rgba(8,26,41,0) 55%); }
+.hero-top{ position:absolute; top:0; left:0; right:0; display:flex; justify-content:space-between; align-items:center; padding:24px var(--gutter); z-index:2; }
+.hero-top img{ width:150px; }
+.hero-top span{ font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:rgba(246,235,205,.85); }
+.hero-copy{ position:relative; z-index:2; padding-bottom:clamp(56px, 9vw, 96px); display:grid; gap:20px; }
+.hero-copy h1{ font-family:var(--serif); font-weight:400; font-size:clamp(2.5rem, 5.4vw, 4.4rem); line-height:1.04; max-width:13ch; }
+.hero-copy h1 em{ color:var(--cream-deep); }
+.hero-copy p{ max-width:30rem; color:rgba(246,235,205,.82); font-weight:300; }
+.hero-copy > *{ opacity:0; transform:translateY(18px); transition:opacity 1.2s var(--ease), transform 1.2s var(--ease); }
+body.opened .hero-copy > *{ opacity:1; transform:none; }
+body.opened .hero-copy > *:nth-child(2){ transition-delay:.15s; }
+body.opened .hero-copy > *:nth-child(3){ transition-delay:.3s; }
+body.opened .hero-copy > *:nth-child(4){ transition-delay:.45s; }
+.scroll-cue{ display:inline-flex; align-items:center; gap:12px; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--cream); text-decoration:none; }
+.scroll-cue i{ width:1px; height:36px; background:var(--cream-deep); transform-origin:top; animation:cue 2.4s var(--ease) infinite; }
+@keyframes cue{ 0%{ transform:scaleY(0); } 50%{ transform:scaleY(1); transform-origin:top; } 51%{ transform-origin:bottom; } 100%{ transform:scaleY(0); transform-origin:bottom; } }
+
+/* ===== Carta ===== */
+#carta{ text-align:center; }
+.carta-text{ max-width:40rem; margin:0 auto; display:grid; gap:26px; }
+.carta-text .big{ font-family:var(--serif); font-size:clamp(1.9rem, 4.6vw, 2.9rem); line-height:1.18; color:var(--navy); }
+.carta-text .big em{ color:var(--gold-ink); }
+.carta-text p:not(.big){ color:var(--muted); font-weight:300; font-size:1.05rem; }
+.sign{ font-family:var(--serif); font-style:italic; font-size:1.3rem; color:var(--navy); }
+.ornament{ width:1px; height:56px; margin:0 auto; background:linear-gradient(transparent, var(--gold-ink), transparent); }
+
+/* ===== Capítulos del día ===== */
+#dia .head{ max-width:38rem; }
+.chapters{ display:grid; grid-template-columns:repeat(5, 1fr); gap:14px; }
+.ch{
+  position:relative; overflow:hidden; border-radius:4px; aspect-ratio:3/4.6; background:var(--navy);
+  color:var(--cream); text-align:left; isolation:isolate;
+}
+.ch img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 1.4s var(--ease), filter 1s; z-index:-2; }
+.ch::after{ content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(8,26,41,0) 35%, rgba(8,26,41,.88) 100%); transition:background .8s; }
+.ch:hover img, .ch:focus-visible img{ transform:scale(1.06); }
+.ch-body{ position:absolute; left:0; right:0; bottom:0; padding:20px 18px; display:grid; gap:6px; }
+.ch-n{ font-family:var(--serif); font-style:italic; font-size:1rem; color:var(--cream-deep); }
+.ch h3{ font-family:var(--serif); font-weight:400; font-style:italic; font-size:1.65rem; line-height:1.05; }
+.ch p{ font-size:.86rem; font-weight:300; color:rgba(246,235,205,.82); line-height:1.5; max-height:0; opacity:0; overflow:hidden; transition:max-height .7s var(--ease), opacity .6s; }
+.ch:hover p, .ch:focus-visible p, .ch.show p{ max-height:6em; opacity:1; }
+.tag{ position:absolute; top:14px; left:14px; font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; padding:6px 10px; border-radius:999px; }
+.tag.inc{ background:var(--cream); color:var(--navy-deep); }
+.tag.opt{ border:1px solid rgba(246,235,205,.6); color:var(--cream); backdrop-filter:blur(6px); background:rgba(8,26,41,.25); }
+.ch-add{ font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--cream-deep); margin-top:4px; }
+.legend{ display:flex; gap:22px; margin-top:22px; font-size:.82rem; color:var(--muted); flex-wrap:wrap; }
+.legend span{ display:inline-flex; align-items:center; gap:8px; }
+.legend i{ width:9px; height:9px; border-radius:50%; background:var(--navy); }
+.legend i.o{ background:transparent; border:1px solid var(--navy); }
+
+/* ===== Paquete ===== */
+#paquete{ background:var(--paper-2); }
+.pkg{ display:grid; grid-template-columns:1fr 1.05fr; gap:clamp(36px, 6vw, 88px); align-items:start; }
+.pkg-photo{ position:sticky; top:40px; border-radius:4px; overflow:hidden; aspect-ratio:4/5; }
+.pkg-photo img{ width:100%; height:100%; object-fit:cover; }
+.pkg-photo figcaption{ position:absolute; left:18px; bottom:16px; font-family:var(--serif); font-style:italic; color:var(--cream); font-size:1.05rem; text-shadow:0 1px 12px rgba(0,0,0,.4); }
+.price-row{ display:flex; align-items:baseline; gap:16px; margin:6px 0 10px; flex-wrap:wrap; }
+.price{ font-family:var(--serif); font-size:clamp(3.6rem, 8vw, 5.4rem); line-height:1; color:var(--navy); font-weight:400; }
+.price small{ font-size:.4em; vertical-align:super; margin-right:2px; }
+.price-note{ font-size:.86rem; color:var(--muted); }
+.items{ margin-top:34px; border-top:1px solid var(--line); }
+.item{ border-bottom:1px solid var(--line); }
+.item summary{
+  list-style:none; display:grid; grid-template-columns:28px 1fr 20px; gap:16px; align-items:center;
+  padding:20px 0; cursor:pointer;
+}
+.item summary::-webkit-details-marker{ display:none; }
+.item svg.ic{ width:24px; height:24px; stroke:var(--gold-ink); fill:none; stroke-width:1.2; }
+.item .it-t{ font-family:var(--serif); font-size:1.42rem; line-height:1.2; color:var(--navy); }
+.item .it-t b{ font-weight:500; }
+.chev{ width:14px; height:14px; position:relative; justify-self:end; }
+.chev::before, .chev::after{ content:""; position:absolute; top:50%; left:0; width:14px; height:1px; background:var(--navy); transition:transform .5s var(--ease); }
+.chev::after{ transform:rotate(90deg); }
+.item[open] .chev::after{ transform:rotate(0); }
+.item .it-d{ padding:0 0 22px 44px; color:var(--muted); font-weight:300; font-size:.97rem; max-width:32rem; }
+
+/* Lo que podrán tocar */
+.touch{ margin-top:clamp(72px, 10vw, 120px); display:grid; grid-template-columns:1.25fr 1fr; gap:14px; }
+.touch-card{ position:relative; border-radius:4px; overflow:hidden; min-height:340px; }
+.touch-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.touch-card .cap{ position:absolute; left:22px; bottom:20px; right:22px; color:var(--cream); z-index:2; }
+.touch-card::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 45%, rgba(8,26,41,.78)); }
+.cap .label{ color:var(--cream-deep); }
+.cap h4{ font-family:var(--serif); font-weight:400; font-style:italic; font-size:1.8rem; line-height:1.1; margin-top:6px; }
+.box-card{ background:var(--navy); display:grid; place-items:center; padding:44px 26px 92px; }
+.box-card::after{ display:none; }
+.wood{
+  width:min(100%, 300px); aspect-ratio:4/3; border-radius:6px; position:relative;
+  background:
+    repeating-linear-gradient(92deg, rgba(80,45,18,.0) 0 7px, rgba(80,45,18,.14) 7px 8px, rgba(80,45,18,0) 8px 19px),
+    repeating-linear-gradient(88deg, rgba(255,230,190,.06) 0 3px, transparent 3px 11px),
+    linear-gradient(160deg, #c99a66 0%, #a9774a 55%, #8f6038 100%);
+  box-shadow:0 30px 50px -18px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,235,200,.18), inset 0 -10px 18px rgba(60,30,10,.25);
+  display:grid; place-items:center; text-align:center; transform:rotate(-3deg);
+  transition:transform 1.2s var(--ease);
+}
+.box-card:hover .wood{ transform:rotate(0) translateY(-4px); }
+.wood::before{ content:""; position:absolute; inset:12px; border:1px solid rgba(70,38,14,.35); border-radius:3px; box-shadow:0 1px 0 rgba(255,235,200,.2); }
+.engrave{ font-family:var(--serif); font-style:italic; font-size:clamp(1.6rem, 4.6vw, 2.1rem); line-height:1.05; color:rgba(62,32,12,.78); text-shadow:0 1px 0 rgba(255,228,190,.35), 0 -1px 0 rgba(40,18,4,.25); padding:0 26px; }
+.engrave small{ display:block; font-family:var(--sans); font-style:normal; font-size:9px; letter-spacing:.3em; text-transform:uppercase; margin-top:10px; }
+
+/* ===== Extras ===== */
+#extras .head{ max-width:40rem; }
+.addons{ display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; }
+.addon{
+  background:rgba(246,235,205,.04); border:1px solid var(--line-dark); border-radius:6px; overflow:hidden;
+  display:flex; flex-direction:column; transition:border-color .5s, background .5s, transform .6s var(--ease), box-shadow .6s;
+}
+.addon.on{ border-color:var(--cream-deep); background:rgba(226,201,143,.08); }
+.addon.flash{ box-shadow:0 0 0 2px var(--cream-deep); }
+.ad-img{ position:relative; aspect-ratio:16/10; overflow:hidden; }
+.ad-img img{ width:100%; height:100%; object-fit:cover; transition:transform 1.4s var(--ease); }
+.addon:hover .ad-img img{ transform:scale(1.05); }
+.ad-body{ padding:24px 22px 22px; display:flex; flex-direction:column; gap:10px; flex:1; }
+.ad-body h3{ font-family:var(--serif); font-style:italic; font-weight:400; font-size:1.9rem; line-height:1.05; text-transform:lowercase; }
+.ad-body > p{ color:rgba(246,235,205,.7); font-size:.92rem; font-weight:300; }
+.ad-more summary{ list-style:none; cursor:pointer; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--cream-deep); display:inline-flex; gap:8px; align-items:center; }
+.ad-more summary::-webkit-details-marker{ display:none; }
+.ad-more summary::after{ content:"+"; font-size:14px; letter-spacing:0; transition:transform .4s var(--ease); }
+.ad-more[open] summary::after{ transform:rotate(45deg); }
+.ad-more ul{ list-style:none; margin-top:12px; display:grid; gap:7px; font-size:.88rem; color:rgba(246,235,205,.78); font-weight:300; }
+.ad-more li{ padding-left:16px; position:relative; }
+.ad-more li::before{ content:""; position:absolute; left:0; top:.7em; width:6px; height:1px; background:var(--cream-deep); }
+.ad-foot{ margin-top:auto; padding-top:16px; display:flex; align-items:center; justify-content:space-between; gap:12px; border-top:1px solid var(--line-dark); }
+.ad-price{ font-family:var(--serif); font-size:1.9rem; line-height:1; }
+.ad-price small{ font-size:.5em; color:rgba(246,235,205,.6); margin-right:3px; }
+.toggle{
+  display:inline-flex; align-items:center; gap:9px; padding:11px 18px; border-radius:999px;
+  border:1px solid rgba(246,235,205,.4); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  transition:background .4s var(--ease), color .4s, border-color .4s;
+}
+.toggle:hover{ border-color:var(--cream); }
+.toggle .mk{ width:14px; height:14px; position:relative; }
+.toggle .mk::before, .toggle .mk::after{ content:""; position:absolute; background:currentColor; transition:transform .45s var(--ease), width .45s var(--ease), left .45s, top .45s; }
+.toggle .mk::before{ left:0; top:6.5px; width:14px; height:1px; }
+.toggle .mk::after{ left:6.5px; top:0; width:1px; height:14px; }
+.toggle[aria-pressed="true"]{ background:var(--cream); color:var(--navy-deep); border-color:var(--cream); }
+.toggle[aria-pressed="true"] .mk::before{ width:6px; left:1px; top:8px; transform:rotate(45deg); }
+.toggle[aria-pressed="true"] .mk::after{ height:11px; left:8px; top:1px; transform:rotate(45deg); }
+
+/* Más recuerdos */
+.more{
+  margin-top:36px; border:1px solid var(--cream-deep); border-radius:8px;
+  background:linear-gradient(120deg, rgba(226,201,143,.16), rgba(226,201,143,.05) 60%);
+  transition:background .6s;
+}
+.more.in{ animation:glow 2.6s var(--ease) .6s 2; }
+@keyframes glow{ 0%,100%{ box-shadow:0 0 0 0 rgba(226,201,143,0); } 40%{ box-shadow:0 0 0 6px rgba(226,201,143,.18), 0 0 36px rgba(226,201,143,.25); } }
+.more > summary{ list-style:none; cursor:pointer; padding:22px 24px; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:22px; }
+.more > summary::-webkit-details-marker{ display:none; }
+.more-thumb{ width:84px; height:84px; border-radius:6px; overflow:hidden; flex:none; box-shadow:0 10px 24px -10px rgba(0,0,0,.6); }
+.more-thumb img{ width:100%; height:100%; object-fit:cover; }
+.more-kicker{ font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--cream-deep); }
+.more > summary h3{ font-family:var(--serif); font-style:italic; font-weight:400; font-size:1.75rem; line-height:1.1; margin-top:4px; }
+.more > summary p{ font-size:.9rem; color:rgba(246,235,205,.72); font-weight:300; margin-top:4px; }
+.more-cta{
+  display:inline-flex; align-items:center; gap:10px; padding:12px 20px; border-radius:999px; white-space:nowrap;
+  background:var(--cream); color:var(--navy-deep); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  transition:transform .4s var(--ease);
+}
+.more > summary:hover .more-cta{ transform:translateX(3px); }
+.more-cta i{ font-style:normal; font-size:15px; letter-spacing:0; transition:transform .45s var(--ease); }
+.more[open] .more-cta i{ transform:rotate(45deg); }
+.more .cta-open{ display:none; }
+.more[open] .cta-open{ display:inline; }
+.more[open] .cta-closed{ display:none; }
+.more-body{ padding:0 26px 8px; display:grid; }
+.mb-block{ padding:26px 0; border-top:1px solid var(--line-dark); }
+.mb-head{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:8px; }
+.mb-tag{ font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; padding:5px 11px; border-radius:999px; border:1px solid var(--cream-deep); color:var(--cream-deep); }
+.mb-head h4{ font-family:var(--serif); font-style:italic; font-weight:400; font-size:1.55rem; line-height:1.1; color:var(--cream); }
+.mb-intro{ font-size:.92rem; color:rgba(246,235,205,.7); font-weight:300; max-width:40rem; margin-bottom:20px; }
+.mb-intro b{ color:var(--cream); font-weight:500; }
+.books{ display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; max-width:640px; }
+.bk{ position:relative; display:grid; justify-items:center; text-align:center; gap:2px; padding:22px 10px 18px; border:1px solid var(--line-dark); border-radius:6px; cursor:pointer; transition:border-color .4s, background .4s; }
+.bk:hover{ border-color:rgba(246,235,205,.4); }
+.bk:has(input:checked){ border-color:var(--cream-deep); background:rgba(226,201,143,.1); }
+.bk .radio{ position:absolute; top:12px; left:12px; }
+.bk-chip{ font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--cream-deep); min-height:2.4em; display:flex; align-items:center; text-align:center; line-height:1.3; padding:0 14px; }
+.bk-vis{ height:76px; display:grid; place-items:end center; margin:4px 0 14px; }
+.book{
+  position:relative; display:block; width:calc(64px * var(--s)); aspect-ratio:1; border-radius:2px 4px 4px 2px;
+  background:linear-gradient(135deg, #f6ebcd, #d8bf88);
+  /* canto de páginas: capas desplazadas */
+  box-shadow:inset 5px 0 0 rgba(13,49,75,.18),
+    2px 2px 0 #fbf6e8, 3px 3px 0 #c9b07a,
+    0 14px 18px -8px rgba(0,0,0,.6);
+  transition:transform .5s var(--ease);
+}
+.book.thick{
+  box-shadow:inset 5px 0 0 rgba(13,49,75,.18),
+    1px 1px 0 #fbf6e8, 2px 2px 0 #d9c9a3, 3px 3px 0 #fbf6e8, 4px 4px 0 #d9c9a3,
+    5px 5px 0 #fbf6e8, 6px 6px 0 #d9c9a3, 7px 7px 0 #fbf6e8, 8px 8px 0 #d9c9a3,
+    9px 9px 0 #fbf6e8, 10px 10px 0 #c9b07a,
+    4px 20px 20px -8px rgba(0,0,0,.6);
+}
+/* silueta del álbum incluido (25×25) sobre el agrandado */
+.book .ghost{ position:absolute; left:0; bottom:0; width:83%; height:83%; border:1.5px dashed rgba(13,49,75,.55); border-radius:2px; }
+.book .ghost::after{ content:""; position:absolute; right:-7px; top:-7px; width:7px; height:7px; border-top:1.5px solid rgba(13,49,75,.6); border-right:1.5px solid rgba(13,49,75,.6); }
+.bk:has(input:checked) .book{ transform:translateY(-4px); }
+.bk-t{ font-size:.98rem; }
+.bk-s{ font-size:.8rem; color:rgba(246,235,205,.55); font-weight:300; }
+.bk-p{ font-family:var(--serif); font-size:1.45rem; line-height:1; margin-top:10px; }
+.bk-p small{ display:block; margin-top:5px; font-family:var(--sans); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(246,235,205,.5); }
+.opt-row{ display:flex; justify-content:space-between; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid var(--line-dark); }
+.opt-row:last-child{ border-bottom:0; }
+.opt-row .t{ font-size:.95rem; }
+.opt-row .s{ display:block; font-size:.8rem; color:rgba(246,235,205,.55); font-weight:300; }
+.opt-row .p{ font-family:var(--serif); font-size:1.25rem; white-space:nowrap; }
+.radio{ appearance:none; width:18px; height:18px; border-radius:50%; border:1px solid rgba(246,235,205,.5); display:grid; place-items:center; flex:none; cursor:pointer; }
+.radio::after{ content:""; width:8px; height:8px; border-radius:50%; background:var(--cream-deep); transform:scale(0); transition:transform .35s var(--ease); }
+.radio:checked{ border-color:var(--cream-deep); }
+.radio:checked::after{ transform:scale(1); }
+.radio:focus-visible{ outline:2px solid var(--cream-deep); outline-offset:3px; }
+.stepper{ display:inline-flex; align-items:center; border:1px solid rgba(246,235,205,.3); border-radius:999px; }
+.stepper button{ width:34px; height:34px; display:grid; place-items:center; font-size:16px; color:var(--cream); }
+.stepper button:disabled{ opacity:.3; cursor:default; }
+.stepper output{ min-width:22px; text-align:center; font-size:.9rem; }
+.opt-right{ display:flex; align-items:center; gap:14px; }
+
+/* ===== Historias ===== */
+.gallery{ columns:3; column-gap:12px; }
+.gallery button{ display:block; width:100%; margin-bottom:12px; border-radius:3px; overflow:hidden; break-inside:avoid; }
+.gallery img{ width:100%; height:auto; transition:transform 1.2s var(--ease), opacity .6s; }
+.gallery button:hover img{ transform:scale(1.03); }
+dialog#lb{ border:0; padding:0; background:transparent; max-width:94vw; max-height:92vh; margin:auto; }
+dialog#lb::backdrop{ background:rgba(8,26,41,.92); }
+dialog#lb img{ max-width:94vw; max-height:92vh; object-fit:contain; border-radius:2px; }
+dialog#lb button{ position:fixed; top:18px; right:22px; color:var(--cream); font-size:12px; letter-spacing:.2em; text-transform:uppercase; }
+
+/* ===== Experiencia ===== */
+.exp{ display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(36px, 6vw, 96px); align-items:start; }
+.exp-photo{ position:sticky; top:40px; aspect-ratio:3/4; border-radius:4px; overflow:hidden; }
+.exp-photo img{ width:100%; height:100%; object-fit:cover; }
+.steps{ position:relative; list-style:none; display:grid; gap:44px; padding-left:44px; }
+.steps::before{ content:""; position:absolute; left:11px; top:8px; bottom:8px; width:1px; background:var(--line-dark); }
+.steps .fill{ position:absolute; left:11px; top:8px; width:1px; height:0; background:var(--cream-deep); transition:height .2s linear; }
+.step{ position:relative; }
+.step::before{ content:""; position:absolute; left:-38px; top:9px; width:11px; height:11px; border-radius:50%; background:var(--navy-deep); border:1px solid rgba(246,235,205,.4); transition:background .6s, border-color .6s; }
+.step.lit::before{ background:var(--cream-deep); border-color:var(--cream-deep); }
+.step .sn{ font-family:var(--serif); font-style:italic; color:var(--cream-deep); font-size:1rem; }
+.step h3{ font-family:var(--serif); font-weight:400; font-size:1.85rem; line-height:1.15; margin:2px 0 8px; }
+.step p{ color:rgba(246,235,205,.7); font-weight:300; font-size:.97rem; max-width:30rem; }
+
+/* ===== Preguntas ===== */
+.faq{ max-width:46rem; border-top:1px solid var(--line); }
+.faq details{ border-bottom:1px solid var(--line); }
+.faq summary{ list-style:none; cursor:pointer; padding:24px 0; display:flex; justify-content:space-between; gap:22px; align-items:center; font-family:var(--serif); font-size:1.45rem; color:var(--navy); line-height:1.25; }
+.faq summary::-webkit-details-marker{ display:none; }
+.faq details[open] .chev::after{ transform:rotate(0); }
+.faq p{ padding:0 0 24px; color:var(--muted); font-weight:300; max-width:38rem; }
+
+/* ===== Reservar ===== */
+#reservar{ overflow:hidden; }
+.res-bg{ position:absolute; inset:0; }
+.res-bg img{ width:100%; height:100%; object-fit:cover; opacity:.22; filter:grayscale(.3); }
+.res-bg::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, var(--navy-deep) 0%, rgba(8,26,41,.6) 50%, var(--navy-deep) 100%); }
+.res{ position:relative; display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px, 6vw, 88px); align-items:center; }
+.summary{ background:var(--paper); color:var(--ink); border-radius:6px; padding:clamp(26px, 4vw, 40px); box-shadow:0 40px 80px -30px rgba(0,0,0,.6); }
+.summary .label{ color:var(--gold-ink); }
+.sum-list{ list-style:none; margin:18px 0 0; }
+.sum-list li{ display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px dashed var(--line); font-size:.95rem; }
+.sum-list li span:last-child{ font-family:var(--serif); font-size:1.15rem; color:var(--navy); white-space:nowrap; }
+.sum-list li.base span:first-child{ font-weight:500; }
+.sum-total{ display:flex; justify-content:space-between; align-items:baseline; margin-top:20px; }
+.sum-total > span{ font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+.sum-total strong{ font-family:var(--serif); font-weight:400; font-size:3rem; line-height:1; color:var(--navy); }
+.sum-note{ margin-top:14px; font-size:.8rem; color:var(--muted); font-weight:300; }
+.btn-wa{
+  margin-top:24px; width:100%; display:flex; align-items:center; justify-content:center; gap:12px;
+  background:var(--navy); color:var(--cream); text-decoration:none; padding:18px 22px; border-radius:999px;
+  font-size:12px; letter-spacing:.2em; text-transform:uppercase; transition:background .4s, transform .4s var(--ease);
+}
+.btn-wa:hover{ background:var(--navy-deep); transform:translateY(-2px); }
+.btn-wa svg{ width:18px; height:18px; fill:currentColor; }
+.res-copy{ display:grid; gap:22px; }
+
+footer{ background:var(--navy-deep); color:rgba(246,235,205,.6); padding:48px 0 120px; font-size:.85rem; border-top:1px solid var(--line-dark); }
+footer .wrap{ display:flex; justify-content:space-between; align-items:center; gap:22px; flex-wrap:wrap; }
+footer img{ width:160px; opacity:.85; }
+footer a{ text-decoration:none; }
+footer a:hover{ color:var(--cream); }
+
+/* ===== Barra flotante del total ===== */
+#bar{
+  position:fixed; left:50%; bottom:18px; z-index:50; transform:translate(-50%, 140%);
+  width:min(560px, calc(100% - 28px)); background:rgba(8,26,41,.94); color:var(--cream);
+  backdrop-filter:blur(12px); border:1px solid var(--line-dark); border-radius:999px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 9px 9px 24px;
+  transition:transform .8s var(--ease); box-shadow:0 18px 40px -14px rgba(0,0,0,.5);
+}
+#bar.show{ transform:translate(-50%, 0); }
+#bar .bl{ display:grid; line-height:1.2; }
+#bar .bl > span{ font-size:9.5px; letter-spacing:.22em; text-transform:uppercase; color:rgba(246,235,205,.6); }
+#bar .bl strong{ font-family:var(--serif); font-weight:400; font-size:1.6rem; }
+#bar .bl em{ font-style:normal; font-size:.78rem; color:var(--cream-deep); margin-left:6px; font-family:var(--sans); }
+#bar a{ background:var(--cream); color:var(--navy-deep); text-decoration:none; padding:13px 22px; border-radius:999px; font-size:11px; letter-spacing:.18em; text-transform:uppercase; white-space:nowrap; }
+
+/* ===== Responsive ===== */
+@media (max-width: 960px){
+  .chapters{ display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:12px; margin:0 calc(var(--gutter) * -1); padding:0 var(--gutter) 6px; scrollbar-width:none; }
+  .chapters::-webkit-scrollbar{ display:none; }
+  .ch{ flex:0 0 72%; scroll-snap-align:start; aspect-ratio:3/4.2; }
+  .ch p{ max-height:6em; opacity:1; }
+  .pkg, .exp, .res{ grid-template-columns:1fr; }
+  .pkg-photo, .exp-photo{ position:relative; top:0; aspect-ratio:4/3.6; }
+  .exp-photo{ display:none; }
+  .addons{ grid-template-columns:1fr; }
+  .touch{ grid-template-columns:1fr; }
+  .gallery{ columns:2; column-gap:8px; }
+  .gallery button{ margin-bottom:8px; }
+}
+@media (max-width: 520px){
+  .hero-top img{ width:120px; }
+  .hero-top span{ display:none; }
+  .ch{ flex-basis:80%; }
+  .item .it-t{ font-size:1.25rem; }
+  .item .it-d{ padding-left:44px; }
+  .more > summary, .more-body{ padding-left:18px; padding-right:18px; }
+  .more > summary{ grid-template-columns:auto 1fr; gap:16px; }
+  .more-thumb{ width:64px; height:64px; }
+  .more > summary h3{ font-size:1.45rem; }
+  .more-cta{ grid-column:1 / -1; justify-content:center; }
+  .books{ gap:8px; }
+  .bk{ padding:38px 6px 14px; }
+  .bk .radio{ top:12px; left:50%; transform:translateX(-50%); }
+  .bk-chip{ padding:0 2px; min-height:3.9em; letter-spacing:.12em; }
+  .bk-p{ font-size:1.25rem; }
+  .bk-p small{ font-size:.55rem; letter-spacing:.08em; }
+  #bar{ padding-left:20px; }
+  #bar .bl em{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation:none !important; transition:none !important; }
+  .reveal, .hero-copy > *, .op-inner > *{ opacity:1 !important; transform:none !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- ===== Sobre de apertura ===== -->
+<div id="opener" role="dialog" aria-label="Abrir propuesta">
+  <div class="op-inner">
+    <img class="op-logo" src="../../assets/img/logo-light.png" alt="NIYI Photo Studio" />
+    <span class="op-rule" aria-hidden="true"></span>
+    <p class="op-for">Una propuesta creada para</p>
+    <p class="op-names" data-names-or="ustedes">ustedes</p>
+    <div style="display:grid; gap:14px; justify-items:center;">
+      <p class="op-meta"><span data-fill="tipo"></span> · <span data-fill="lugar"></span> · <span data-fill="fecha"></span></p>
+      <button class="btn-open" id="openBtn">Abrir propuesta</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- ===== Portada ===== -->
+  <section id="hero">
+    <div class="hero-img"><img src="../../assets/img/gallery/bodas/17-24-26.webp" alt="Novios en un pasillo luminoso, con el velo extendido" fetchpriority="high" /></div>
+    <div class="hero-top">
+      <img src="../../assets/img/logo-light.png" alt="NIYI Photo Studio" />
+      <span><span data-fill="lugar"></span> · <span data-fill="fecha"></span></span>
+    </div>
+    <div class="wrap hero-copy">
+      <p class="label" style="color:var(--cream-deep)">Propuesta de cobertura · <span data-fill="tipo"></span></p>
+      <h1>El día de <em data-names-or="su boda">su boda</em>, contado con imágenes que podrán tocar.</h1>
+      <p>Preparamos esta propuesta pensando en su día en <span data-fill="lugar"></span>. Tómense su tiempo: aquí está todo lo que necesitan saber.</p>
+      <a class="scroll-cue" href="#carta"><i></i>Comenzar</a>
+    </div>
+  </section>
+
+  <!-- ===== Carta ===== -->
+  <section id="carta" class="pad">
+    <div class="wrap carta-text">
+      <span class="label reveal">Antes de empezar</span>
+      <p class="big reveal" style="--d:.1s">No solo tomamos fotos. Contamos su historia con <em>sensibilidad, detalle</em> y mucho amor.</p>
+      <p class="reveal" style="--d:.2s">Desde los nervios antes de decir “sí”, hasta el primer baile, las risas y los abrazos. Y para que lo más importante de ese día no viva solo en sus recuerdos, sino también en sus manos: un álbum y piezas que se convierten en legado familiar.</p>
+      <span class="ornament reveal" style="--d:.3s"></span>
+      <p class="sign reveal" style="--d:.35s">Marco &amp; Joselyne — NIYI Photo Studio</p>
+    </div>
+  </section>
+
+  <!-- ===== Capítulos del día ===== -->
+  <section id="dia" class="pad" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <span class="label reveal">Su día</span>
+        <h2 class="title reveal" style="--d:.1s">un día, en cinco capítulos</h2>
+        <p class="lede reveal" style="--d:.2s">Así los acompañamos. Tres capítulos ya están en su paquete; los otros dos pueden sumarlos si quieren contar la historia completa.</p>
+      </div>
+      <div class="chapters">
+        <button class="ch reveal" data-goto="getting" style="--d:0s">
+          <img src="../../assets/img/gallery/bodas/07062026-15-45-54.webp" alt="" loading="lazy" />
+          <span class="tag opt">Opcional</span>
+          <span class="ch-body">
+            <span class="ch-n">01</span>
+            <h3>Preparativos</h3>
+            <p>Los nervios, el vestido, los últimos retoques.</p>
+            <span class="ch-add">Ver opción →</span>
+          </span>
+        </button>
+        <div class="ch reveal" style="--d:.08s" tabindex="0">
+          <img src="../../assets/img/gallery/bodas/15-20-04.webp" alt="" loading="lazy" />
+          <span class="tag inc">Incluido</span>
+          <span class="ch-body">
+            <span class="ch-n">02</span>
+            <h3>Ceremonia</h3>
+            <p>Entrada, votos, anillos, bendiciones y salida de los novios.</p>
+          </span>
+        </div>
+        <div class="ch reveal" style="--d:.16s" tabindex="0">
+          <img src="../../assets/img/gallery/bodas/14-09-12.webp" alt="" loading="lazy" />
+          <span class="tag inc">Incluido</span>
+          <span class="ch-body">
+            <span class="ch-n">03</span>
+            <h3>Familia</h3>
+            <p>Los abrazos y retratos con quienes los acompañan desde siempre.</p>
+          </span>
+        </div>
+        <button class="ch reveal" data-goto="portraits" style="--d:.24s">
+          <img src="../../assets/img/gallery/bodas/17-13-03.webp" alt="" loading="lazy" />
+          <span class="tag opt">Opcional</span>
+          <span class="ch-body">
+            <span class="ch-n">04</span>
+            <h3>Solo ustedes</h3>
+            <p>Una sesión íntima de pareja, con calma y dirección artística.</p>
+            <span class="ch-add">Ver opción →</span>
+          </span>
+        </button>
+        <div class="ch reveal" style="--d:.32s" tabindex="0">
+          <img src="../../assets/img/gallery/bodas/18-52-59.webp" alt="" loading="lazy" />
+          <span class="tag inc">Incluido</span>
+          <span class="ch-body">
+            <span class="ch-n">05</span>
+            <h3>Recepción</h3>
+            <p>El primer baile, el brindis, las risas y la fiesta.</p>
+          </span>
+        </div>
+      </div>
+      <div class="legend reveal"><span><i></i>Incluido en su paquete</span><span><i class="o"></i>Pueden sumarlo</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Paquete ===== -->
+  <section id="paquete" class="pad">
+    <div class="wrap">
+      <div class="pkg">
+        <figure class="pkg-photo reveal">
+          <img src="../../assets/img/gallery/bodas/17-36-11.webp" alt="Novia sentada con su ramo" loading="lazy" />
+          <figcaption>Natural, emotiva y elegante.</figcaption>
+        </figure>
+        <div>
+          <span class="label reveal">Su paquete</span>
+          <h2 class="title reveal" style="--d:.1s; margin-top:14px">boda eclesiástica</h2>
+          <div class="price-row reveal" style="--d:.2s">
+            <span class="price"><small>$</small><span data-fill="base"></span></span>
+            <span class="price-note">Todo lo esencial de su día,<br>de la iglesia a la fiesta.</span>
+          </div>
+
+          <div class="items reveal" style="--d:.3s">
+            <details class="item">
+              <summary>
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v5M9.5 4.5h5M5 22V12l7-4 7 4v10M9 22v-5a3 3 0 0 1 6 0v5"/></svg>
+                <span class="it-t">Ceremonia <b>eclesiástica</b></span><span class="chev"></span>
+              </summary>
+              <p class="it-d">Entrada, votos, anillos, bendiciones, reacciones y la salida de los novios. Una cobertura natural, emotiva y discreta, con fotos familiares al terminar.</p>
+            </details>
+            <details class="item">
+              <summary>
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h4l-1 7a2 2 0 0 1-2 0L7 3zM13 3h4l-1 7a2 2 0 0 1-2 0l-1-7zM9 10.5V20M15 10.5V20M6.5 20h5M12.5 20h5"/></svg>
+                <span class="it-t">Recepción</span><span class="chev"></span>
+              </summary>
+              <p class="it-d">Los momentos más importantes de la celebración: entrada, primer baile, brindis, abrazos y la fiesta con sus invitados.</p>
+            </details>
+            <details class="item">
+              <summary>
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+                <span class="it-t"><b>150</b> fotografías digitales editadas</span><span class="chev"></span>
+              </summary>
+              <p class="it-d">Editadas una por una en alta resolución, con el estilo NIYI: luz natural, color cuidado y emociones reales. Listas para descargar y compartir.</p>
+            </details>
+            <details class="item">
+              <summary>
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6c-2-1.5-5-2-8-2v15c3 0 6 .5 8 2 2-1.5 5-2 8-2V4c-3 0-6 .5-8 2zM12 6v15"/></svg>
+                <span class="it-t">Photobook <b>25×25 cm</b> · 20 páginas</span><span class="chev"></span>
+              </summary>
+              <p class="it-d">Portada personalizada, páginas en papel fotográfico rígido, acabado brillante o mate y pasta dura. Ustedes eligen sus fotos favoritas y nosotros lo diseñamos.</p>
+            </details>
+            <details class="item">
+              <summary>
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-5 9 5v10l-9 3-9-3V9zM3 9l9 4 9-4M12 13v9"/></svg>
+                <span class="it-t">Caja de madera con <b>sus nombres grabados</b></span><span class="chev"></span>
+              </summary>
+              <p class="it-d">Para guardar su álbum y los recuerdos del día. Una pieza hecha para durar y pasar de generación en generación.</p>
+            </details>
+            <details class="item">
+              <summary>
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+                <span class="it-t">Asesoría previa personalizada</span><span class="chev"></span>
+              </summary>
+              <p class="it-d">Antes de la boda nos sentamos con ustedes para conocer su historia, su estilo y lo que esperan, y así planificar cada detalle del día.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lo que podrán tocar -->
+      <div class="head" style="margin:clamp(88px,12vw,140px) 0 0; text-align:center; justify-items:center">
+        <span class="label reveal">Lo que se llevan</span>
+        <h2 class="title reveal" style="--d:.1s">recuerdos que pueden tocar</h2>
+        <p class="lede reveal" style="--d:.2s">Creemos que los recuerdos más valiosos no deben quedarse en un celular.</p>
+      </div>
+      <div class="touch" style="margin-top:44px">
+        <div class="touch-card reveal">
+          <img src="../../assets/img/gallery/productos/photobook-1.webp" alt="Photobook abierto con fotos de boda" loading="lazy" />
+          <div class="cap"><span class="label">Incluido</span><h4>Su photobook 25×25</h4></div>
+        </div>
+        <div class="touch-card box-card reveal" style="--d:.12s">
+          <div class="wood"><p class="engrave"><span data-names-or="Sus nombres">Sus nombres</span><small data-fill="fecha"></small></p></div>
+          <div class="cap"><span class="label">Incluido</span><h4>Su caja de madera grabada</h4></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Extras ===== -->
+  <section id="extras" class="pad dark">
+    <div class="wrap">
+      <div class="head">
+        <span class="label reveal">Opcional</span>
+        <h2 class="title reveal" style="--d:.1s">háganlo aún más suyo</h2>
+        <p class="lede reveal" style="--d:.2s">Su paquete ya cuenta lo esencial. Si quieren algo más, súmenlo aquí y verán el total al instante.</p>
+      </div>
+
+      <div class="addons">
+        <article class="addon reveal" data-id="getting" data-name="Getting ready" data-price="95">
+          <div class="ad-img"><img src="../../assets/img/gallery/bodas/17-44-46.webp" alt="" loading="lazy" /></div>
+          <div class="ad-body">
+            <h3>getting ready</h3>
+            <p>Los preparativos de ambos, para contar la historia desde el inicio del día.</p>
+            <details class="ad-more">
+              <summary>Qué incluye</summary>
+              <ul>
+                <li>1 hora de cobertura</li>
+                <li>25 fotos editadas</li>
+                <li>Detalles y últimos retoques: maquillaje, vestido, accesorios</li>
+                <li>Fotos con familia y amigas</li>
+                <li>Posibilidad de first look con el novio o con papá</li>
+              </ul>
+            </details>
+            <div class="ad-foot">
+              <span class="ad-price"><small>+$</small>95</span>
+              <button class="toggle" aria-pressed="false"><span class="mk"></span><span class="tx">Agregar</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="addon reveal" style="--d:.1s" data-id="portraits" data-name="Romantic portraits" data-price="125">
+          <div class="ad-img"><img src="../../assets/img/gallery/bodas/17-31-52.webp" alt="" loading="lazy" /></div>
+          <div class="ad-body">
+            <h3>romantic portraits</h3>
+            <p>Retratos íntimos de pareja, justo después de la ceremonia o en un momento pactado del día.</p>
+            <details class="ad-more">
+              <summary>Qué incluye</summary>
+              <ul>
+                <li>30 minutos de sesión</li>
+                <li>Detalles: manos, anillos, flores, gestos</li>
+                <li>Guía de poses suaves y dirección artística</li>
+                <li>20 fotografías digitales</li>
+                <li>1 retablo 30×40 cm</li>
+              </ul>
+            </details>
+            <div class="ad-foot">
+              <span class="ad-price"><small>+$</small>125</span>
+              <button class="toggle" aria-pressed="false"><span class="mk"></span><span class="tx">Agregar</span></button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <details class="more reveal">
+        <summary>
+          <span class="more-thumb"><img src="../../assets/img/gallery/productos/photobook-1.webp" alt="" loading="lazy" /></span>
+          <div>
+            <span class="more-kicker">Recuerdos impresos</span>
+            <h3>¿Más recuerdos para tocar?</h3>
+            <p>Un álbum más grande, uno para los papás o un retablo para su casa.</p>
+          </div>
+          <span class="more-cta"><span class="cta-closed">Ver opciones</span><span class="cta-open">Cerrar</span><i>+</i></span>
+        </summary>
+        <div class="more-body">
+          <div class="mb-block">
+            <div class="mb-head"><span class="mb-tag">Mejora</span><h4>Agranden su photobook</h4></div>
+            <p class="mb-intro">Su paquete ya incluye un photobook de 25×25 cm con 20 páginas. Si lo quieren más grande, lo cambiamos y <b>solo pagan la diferencia</b>.</p>
+            <div class="books" role="radiogroup" aria-label="Tamaño del photobook">
+              <label class="bk"><input class="radio" type="radio" name="book" value="0" data-name="" checked>
+                <span class="bk-chip">Su álbum</span>
+                <span class="bk-vis"><i class="book" style="--s:.78"></i></span>
+                <span class="bk-t">25×25 cm</span><span class="bk-s">20 páginas</span>
+                <span class="bk-p">Incluido<small>en su paquete</small></span></label>
+              <label class="bk"><input class="radio" type="radio" name="book" value="45" data-name="Photobook agrandado a 30×30 cm · 20 pág (diferencia)">
+                <span class="bk-chip">Más grande</span>
+                <span class="bk-vis"><i class="book" style="--s:.94"><b class="ghost"></b></i></span>
+                <span class="bk-t">30×30 cm</span><span class="bk-s">20 páginas</span>
+                <span class="bk-p">+$45<small>solo la diferencia</small></span></label>
+              <label class="bk"><input class="radio" type="radio" name="book" value="175" data-name="Photobook agrandado a 30×30 cm · 50 pág (diferencia)">
+                <span class="bk-chip">Más grande + 30 páginas</span>
+                <span class="bk-vis"><i class="book thick" style="--s:.94"></i></span>
+                <span class="bk-t">30×30 cm</span><span class="bk-s">50 páginas</span>
+                <span class="bk-p">+$175<small>solo la diferencia</small></span></label>
+            </div>
+          </div>
+          <div class="mb-block">
+            <div class="mb-head"><span class="mb-tag">Nuevo producto</span><h4>Sumen otra pieza</h4></div>
+            <p class="mb-intro">Productos aparte de su paquete, cada uno con su propio precio. Elijan cuántos quieren.</p>
+            <div class="opt-row" data-qty="minibook" data-name="Mini book 20×20 cm" data-price="95"><span class="t">Mini book 20×20 cm · 20 pág<span class="s">Ideal para regalar a los papás</span></span><span class="opt-right"><span class="p">$95</span><span class="stepper"><button aria-label="Quitar uno" disabled>−</button><output>0</output><button aria-label="Agregar uno">+</button></span></span></div>
+            <div class="opt-row" data-qty="retablo30" data-name="Retablo 30×40 cm" data-price="45"><span class="t">Retablo 30×40 cm<span class="s">Para una repisa o escritorio</span></span><span class="opt-right"><span class="p">$45</span><span class="stepper"><button aria-label="Quitar uno" disabled>−</button><output>0</output><button aria-label="Agregar uno">+</button></span></span></div>
+            <div class="opt-row" data-qty="retablo50" data-name="Retablo 50×60 cm" data-price="95"><span class="t">Retablo 50×60 cm<span class="s">La foto protagonista de su sala</span></span><span class="opt-right"><span class="p">$95</span><span class="stepper"><button aria-label="Quitar uno" disabled>−</button><output>0</output><button aria-label="Agregar uno">+</button></span></span></div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== Historias ===== -->
+  <section id="historias" class="pad">
+    <div class="wrap">
+      <div class="head">
+        <span class="label reveal">Nuestro trabajo</span>
+        <h2 class="title reveal" style="--d:.1s">otras historias que hemos contado</h2>
+        <p class="lede reveal" style="--d:.2s">Toquen cualquier foto para verla en grande.</p>
+      </div>
+      <div class="gallery">
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/16-28-31.webp" alt="Novios abrazados bajo los árboles, en blanco y negro" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/ivette-vestido.webp" alt="Vestido de novia colgado frente a la ventana" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/15-16-06-33.webp" alt="Novio besando la frente de la novia" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/ivette-primer-baile.webp" alt="Primer baile de los novios" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/16-25-13.webp" alt="Salida de los novios entre aplausos" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/ivette-mama.webp" alt="La mamá de la novia tomándole las manos antes de la boda" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/18-45-07.webp" alt="Brindis de los novios" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/ivette-velo.webp" alt="Novia con el velo extendido junto a la ventana, en blanco y negro" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/20-49-35.webp" alt="Novia celebrando con sus damas" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/ivette-baile-papa.webp" alt="Novia bailando con su papá" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/17-42-05.webp" alt="Retrato de novia en blanco y negro" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/16-34-18.webp" alt="Beso entre pétalos, en blanco y negro" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/ivette-anillos.webp" alt="Intercambio de anillos en la ceremonia" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/18-51-14.webp" alt="Novio cargando a la novia en la fiesta" loading="lazy" /></button>
+        <button class="reveal"><img src="../../assets/img/gallery/bodas/17-53-41.webp" alt="Novio ajustándose los gemelos" loading="lazy" /></button>
+      </div>
+    </div>
+    <dialog id="lb"><button type="button" aria-label="Cerrar">Cerrar ✕</button><img alt="" /></dialog>
+  </section>
+
+  <!-- ===== Experiencia ===== -->
+  <section id="experiencia" class="pad dark">
+    <div class="wrap">
+      <div class="head">
+        <span class="label reveal">Paso a paso</span>
+        <h2 class="title reveal" style="--d:.1s">cómo es la experiencia</h2>
+      </div>
+      <div class="exp">
+        <div class="exp-photo reveal"><img src="../../assets/img/gallery/bodas/20-58-48.webp" alt="" loading="lazy" /></div>
+        <ol class="steps">
+          <span class="fill" aria-hidden="true"></span>
+          <li class="step reveal"><span class="sn">01</span><h3>Asesoría previa</h3><p>Los acompañamos desde el inicio para conocer su historia, su estilo y sus expectativas, y dejar cada detalle planificado.</p></li>
+          <li class="step reveal"><span class="sn">02</span><h3>Reserva de fecha</h3><p>Aseguran su fecha con la firma del contrato y un anticipo. Así garantizamos que estaremos con ustedes ese día.</p></li>
+          <li class="step reveal"><span class="sn">03</span><h3>El gran día</h3><p>Capturamos su boda de forma natural y artística, cuidando cada emoción, detalle y recuerdo.</p></li>
+          <li class="step reveal"><span class="sn">04</span><h3>Selección de fotografías</h3><p>Ustedes eligen sus imágenes favoritas para el photobook, según lo que incluye su paquete.</p></li>
+          <li class="step reveal"><span class="sn">05</span><h3>Entrega de recuerdos</h3><p>Reciben sus fotografías digitales, su photobook y su caja grabada, listos para conservar.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Preguntas ===== -->
+  <section id="preguntas" class="pad">
+    <div class="wrap">
+      <div class="head">
+        <span class="label reveal">Por si se lo preguntan</span>
+        <h2 class="title reveal" style="--d:.1s">preguntas frecuentes</h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary>¿Cómo reservamos nuestra fecha?<span class="chev"></span></summary><p>Con la firma del contrato y un anticipo. Desde ese momento su fecha queda separada para ustedes.</p></details>
+        <details><summary>¿Qué formas de pago aceptan?<span class="chev"></span></summary><p>Transferencia bancaria o tarjeta de crédito con enlace Payphone. El pago con tarjeta tiene un recargo del 10% de comisión + IVA.</p></details>
+        <details><summary><span>¿Viajan hasta <span data-fill="lugar"></span>?</span><span class="chev"></span></summary><p>Sí. Esta propuesta está pensada para acompañarlos en su boda en <span data-fill="lugar"></span>.</p></details>
+        <details><summary>¿Podemos elegir las fotos del photobook?<span class="chev"></span></summary><p>Claro. Ustedes eligen sus favoritas y nosotros diseñamos el álbum con ellas.</p></details>
+        <details><summary>¿Podemos cambiar algo del paquete?<span class="chev"></span></summary><p>Sí. El paquete es la base y cada historia es distinta. Cuéntennos qué necesitan y lo ajustamos en la asesoría.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Reservar ===== -->
+  <section id="reservar" class="pad dark">
+    <div class="res-bg"><img src="../../assets/img/gallery/bodas/16-57-31.webp" alt="" loading="lazy" /></div>
+    <div class="wrap res">
+      <div class="res-copy">
+        <span class="label reveal">Su propuesta</span>
+        <h2 class="title reveal" style="--d:.1s">¿contamos su historia?</h2>
+        <p class="lede reveal" style="--d:.2s">Este es el resumen de lo que eligieron. Escríbannos por WhatsApp con un toque y les ayudamos a separar su fecha.</p>
+      </div>
+      <div class="summary reveal" style="--d:.15s">
+        <span class="label">Resumen</span>
+        <ul class="sum-list" id="sumList"></ul>
+        <div class="sum-total"><span>Total</span><strong>$<span id="sumTotal">650</span></strong></div>
+        <p class="sum-note">Precios en dólares. Pago con tarjeta vía Payphone: +10% de comisión + IVA.</p>
+        <a class="btn-wa" id="waBtn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3z"/></svg>
+          Reservar nuestra fecha
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="../../assets/img/logo-light.png" alt="NIYI Photo Studio" />
+    <span><a href="https://wa.me/593999689898" target="_blank" rel="noopener">099-968-9898</a> · <a href="https://instagram.com/niyiphoto.ec" target="_blank" rel="noopener">@niyiphoto.ec</a> · Guayaquil, Ecuador</span>
+  </div>
+</footer>
+
+<div id="bar" aria-live="polite">
+  <div class="bl"><span>Su propuesta</span><strong>$<span id="barTotal">650</span><em id="barExtra"></em></strong></div>
+  <a href="#reservar">Ver resumen</a>
+</div>
+
+<script>
+/* ===== Datos de esta propuesta — cambiar aquí ===== */
+const PROPUESTA = {
+  pareja: "",                 // ej. "Ana & Luis" — vacío muestra "ustedes"
+  tipo: "Boda eclesiástica",
+  lugar: "Quevedo",
+  fecha: "Febrero 2027",
+  paquete: { nombre: "Paquete Boda Eclesiástica", precio: 650 },
+  whatsapp: "593999689898"
+};
+
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const money = n => n.toLocaleString("en-US");
+
+// Rellenar datos
+$$("[data-fill]").forEach(el => {
+  const k = el.dataset.fill;
+  el.textContent = k === "base" ? money(PROPUESTA.paquete.precio) : PROPUESTA[k];
+});
+$$("[data-names-or]").forEach(el => { el.textContent = PROPUESTA.pareja || el.dataset.namesOr; });
+if (PROPUESTA.pareja) document.title = `${PROPUESTA.pareja} — Propuesta NIYI Photo Studio`;
+
+// Sobre de apertura
+const opener = $("#opener");
+function openProposal(){
+  opener.classList.add("open");
+  document.body.classList.remove("locked");
+  document.body.classList.add("opened");
+  setTimeout(() => opener.remove(), 1400);
+}
+$("#openBtn").addEventListener("click", openProposal);
+
+// Aparición al hacer scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+}, { threshold: .14, rootMargin: "0px 0px -6% 0px" });
+$$(".reveal").forEach(el => io.observe(el));
+
+// ===== Selección y total =====
+const state = { addons: new Set(), qty: {}, book: { price: 0, name: "" } };
+
+function lines(){
+  const out = [{ name: PROPUESTA.paquete.nombre, price: PROPUESTA.paquete.precio, base: true }];
+  $$(".addon").forEach(a => { if (state.addons.has(a.dataset.id)) out.push({ name: a.dataset.name, price: +a.dataset.price }); });
+  if (state.book.price) out.push({ name: state.book.name, price: state.book.price });
+  $$("[data-qty]").forEach(r => {
+    const q = state.qty[r.dataset.qty] || 0;
+    if (q) out.push({ name: (q > 1 ? q + " × " : "") + r.dataset.name, price: q * +r.dataset.price });
+  });
+  return out;
+}
+
+function tween(el, to){
+  cancelAnimationFrame(el._raf);
+  const from = +el.textContent.replace(/,/g, "") || 0;
+  if (from === to || document.hidden || matchMedia("(prefers-reduced-motion: reduce)").matches){ el.textContent = money(to); return; }
+  const t0 = performance.now(), dur = 550;
+  (function step(t){
+    const p = Math.min(1, Math.max(0, (t - t0) / dur)), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = money(Math.round(from + (to - from) * e));
+    if (p < 1) el._raf = requestAnimationFrame(step);
+  })(t0);
+}
+
+function render(){
+  const ls = lines();
+  const total = ls.reduce((s, l) => s + l.price, 0);
+  $("#sumList").innerHTML = ls.map(l =>
+    `<li class="${l.base ? "base" : ""}"><span>${l.name}</span><span>$${money(l.price)}</span></li>`).join("");
+  tween($("#sumTotal"), total);
+  tween($("#barTotal"), total);
+  const n = ls.length - 1;
+  $("#barExtra").textContent = n ? `· ${n} extra${n > 1 ? "s" : ""}` : "";
+
+  const who = PROPUESTA.pareja ? `Somos ${PROPUESTA.pareja}. ` : "";
+  const msg = `Hola NIYI. ${who}Vimos la propuesta para nuestra boda en ${PROPUESTA.lugar} (${PROPUESTA.fecha}).\n\n`
+    + ls.map(l => `• ${l.name} — $${money(l.price)}`).join("\n")
+    + `\n\nTotal: $${money(total)}\n\n¿Nos ayudan a reservar la fecha?`;
+  $("#waBtn").href = `https://wa.me/${PROPUESTA.whatsapp}?text=${encodeURIComponent(msg)}`;
+}
+
+$$(".addon").forEach(card => {
+  const btn = $(".toggle", card);
+  btn.addEventListener("click", () => {
+    const on = !state.addons.has(card.dataset.id);
+    on ? state.addons.add(card.dataset.id) : state.addons.delete(card.dataset.id);
+    card.classList.toggle("on", on);
+    btn.setAttribute("aria-pressed", on);
+    $(".tx", btn).textContent = on ? "Agregado" : "Agregar";
+    render();
+  });
+});
+
+$$('input[name="book"]').forEach(r => r.addEventListener("change", () => {
+  state.book = { price: +r.value, name: r.dataset.name };
+  render();
+}));
+
+$$("[data-qty]").forEach(row => {
+  const [minus, plus] = $$("button", row), out = $("output", row), key = row.dataset.qty;
+  const set = q => { state.qty[key] = q; out.textContent = q; minus.disabled = q === 0; plus.disabled = q === 5; render(); };
+  minus.addEventListener("click", () => set(Math.max(0, (state.qty[key] || 0) - 1)));
+  plus.addEventListener("click", () => set(Math.min(5, (state.qty[key] || 0) + 1)));
+});
+
+// Capítulos opcionales → llevan al extra correspondiente
+$$(".ch[data-goto]").forEach(ch => ch.addEventListener("click", () => {
+  const card = $(`.addon[data-id="${ch.dataset.goto}"]`);
+  card.scrollIntoView({ behavior: "smooth", block: "center" });
+  setTimeout(() => { card.classList.add("flash"); setTimeout(() => card.classList.remove("flash"), 1400); }, 700);
+}));
+
+// Barra flotante: visible desde el paquete hasta antes del resumen
+const bar = $("#bar");
+let pastPkg = false, atEnd = false;
+new IntersectionObserver(([e]) => { pastPkg = e.isIntersecting || e.boundingClientRect.top < 0; bar.classList.toggle("show", pastPkg && !atEnd); })
+  .observe($("#paquete"));
+new IntersectionObserver(([e]) => { atEnd = e.isIntersecting; bar.classList.toggle("show", pastPkg && !atEnd); }, { threshold: .2 })
+  .observe($("#reservar"));
+
+// Línea de pasos que se llena con el scroll
+const steps = $(".steps"), fill = $(".fill", steps), stepEls = $$(".step", steps);
+function onScroll(){
+  const r = steps.getBoundingClientRect(), mid = innerHeight * .6;
+  const h = Math.max(0, Math.min(r.height - 16, mid - r.top));
+  fill.style.height = h + "px";
+  stepEls.forEach(s => s.classList.toggle("lit", s.getBoundingClientRect().top + 14 < mid));
+}
+addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+// Galería en grande
+const lb = $("#lb"), lbImg = $("img", lb);
+$$(".gallery button").forEach(b => b.addEventListener("click", () => {
+  const img = $("img", b); lbImg.src = img.src; lbImg.alt = img.alt; lb.showModal();
+}));
+lb.addEventListener("click", () => lb.close());
+
+render();
+</script>
+</body>
+</html>
